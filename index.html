@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberSpace Shooter</title>
+
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ========================= -->
+    <!--        ALERT BOX          -->
+    <!-- ========================= -->
+    <div id="alert-box" class="hidden alert-box">
+        <p id="alert-text"></p>
+    </div>
+
+    <!-- ========================= -->
+    <!--      HOW TO PLAY POPUP    -->
+    <!-- ========================= -->
+    <div id="howto-popup" class="hidden popup">
+        <div class="popup-content">
+            <h2>How to Play</h2>
+            <p>• Drag anywhere to move</p>
+            <p>• Shooting is automatic</p>
+            <p>• Two fingers = Mega Bomb</p>
+            <p>• Defeat the Boss to advance</p>
+            <p>• Survive as long as possible</p>
+            <button id="howto-close" class="menu-btn">Close</button>
+        </div>
+    </div>
+
+    <!-- ========================= -->
+    <!--        MENU SCREEN        -->
+    <!-- ========================= -->
+    <div id="menu-screen" class="screen">
+    <h1 class="title">CYBERSPACE SHOOTER</h1>
+
+    <img id="game-logo" src="/icon-512.png" alt="Game Logo" class="logo-img">
+
+
+        <button id="btn-play" class="menu-btn">Play</button>
+        <button id="btn-shop" class="menu-btn">Shop</button>
+        <button id="btn-leaderboard" class="menu-btn">Leaderboard</button>
+        <button id="btn-how" class="menu-btn">How to Play</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--     VERIFICATION SCREEN   -->
+    <!-- ========================= -->
+    <div id="verify-screen" class="screen hidden">
+        <h2>Verify with World ID</h2>
+        <button id="btn-verify-now" class="menu-btn">Verify Now</button>
+        <button class="menu-btn back-btn">Back</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--        GAME SCREEN        -->
+    <!-- ========================= -->
+    <div id="game-screen" class="screen hidden">
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+    </div>
+
+        <div id="hud">
+            <span id="hud-credits">0 CS</span>
+            <span id="hud-level-num">1</span>
+            <span id="hud-high">0</span>
+            <span id="shields-count-game">0</span>
+        </div>
+
+        <button id="btn-pause" class="pause-btn">Pause</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--        SHOP SCREEN        -->
+    <!-- ========================= -->
+    <div id="shop-screen" class="screen hidden">
+        <h2 class="screen-title">Neon Shop</h2>
+
+        <div class="shop-item">
+            <h3>3 Shields Pack</h3>
+            <button id="buy-shields" class="shop-btn">Buy</button>
+        </div>
+
+        <div class="shop-item">
+            <h3>Super Shot</h3>
+            <button id="buy-supershot" class="shop-btn">Buy</button>
+        </div>
+
+        <div class="shop-item">
+            <h3>5 Mega Bombs</h3>
+            <button id="buy-bombs" class="shop-btn">Buy</button>
+        </div>
+
+        <button id="btn-referral" class="menu-btn">Referral Bonus</button>
+        <button id="btn-shop-back" class="menu-btn">Back to Menu</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--      REFERRAL SCREEN      -->
+    <!-- ========================= -->
+    <div id="referral-screen" class="screen hidden">
+        <h2 class="screen-title">Referral Bonus</h2>
+
+        <div class="referral-box">
+            <p>Your Code:</p>
+            <div class="referral-code">
+                <span id="user-ref-code">ABC123</span>
+                <button id="copy-ref-code" class="small-btn">Copy</button>
+            </div>
+        </div>
+
+        <div class="referral-box">
+            <p>Enter friend's code:</p>
+            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
+            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
+        </div>
+
+        <button id="btn-referral-back" class="menu-btn">Back to Shop</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--     LEADERBOARD SCREEN    -->
+    <!-- ========================= -->
+    <div id="leaderboard-screen" class="screen hidden">
+        <h2>Leaderboard</h2>
+        <div id="leaderboard-list"></div>
+        <button class="menu-btn back-btn">Back</button>
+    </div>
+
+    <!-- ========================= -->
+    <!--         LOADING           -->
+    <!-- ========================= -->
+    <div id="loading-screen" class="screen hidden">
+        <h2>Loading...</h2>
+        <p id="status-text"></p>
+    </div>
+
+    <!-- ========================= -->
+    <!--         SCRIPTS           -->
+    <!-- ========================= -->
+    <script type="module" src="src/main.js"></script>
+
+</body>
+</html>
