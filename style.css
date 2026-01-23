@@ -256,6 +256,10 @@
 /*     BACKGROUND STARS      */
 /* ========================= */
 
+/* ========================= */
+/*     BACKGROUND STARS      */
+/* ========================= */
+
 #background-stars {
     position: fixed;
     top: 0;
@@ -263,6 +267,15 @@
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background: radial-gradient(circle at center, #101020 0%, #050510 70%);
-    filter: drop-shadow(0 0 10px #00ffff88);
+
+    /* Fundo azul + rosa suave estilo cyberpunk */
+    background: radial-gradient(circle at center,
+        #1b2347 0%,    /* azul profundo */
+        #141a33 35%,   /* azul escuro */
+        #1a1430 65%,   /* violeta escuro */
+        #2a1a3a 100%   /* rosa-violeta suave */
+    );
+
+    /* Glow suave para reforçar o neon */
+    filter: drop-shadow(0 0 12px #00ffff88);
 }
