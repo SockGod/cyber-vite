@@ -1,3 +1,4 @@
+import "/style.css";
 // ==================== MAIN / LOOP PRINCIPAL ====================
 
 import { gameState, activePhrase } from "./gameState.js";
