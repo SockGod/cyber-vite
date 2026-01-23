@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CyberSpace Shooter</title>
 
+    <!-- CSS correto -->
     <link rel="stylesheet" href="/style.css" />
-
 </head>
 <body>
 
-    <!-- ========================= -->
-    <!--        ALERT BOX          -->
-    <!-- ========================= -->
+    <!-- ALERT BOX -->
     <div id="alert-box" class="hidden alert-box">
         <p id="alert-text"></p>
     </div>
 
-    <!-- ========================= -->
-    <!--      HOW TO PLAY POPUP    -->
-    <!-- ========================= -->
+    <!-- HOW TO PLAY POPUP -->
     <div id="howto-popup" class="hidden popup">
         <div class="popup-content">
             <h2>How to Play</h2>
@@ -32,14 +28,12 @@
         </div>
     </div>
 
-    <!-- ========================= -->
-    <!--        MENU SCREEN        -->
-    <!-- ========================= -->
+    <!-- MENU SCREEN -->
     <div id="menu-screen" class="screen hidden">
-    <h1 class="title">CYBERSPACE SHOOTER</h1>
+        <h1 class="title">CYBERSPACE SHOOTER</h1>
 
-    <img id="game-logo" src="/icon-512.png" alt="Game Logo" class="logo-img">
-
+        <!-- LOGO CORRETO -->
+        <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
 
         <button id="btn-play" class="menu-btn">Play</button>
         <button id="btn-shop" class="menu-btn">Shop</button>
@@ -47,22 +41,18 @@
         <button id="btn-how" class="menu-btn">How to Play</button>
     </div>
 
-    <!-- ========================= -->
-    <!--     VERIFICATION SCREEN   -->
-    <!-- ========================= -->
+    <!-- VERIFICATION SCREEN -->
     <div id="verify-screen" class="screen hidden">
         <h2>Verify with World ID</h2>
         <button id="btn-verify-now" class="menu-btn">Verify Now</button>
         <button class="menu-btn back-btn">Back</button>
     </div>
 
-    <!-- ========================= -->
-    <!--        GAME SCREEN        -->
-    <!-- ========================= -->
+    <!-- GAME SCREEN -->
     <div id="game-screen" class="screen hidden">
-    <div id="game-container">
-        <canvas id="game-canvas"></canvas>
-    </div>
+        <div id="game-container">
+            <canvas id="game-canvas"></canvas>
+        </div>
 
         <div id="hud">
             <span id="hud-credits">0 CS</span>
@@ -74,9 +64,7 @@
         <button id="btn-pause" class="pause-btn">Pause</button>
     </div>
 
-    <!-- ========================= -->
-    <!--        SHOP SCREEN        -->
-    <!-- ========================= -->
+    <!-- SHOP SCREEN -->
     <div id="shop-screen" class="screen hidden">
         <h2 class="screen-title">Neon Shop</h2>
 
@@ -99,9 +87,7 @@
         <button id="btn-shop-back" class="menu-btn">Back to Menu</button>
     </div>
 
-    <!-- ========================= -->
-    <!--      REFERRAL SCREEN      -->
-    <!-- ========================= -->
+    <!-- REFERRAL SCREEN -->
     <div id="referral-screen" class="screen hidden">
         <h2 class="screen-title">Referral Bonus</h2>
 
@@ -122,26 +108,20 @@
         <button id="btn-referral-back" class="menu-btn">Back to Shop</button>
     </div>
 
-    <!-- ========================= -->
-    <!--     LEADERBOARD SCREEN    -->
-    <!-- ========================= -->
+    <!-- LEADERBOARD SCREEN -->
     <div id="leaderboard-screen" class="screen hidden">
         <h2>Leaderboard</h2>
         <div id="leaderboard-list"></div>
         <button class="menu-btn back-btn">Back</button>
     </div>
 
-    <!-- ========================= -->
-    <!--         LOADING           -->
-    <!-- ========================= -->
+    <!-- LOADING SCREEN -->
     <div id="loading-screen" class="screen hidden">
         <h2>Loading...</h2>
         <p id="status-text"></p>
     </div>
 
-    <!-- ========================= -->
-    <!--         SCRIPTS           -->
-    <!-- ========================= -->
+    <!-- SCRIPTS -->
     <script type="module" src="src/main.js"></script>
 
 </body>
