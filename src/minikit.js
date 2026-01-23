@@ -3,8 +3,9 @@
 import { gameState } from "./gameState.js";
 
 export async function openVerificationDrawer() {
-    const MiniKit = window.MiniKit;
+    console.log("MiniKit inside WLD:", window.MiniKit);
 
+    const MiniKit = window.MiniKit;
     if (!MiniKit) {
         console.warn("MiniKit not available. Are you inside World App?");
         return;
