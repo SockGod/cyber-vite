@@ -14,7 +14,7 @@ export const ui = {
     verify: document.getElementById("verify-screen"),
     game: document.getElementById("game-screen"),
     shop: document.getElementById("shop-screen"),
-    referral: document.getElementById("referral-screen"), // NOVO
+    referral: document.getElementById("referral-screen"),
     loading: document.getElementById("loading-screen"),
     statusText: document.getElementById("status-text"),
     leaderboard: document.getElementById("leaderboard-screen")
@@ -28,7 +28,7 @@ export function showScreen(screen) {
         ui.verify,
         ui.game,
         ui.shop,
-        ui.referral, // NOVO
+        ui.referral,
         ui.loading,
         ui.leaderboard
     ].forEach(s => {
@@ -83,6 +83,17 @@ export function updateUI() {
 // ==================== BOTÕES PRINCIPAIS ====================
 
 export function setupButtons(openVerificationDrawer) {
+
+    // 🔊 SOM DE CLIQUE PARA TODOS OS BOTÕES
+    const clickSound = new Audio("/click.mp3");
+    clickSound.volume = 0.4;
+
+    document.querySelectorAll("button").forEach(btn => {
+        btn.addEventListener("click", () => {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        });
+    });
 
     // PLAY
     document.getElementById("btn-play").onclick = () => {

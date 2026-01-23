@@ -131,6 +131,37 @@
 }
 
 /* ========================= */
+/*     BUTTON ANIMATIONS     */
+/* ========================= */
+
+.menu-btn,
+.shop-btn,
+.small-btn,
+.pause-btn,
+.back-btn {
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+.menu-btn:hover,
+.shop-btn:hover,
+.small-btn:hover,
+.pause-btn:hover,
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ffff;
+}
+
+.menu-btn:active,
+.shop-btn:active,
+.small-btn:active,
+.pause-btn:active,
+.back-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 30px #00ffff;
+}
+
+
+/* ========================= */
 /*        ALERT BOX          */
 /* ========================= */
 
