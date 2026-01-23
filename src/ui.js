@@ -108,8 +108,15 @@ export function setupButtons(openVerificationDrawer) {
 
     // WORLD ID
     document.getElementById("btn-verify-now").onclick = async () => {
-        openVerificationDrawer();
-    };
+    // Esperar até o MiniKit estar disponível
+    if (!window.MiniKit || !MiniKit.isInstalled()) {
+        console.warn("MiniKit ainda não está disponível. Tentando novamente...");
+        setTimeout(() => openVerificationDrawer(), 300);
+        return;
+    }
+
+    openVerificationDrawer();
+};
 
     // SHOP
     document.getElementById("btn-shop").onclick = () => {
