@@ -1,22 +1,22 @@
-// ==================== WORLD ID / MINIKIT (CDN VERSION) ====================
-
-// MiniKit vem do CDN (index.html)
-const MiniKit = window.MiniKit;
-const VerificationLevel = window.VerificationLevel;
+// ==================== WORLD ID / MINIKIT (MINI APP VERSION) ====================
 
 import { gameState } from "./gameState.js";
 
 export async function openVerificationDrawer() {
+    const MiniKit = window.MiniKit;
+
     if (!MiniKit || !MiniKit.isInstalled || !MiniKit.isInstalled()) {
-        console.warn("MiniKit not installed or not available.");
+        console.warn("MiniKit not installed or not available (are you inside World App?).");
         return;
     }
+
+    const VerificationLevel = MiniKit.VerificationLevel || window.VerificationLevel;
 
     try {
         const verifyPayload = {
             action: "play-cyber-space",
             signal: gameState.userReferralCode || "default-signal",
-            verification_level: VerificationLevel.Orb
+            verification_level: VerificationLevel?.Orb ?? "orb"
         };
 
         const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);

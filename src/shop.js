@@ -1,11 +1,7 @@
-// =========================
-//      NEON SHOP SCREEN
-// =========================
-
 export function setupShopScreen(gameState, ui) {
     
     // Show Shop Screen
-    ui.showScreen("shop-screen");
+    ui.showScreen(ui.shop);
 
     // --- BUY 3 SHIELDS PACK ---
     document.getElementById("buy-shields").onclick = () => {
@@ -27,11 +23,11 @@ export function setupShopScreen(gameState, ui) {
 
     // --- OPEN REFERRAL SCREEN ---
     document.getElementById("btn-referral").onclick = () => {
-        ui.showScreen("referral-screen");
+        ui.showScreen(ui.referral);
     };
 
     // --- BACK TO MENU ---
     document.getElementById("btn-shop-back").onclick = () => {
-        ui.showScreen("menu-screen");
+        ui.showScreen(ui.menu);
     };
 }

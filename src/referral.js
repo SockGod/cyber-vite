@@ -1,11 +1,7 @@
-// =========================
-//     REFERRAL SCREEN
-// =========================
-
 export function setupReferralScreen(gameState, ui) {
 
     // Show Referral Screen
-    ui.showScreen("referral-screen");
+    ui.showScreen(ui.referral);
 
     // Display user's referral code
     const userCodeElement = document.getElementById("user-ref-code");
@@ -41,6 +37,6 @@ export function setupReferralScreen(gameState, ui) {
 
     // --- BACK TO SHOP ---
     document.getElementById("btn-referral-back").onclick = () => {
-        ui.showScreen("shop-screen");
+        ui.showScreen(ui.shop);
     };
 }
