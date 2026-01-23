@@ -16,24 +16,25 @@ let canvas, ctx;
 // ==================== FUNDO DE ESTRELAS DO MENU ====================
 
 const bgCanvas = document.getElementById("background-stars");
-const bgCtx = bgCanvas.getContext("2d");
+if (bgCanvas) {
+    const bgCtx = bgCanvas.getContext("2d");
 
-function resizeBG() {
-    bgCanvas.width = window.innerWidth;
-    bgCanvas.height = window.innerHeight;
+    function resizeBG() {
+        bgCanvas.width = window.innerWidth;
+        bgCanvas.height = window.innerHeight;
+    }
+    resizeBG();
+    window.addEventListener("resize", resizeBG);
+
+    initStars(bgCanvas);
+
+    function animateBG() {
+        bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+        drawStars(bgCtx, bgCanvas, false);
+        requestAnimationFrame(animateBG);
+    }
+    animateBG();
 }
-resizeBG();
-window.addEventListener("resize", resizeBG);
-
-// Inicializar estrelas no fundo
-initStars(bgCanvas);
-
-function animateBG() {
-    bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-    drawStars(bgCtx, bgCanvas, false); // false = nunca pausa
-    requestAnimationFrame(animateBG);
-}
-animateBG();
 
 // ==================== JOGO PRINCIPAL ====================
 

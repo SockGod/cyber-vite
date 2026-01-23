@@ -266,4 +266,17 @@
     z-index: -1; /* fica atrás de tudo */
     background: black;
 }
+/* ========================= */
+/*     BACKGROUND STARS      */
+/* ========================= */
+
+#background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: black;
+}
 
