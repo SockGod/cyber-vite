@@ -9,7 +9,7 @@ import { boss, handleBoss, resetBoss } from "./boss.js";
 import { powerUps, handlePowerUps, resetPowerUps } from "./powerups.js";
 import { bullets, setupControls, handleShooting, drawBullets, resetBullets } from "./controls.js";
 import { ui, showScreen, updateUI, setupButtons } from "./ui.js";
-import { initMiniKit, openVerificationDrawer } from "./minikit.js";
+import { openVerificationDrawer } from "./minikit.js";
 
 let canvas, ctx;
 
@@ -52,9 +52,7 @@ window.addEventListener("load", () => {
     // Inicializar estrelas do jogo (canvas do jogo)
     initStars(canvas);
 
-    // Inicializar MiniKit
-    initMiniKit();
-
+    
     // Setup UI + botões
     setupButtons(openVerificationDrawer);
 
