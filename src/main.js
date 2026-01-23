@@ -1,13 +1,17 @@
 // ==================== MAIN / LOOP PRINCIPAL ====================
 
+// Instalar MiniKit antes de tudo
+import { MiniKit } from "@worldcoin/minikit-js";
+MiniKit.install();
+
 import { gameState, activePhrase } from "./gameState.js";
 import { initStars, drawStars } from "./stars.js";
 import { updateParticles } from "./particles.js";
 import { player, drawAtariPlayer } from "./player.js";
-import { enemies, handleEnemies, handleEnemyBullets, resetEnemies } from "./enemies.js";
-import { boss, handleBoss, resetBoss } from "./boss.js";
-import { powerUps, handlePowerUps, resetPowerUps } from "./powerups.js";
-import { bullets, setupControls, handleShooting, drawBullets, resetBullets } from "./controls.js";
+import { enemies, handleEnemies, handleEnemyBullets } from "./enemies.js";
+import { boss, handleBoss } from "./boss.js";
+import { powerUps, handlePowerUps } from "./powerups.js";
+import { bullets, setupControls, handleShooting, drawBullets } from "./controls.js";
 import { ui, showScreen, updateUI, setupButtons } from "./ui.js";
 import { openVerificationDrawer } from "./minikit.js";
 
@@ -49,10 +53,9 @@ window.addEventListener("load", () => {
     player.x = canvas.width / 2;
     player.y = canvas.height - 120;
 
-    // Inicializar estrelas do jogo (canvas do jogo)
+    // Inicializar estrelas do jogo
     initStars(canvas);
 
-    
     // Setup UI + botões
     setupButtons(openVerificationDrawer);
 
@@ -84,7 +87,7 @@ function gameLoop() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Estrelas do jogo
+    // Estrelas
     drawStars(ctx, canvas, gameState.isPaused);
 
     // Partículas
@@ -105,15 +108,11 @@ function gameLoop() {
         bullets.playerBullets,
         powerUps,
         updateUI,
-        () => {
-            // Trigger boss
-        }
+        () => {}
     );
 
     // Tiros inimigos
-    handleEnemyBullets(ctx, canvas, player, updateUI, () => {
-        // dano já tratado em enemies.js
-    });
+    handleEnemyBullets(ctx, canvas, player, updateUI, () => {});
 
     // Boss
     if (gameState.bossActive) {
@@ -123,7 +122,7 @@ function gameLoop() {
     // PowerUps
     handlePowerUps(ctx, canvas, player, updateUI);
 
-    // Frase ativa (blockchain / alerts)
+    // Frase ativa (alertas)
     if (activePhrase.alpha > 0) {
         ctx.save();
         ctx.globalAlpha = activePhrase.alpha;
