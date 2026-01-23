@@ -268,14 +268,12 @@
     height: 100vh;
     z-index: -1;
 
-    /* Fundo azul + rosa suave estilo cyberpunk */
     background: radial-gradient(circle at center,
-        #1b2347 0%,    /* azul profundo */
-        #141a33 35%,   /* azul escuro */
-        #1a1430 65%,   /* violeta escuro */
-        #2a1a3a 100%   /* rosa-violeta suave */
+        #2a3b6e 0%,    /* azul galáxia */
+        #1f2a4d 35%,   /* azul escuro */
+        #3b2a5e 65%,   /* violeta suave */
+        #5a3b6e 100%   /* rosa-violeta visível */
     );
 
-    /* Glow suave para reforçar o neon */
-    filter: drop-shadow(0 0 12px #00ffff88);
+    filter: drop-shadow(0 0 14px #00ffffaa);
 }
