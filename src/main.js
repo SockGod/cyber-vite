@@ -1,7 +1,7 @@
 // ==================== MAIN / LOOP PRINCIPAL ====================
 
 // Instalar MiniKit antes de tudo
-import { MiniKit } from "minikit-js";
+import { MiniKit } from "@worldcoin/minikit-js";
 MiniKit.install();
 
 import { gameState, activePhrase } from "./gameState.js";
