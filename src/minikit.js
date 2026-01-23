@@ -1,60 +1,50 @@
-// ==================== WORLD ID / MINIKIT ====================
+// ==================== WORLD ID / MINIKIT (NEW OFFICIAL VERSION) ====================
 
+import { MiniKit, VerificationLevel } from "@worldcoin/minikit-js";
 import { gameState } from "./gameState.js";
 
-let kit = null;
-
-export async function initMiniKit() {
-    try {
-        const mod = await import("@worldcoin/minikit-js");
-
-        kit = new mod.MiniKit({
-            app_id: "app_b51b29f3430ade0379a91fdbc3017a69",
-            action_id: "play-cyber-space"
-        });
-
-        console.log("MiniKit initialized:", kit);
-    } catch (err) {
-        console.warn("MiniKit not available in this environment.", err);
-    }
-}
-
 export async function openVerificationDrawer() {
-    if (!kit) {
-        console.warn("MiniKit not initialized yet.");
+    if (!MiniKit.isInstalled()) {
+        console.warn("MiniKit not installed (browser mode).");
         return;
     }
 
     try {
-        // 1. Abre o drawer e espera pelo resultado
-        const result = await kit.open();
+        const verifyPayload = {
+            action: "play-cyber-space",
+            signal: gameState.userReferralCode || "default-signal",
+            verification_level: VerificationLevel.Orb
+        };
 
-        if (!result) {
-            alert("Verification cancelled.");
+        // Abre o drawer e espera pelo resultado
+        const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);
+
+        if (finalPayload.status === "error") {
+            console.error("Verification error payload:", finalPayload);
+            alert("Verification failed.");
             return;
         }
 
-        // 2. Verifica o proof no backend
+        // Enviar para o backend
         const response = await fetch("/api/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                proof: result.proof,
-                merkle_root: result.merkle_root,
-                nullifier_hash: result.nullifier_hash,
+                payload: finalPayload,
                 action: "play-cyber-space",
-                signal: gameState.userReferralCode || "default-signal"
+                signal: verifyPayload.signal
             })
         });
 
         const data = await response.json();
 
-        if (data.success) {
+        if (data.status === 200) {
             gameState.isVerified = true;
             alert("IDENTITY VERIFIED — ACCESS GRANTED");
         } else {
-            alert("Verification rejected by backend.");
+            alert("Verification rejected.");
         }
+
     } catch (err) {
         console.error("Verification error:", err);
         alert("Verification error. Try again.");

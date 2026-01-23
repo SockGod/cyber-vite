@@ -1,6 +1,4 @@
-// ==================== WORLD ID BACKEND VERIFICATION ====================
-
-import { verifyProof } from "@worldcoin/idkit";
+import { verifyCloudProof } from "@worldcoin/minikit-js";
 
 export default async function handler(req, res) {
     if (req.method !== "POST") {
@@ -8,34 +6,20 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { proof, merkle_root, nullifier_hash, action, signal } = req.body;
+        const { payload, action, signal } = req.body;
 
-        // Validação básica
-        if (!proof || !merkle_root || !nullifier_hash || !action) {
-            return res.status(400).json({ success: false, error: "Missing fields" });
-        }
+        const app_id = "app_b51b29f3430ade0379a91fdbc3017a69";
 
-        // Verificação oficial com o SDK da World ID
-        const result = await verifyProof(
-            {
-                merkle_root,
-                nullifier_hash,
-                proof,
-                action,
-                signal
-            },
-            {
-                app_id: "app_b51b29f3430ade0379a91fdbc3017a69"
-            }
-        );
+        const verifyRes = await verifyCloudProof(payload, app_id, action, signal);
 
-        if (result.success) {
-            return res.status(200).json({ success: true });
+        if (verifyRes.success) {
+            return res.status(200).json({ status: 200, verifyRes });
         } else {
-            return res.status(400).json({ success: false, error: "Invalid proof" });
+            return res.status(400).json({ status: 400, verifyRes });
         }
+
     } catch (err) {
-        console.error("Verification error:", err);
-        return res.status(500).json({ success: false, error: "Server error" });
+        console.error("Backend verification error:", err);
+        return res.status(500).json({ status: 500, error: "Server error" });
     }
 }
