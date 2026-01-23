@@ -167,7 +167,6 @@
     box-shadow: 0 0 30px #00ffff;
 }
 
-
 /* ========================= */
 /*        ALERT BOX          */
 /* ========================= */
@@ -263,20 +262,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1; /* fica atrás de tudo */
-    background: black;
-}
-/* ========================= */
-/*     BACKGROUND STARS      */
-/* ========================= */
-
-#background-stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
     z-index: -1;
-    background: black;
+    background: radial-gradient(circle at center, #101020 0%, #050510 70%);
+    filter: drop-shadow(0 0 10px #00ffff88);
 }
-

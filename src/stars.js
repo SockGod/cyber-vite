@@ -10,9 +10,9 @@ export function initStars(canvas) {
         stars.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
-            size: Math.random() * 2 + 1,
-            speed: Math.random() * 1.5 + 0.5,
-            opacity: Math.random()
+            size: Math.random() * 3 + 1.5,      // estrelas maiores
+            speed: Math.random() * 2 + 1.2,     // movimento mais rápido
+            opacity: Math.random() * 0.5 + 0.5  // nunca abaixo de 0.5
         });
     }
 
