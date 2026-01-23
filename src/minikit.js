@@ -2,37 +2,39 @@
 
 import { gameState } from "./gameState.js";
 
-let miniKit = null;
+let kit = null;
 
-export function initMiniKit() {
-    // @worldcoin/minikit deve estar instalado via npm
-    // import dinâmico para evitar problemas fora da World App
-    import("@worldcoin/minikit-js")
-        .then(mod => {
-            miniKit = mod.MiniKit;
-        })
-        .catch(() => {
-            console.warn("MiniKit not available in this environment.");
+export async function initMiniKit() {
+    try {
+        const mod = await import("@worldcoin/minikit-js");
+
+        kit = new mod.MiniKit({
+            app_id: "app_b51b29f3430ade0379a91fdbc3017a69",
+            action_id: "play-cyber-space"
         });
+
+        console.log("MiniKit initialized:", kit);
+    } catch (err) {
+        console.warn("MiniKit not available in this environment.", err);
+    }
 }
 
 export async function openVerificationDrawer() {
-    if (!miniKit) {
+    if (!kit) {
         console.warn("MiniKit not initialized yet.");
         return;
     }
 
     try {
-        const result = await miniKit.verify({
-            action: "space-delta-verify",
-            signal: gameState.userReferralCode
-        });
+        // 1. Abre o drawer e espera pelo resultado
+        const result = await kit.open();
 
-        if (!result || !result.proof) {
-            alert("Verification failed or cancelled.");
+        if (!result) {
+            alert("Verification cancelled.");
             return;
         }
 
+        // 2. Verifica o proof no backend
         const response = await fetch("/api/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -40,8 +42,8 @@ export async function openVerificationDrawer() {
                 proof: result.proof,
                 merkle_root: result.merkle_root,
                 nullifier_hash: result.nullifier_hash,
-                action: "space-delta-verify",
-                signal: gameState.userReferralCode
+                action: "play-cyber-space",
+                signal: gameState.userReferralCode || "default-signal"
             })
         });
 
@@ -54,13 +56,7 @@ export async function openVerificationDrawer() {
             alert("Verification rejected by backend.");
         }
     } catch (err) {
-        console.error(err);
+        console.error("Verification error:", err);
         alert("Verification error. Try again.");
     }
-}
-
-// Placeholder para futuro (se quiseres daily bonus ligado à verificação)
-export function claimDailyBonus() {
-    // Aqui poderíamos chamar o backend para dar CS extra, etc.
-    console.log("Daily bonus claimed (placeholder).");
 }
