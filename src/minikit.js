@@ -1,13 +1,14 @@
 // ==================== WORLD ID / MINIKIT (CDN VERSION) ====================
 
 // MiniKit vem do CDN (index.html)
-const { MiniKit, VerificationLevel } = window.MiniKit;
+const MiniKit = window.MiniKit;
+const VerificationLevel = window.VerificationLevel;
 
 import { gameState } from "./gameState.js";
 
 export async function openVerificationDrawer() {
-    if (!MiniKit.isInstalled()) {
-        console.warn("MiniKit not installed (browser mode).");
+    if (!MiniKit || !MiniKit.isInstalled || !MiniKit.isInstalled()) {
+        console.warn("MiniKit not installed or not available.");
         return;
     }
 
@@ -18,16 +19,14 @@ export async function openVerificationDrawer() {
             verification_level: VerificationLevel.Orb
         };
 
-        // Abre o drawer e espera pelo resultado
         const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);
 
-        if (finalPayload.status === "error") {
+        if (!finalPayload || finalPayload.status === "error") {
             console.error("Verification error payload:", finalPayload);
             alert("Verification failed.");
             return;
         }
 
-        // Enviar para o backend
         const response = await fetch("/api/verify", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
