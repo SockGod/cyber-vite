@@ -13,7 +13,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding-top: 20px;
 }
 
@@ -27,10 +27,17 @@
 
 .screen-title {
     font-family: 'Orbitron', sans-serif;
-    font-size: 26px;
+    font-size: 42px;
+    font-weight: bold;
     color: #00ffff;
-    text-shadow: 0 0 10px #00ffff;
-    margin-bottom: 20px;
+    text-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+    text-align: center;
 }
 
 /* ========================= */
@@ -118,7 +125,7 @@
 .menu-btn {
     width: 85%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 12px 0;
     background: transparent;
     border: 2px solid #00ffff;
     color: #00ffff;
@@ -226,7 +233,7 @@
 .logo-img {
     width: 160px;
     height: 160px;
-    margin: 10px 0 20px 0;
+    margin: 20px 0 30px 0;
     filter: drop-shadow(0 0 12px #00ffff);
     animation: neonPulse 2.5s infinite ease-in-out;
 }
@@ -245,3 +252,18 @@
         filter: drop-shadow(0 0 8px #00ffff);
     }
 }
+
+/* ========================= */
+/*     BACKGROUND STARS      */
+/* ========================= */
+
+#background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* fica atrás de tudo */
+    background: black;
+}
+

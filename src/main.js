@@ -13,6 +13,30 @@ import { initMiniKit, openVerificationDrawer } from "./minikit.js";
 
 let canvas, ctx;
 
+// ==================== FUNDO DE ESTRELAS DO MENU ====================
+
+const bgCanvas = document.getElementById("background-stars");
+const bgCtx = bgCanvas.getContext("2d");
+
+function resizeBG() {
+    bgCanvas.width = window.innerWidth;
+    bgCanvas.height = window.innerHeight;
+}
+resizeBG();
+window.addEventListener("resize", resizeBG);
+
+// Inicializar estrelas no fundo
+initStars(bgCanvas);
+
+function animateBG() {
+    bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    drawStars(bgCtx, bgCanvas, false); // false = nunca pausa
+    requestAnimationFrame(animateBG);
+}
+animateBG();
+
+// ==================== JOGO PRINCIPAL ====================
+
 window.addEventListener("load", () => {
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
@@ -24,7 +48,7 @@ window.addEventListener("load", () => {
     player.x = canvas.width / 2;
     player.y = canvas.height - 120;
 
-    // Inicializar estrelas
+    // Inicializar estrelas do jogo (canvas do jogo)
     initStars(canvas);
 
     // Inicializar MiniKit
@@ -61,7 +85,7 @@ function gameLoop() {
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Estrelas
+    // Estrelas do jogo
     drawStars(ctx, canvas, gameState.isPaused);
 
     // Partículas

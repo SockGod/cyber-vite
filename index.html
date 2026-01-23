@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CyberSpace Shooter</title>
 
-    <!-- CSS correto -->
+    <!-- CSS -->
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -29,10 +29,9 @@
     </div>
 
     <!-- MENU SCREEN -->
-    <div id="menu-screen" class="screen hidden">
-        <h1 class="title">CYBERSPACE SHOOTER</h1>
+    <div id="menu-screen" class="screen">
+        <h1 class="screen-title">CYBERSPACE SHOOTER</h1>
 
-        <!-- LOGO CORRETO -->
         <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
 
         <button id="btn-play" class="menu-btn">Play</button>
@@ -43,9 +42,9 @@
 
     <!-- VERIFICATION SCREEN -->
     <div id="verify-screen" class="screen hidden">
-        <h2>Verify with World ID</h2>
+        <h2 class="screen-title">Verify with World ID</h2>
         <button id="btn-verify-now" class="menu-btn">Verify Now</button>
-        <button class="menu-btn back-btn">Back</button>
+        <button id="btn-verify-back" class="menu-btn back-btn">Back</button>
     </div>
 
     <!-- GAME SCREEN -->
@@ -84,7 +83,7 @@
         </div>
 
         <button id="btn-referral" class="menu-btn">Referral Bonus</button>
-        <button id="btn-shop-back" class="menu-btn">Back to Menu</button>
+        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
     </div>
 
     <!-- REFERRAL SCREEN -->
@@ -105,21 +104,24 @@
             <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
         </div>
 
-        <button id="btn-referral-back" class="menu-btn">Back to Shop</button>
+        <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
     </div>
 
     <!-- LEADERBOARD SCREEN -->
     <div id="leaderboard-screen" class="screen hidden">
-        <h2>Leaderboard</h2>
+        <h2 class="screen-title">Leaderboard</h2>
         <div id="leaderboard-list"></div>
-        <button class="menu-btn back-btn">Back</button>
+        <button id="btn-leaderboard-back" class="menu-btn back-btn">Back</button>
     </div>
 
     <!-- LOADING SCREEN -->
     <div id="loading-screen" class="screen hidden">
-        <h2>Loading...</h2>
+        <h2 class="screen-title">Loading...</h2>
         <p id="status-text"></p>
     </div>
+
+    <!-- BACKGROUND STARS CANVAS -->
+    <canvas id="background-stars"></canvas>
 
     <!-- SCRIPTS -->
     <script type="module" src="src/main.js"></script>

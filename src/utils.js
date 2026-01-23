@@ -3,17 +3,18 @@
 import { gameState } from "./gameState.js";
 
 export function getLeaderboardData() {
-    // Placeholder simples: podes depois ligar isto a um backend real
-    const stored = JSON.parse(localStorage.getItem("spaceDelta_leaderboard") || "[]");
+    const fakePlayers = [
+        { name: "CYBER-LORD", level: 87 },
+        { name: "NOVA-STRIKER", level: 74 },
+        { name: "VOID-HUNTER", level: 63 },
+        { name: "STAR-BREAKER", level: 58 },
+        { name: "NEON-GHOST", level: 51 }
+    ];
 
-    const current = {
+    const user = {
         name: "YOU",
-        level: gameState.level
+        level: gameState.level || 1
     };
 
-    const merged = [current, ...stored];
-
-    merged.sort((a, b) => b.level - a.level);
-
-    return merged.slice(0, 10);
+    return [...fakePlayers, user];
 }
