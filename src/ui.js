@@ -2,7 +2,7 @@
 
 import { gameState } from "./gameState.js";
 import { sfx } from "./audio.js";
-import { claimDailyBonus } from "./minikit.js"; 
+// REMOVIDO: import { claimDailyBonus } from "./minikit.js";
 import { getLeaderboardData } from "./utils.js";
 
 // NOVO: importar os ecrãs Shop e Referral
@@ -106,17 +106,10 @@ export function setupButtons(openVerificationDrawer) {
         showScreen(ui.leaderboard);
     };
 
-    // WORLD ID
-    document.getElementById("btn-verify-now").onclick = async () => {
-    // Esperar até o MiniKit estar disponível
-    if (!window.MiniKit || !MiniKit.isInstalled()) {
-        console.warn("MiniKit ainda não está disponível. Tentando novamente...");
-        setTimeout(() => openVerificationDrawer(), 300);
-        return;
-    }
-
-    openVerificationDrawer();
-};
+    // WORLD ID — deixar só o drawer tratar do MiniKit
+    document.getElementById("btn-verify-now").onclick = () => {
+        openVerificationDrawer();
+    };
 
     // SHOP
     document.getElementById("btn-shop").onclick = () => {

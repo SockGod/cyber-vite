@@ -1,7 +1,9 @@
 // ==================== MAIN / LOOP PRINCIPAL ====================
 
 // MiniKit já vem do CDN (index.html)
-MiniKit.install();
+if (window.MiniKit && window.MiniKit.MiniKit) {
+    window.MiniKit.MiniKit.install();
+}
 
 import { gameState, activePhrase } from "./gameState.js";
 import { initStars, drawStars } from "./stars.js";
