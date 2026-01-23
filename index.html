@@ -7,6 +7,12 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="/style.css">
+
+    <!-- MINIKIT VIA CDN (OFICIAL PARA VANILLA JS) -->
+    <script type="module">
+        import { MiniKit } from "https://cdn.jsdelivr.net/npm/@worldcoin/minikit-js@1.9.0/+esm";
+        window.MiniKit = MiniKit;
+    </script>
 </head>
 <body>
 
@@ -123,7 +129,7 @@
     <!-- BACKGROUND STARS CANVAS -->
     <canvas id="background-stars"></canvas>
 
-    <!-- SCRIPTS -->
+    <!-- MAIN GAME SCRIPT -->
     <script type="module" src="src/main.js"></script>
 
 </body>

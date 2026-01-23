@@ -1,6 +1,8 @@
-// ==================== WORLD ID / MINIKIT (NEW OFFICIAL VERSION) ====================
+// ==================== WORLD ID / MINIKIT (CDN VERSION) ====================
 
-import { MiniKit, VerificationLevel } from "@worldcoin/minikit-js";
+// MiniKit vem do CDN (index.html)
+const { MiniKit, VerificationLevel } = window.MiniKit;
+
 import { gameState } from "./gameState.js";
 
 export async function openVerificationDrawer() {

@@ -10,8 +10,5 @@
   },
   "devDependencies": {
     "vite": "^7.2.4"
-  },
-  "dependencies": {
-    "minikit-monorepo": "github:worldcoin/minikit-js"
   }
 }
