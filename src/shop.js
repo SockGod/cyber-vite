@@ -1,33 +1,37 @@
-export function setupShopScreen(gameState, ui) {
-    
-    // Show Shop Screen
-    ui.showScreen(ui.shop);
+// =========================
+//      NEON SHOP SCREEN
+// =========================
 
-    // --- BUY 3 SHIELDS PACK ---
+export function setupShopScreen(gameState, ui, showScreen, showAlert) {
+
+    // Abrir loja
+    showScreen(ui.shop);
+
+    // BUY SHIELDS
     document.getElementById("buy-shields").onclick = () => {
         gameState.addShields(3);
-        ui.showAlert("3 Shields added!");
+        showAlert("3 Shields added!");
     };
 
-    // --- BUY SUPER SHOT ---
+    // SUPER SHOT
     document.getElementById("buy-supershot").onclick = () => {
         gameState.activateSuperShot();
-        ui.showAlert("Super Shot activated!");
+        showAlert("Super Shot activated!");
     };
 
-    // --- BUY 5 MEGA BOMBS ---
+    // MEGA BOMBS
     document.getElementById("buy-bombs").onclick = () => {
         gameState.addBombs(5);
-        ui.showAlert("5 Mega Bombs added!");
+        showAlert("5 Mega Bombs added!");
     };
 
-    // --- OPEN REFERRAL SCREEN ---
+    // REFERRAL
     document.getElementById("btn-referral").onclick = () => {
-        ui.showScreen(ui.referral);
+        showScreen(ui.referral);
     };
 
-    // --- BACK TO MENU ---
+    // BACK
     document.getElementById("btn-shop-back").onclick = () => {
-        ui.showScreen(ui.menu);
+        showScreen(ui.menu);
     };
 }

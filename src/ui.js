@@ -2,13 +2,10 @@
 
 import { gameState } from "./gameState.js";
 import { sfx } from "./audio.js";
-// REMOVIDO: import { claimDailyBonus } from "./minikit.js";
-import { getLeaderboardData } from "./utils.js";
-
-// NOVO: importar os ecrãs Shop e Referral
 import { setupShopScreen } from "./shop.js";
 import { setupReferralScreen } from "./referral.js";
 
+// ELEMENTOS DA UI
 export const ui = {
     menu: document.getElementById("menu-screen"),
     verify: document.getElementById("verify-screen"),
@@ -20,9 +17,24 @@ export const ui = {
     leaderboard: document.getElementById("leaderboard-screen")
 };
 
+// ==================== ALERTA ====================
+
+export function showAlert(message) {
+    const box = document.getElementById("alert-box");
+    const text = document.getElementById("alert-text");
+    if (!box || !text) return;
+
+    text.innerText = message;
+    box.classList.remove("hidden");
+
+    setTimeout(() => {
+        box.classList.add("hidden");
+    }, 2000);
+}
+
 // ==================== TROCAR DE ECRÃ ====================
 
-export function showScreen(screen) {
+export function showScreen(screenElement) {
     [
         ui.menu,
         ui.verify,
@@ -31,16 +43,15 @@ export function showScreen(screen) {
         ui.referral,
         ui.loading,
         ui.leaderboard
-    ].forEach(s => {
-        if (s) s.classList.add("hidden");
-    });
+    ].forEach(s => s.classList.add("hidden"));
 
-    if (screen) screen.classList.remove("hidden");
-
+    screenElement.classList.remove("hidden");
     updateUI();
 }
 
 // ==================== LEADERBOARD ====================
+
+import { getLeaderboardData } from "./utils.js";
 
 export function updateLeaderboardUI() {
     const list = document.getElementById("leaderboard-list");
@@ -64,7 +75,7 @@ export function updateLeaderboardUI() {
     });
 }
 
-// ==================== HUD / ESTADO DO JOGO ====================
+// ==================== HUD ====================
 
 export function updateUI() {
     const credits = document.getElementById("hud-credits");
@@ -80,11 +91,11 @@ export function updateUI() {
     if (code) code.innerText = gameState.userReferralCode;
 }
 
-// ==================== BOTÕES PRINCIPAIS ====================
+// ==================== BOTÕES ====================
 
 export function setupButtons(openVerificationDrawer) {
 
-    // 🔊 SOM DE CLIQUE PARA TODOS OS BOTÕES
+    // Som de clique
     const clickSound = new Audio("/click.mp3");
     clickSound.volume = 0.4;
 
@@ -106,17 +117,17 @@ export function setupButtons(openVerificationDrawer) {
         showScreen(ui.leaderboard);
     };
 
-    // WORLD ID — deixar só o drawer tratar do MiniKit
+    // VERIFY NOW
     document.getElementById("btn-verify-now").onclick = () => {
         openVerificationDrawer();
     };
 
     // SHOP
     document.getElementById("btn-shop").onclick = () => {
-        setupShopScreen(gameState, ui);
+        setupShopScreen(gameState, ui, showScreen, showAlert);
     };
 
-    // HOW TO PLAY (popup)
+    // HOW TO PLAY
     document.getElementById("btn-how").onclick = () => {
         document.getElementById("howto-popup").classList.remove("hidden");
     };
@@ -128,43 +139,9 @@ export function setupButtons(openVerificationDrawer) {
     // PAUSE
     document.getElementById("btn-pause").onclick = () => {
         gameState.isPaused = !gameState.isPaused;
-
-        if (gameState.isPaused) {
-            const canvas = document.getElementById("game-canvas");
-            const ctx = canvas.getContext("2d");
-
-            ctx.fillStyle = "rgba(0,0,0,0.5)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = "white";
-            ctx.font = "bold 40px Orbitron";
-            ctx.textAlign = "center";
-            ctx.fillText("PAUSED", canvas.width / 2, canvas.height / 2);
-        }
     };
 
-    // SHOP — BOTÕES ANTIGOS (se ainda existirem)
-    document.querySelectorAll(".shop-buy-btn").forEach((btn, index) => {
-        btn.onclick = () => {
-            if (index === 0) {
-                gameState.shields += 10;
-                alert("10 SHIELDS ADDED!");
-            }
-            if (index === 1) {
-                gameState.superShot = true;
-                alert("SUPER SHOT ACTIVATED!");
-            }
-            if (index === 2) {
-                gameState.bombs += 5;
-                alert("5 BOMBS ADDED!");
-            }
-
-            sfx.powerup();
-            updateUI();
-        };
-    });
-
-    // BACK BUTTONS (genérico)
+    // BACK BUTTONS
     document.querySelectorAll(".back-btn").forEach(b => {
         b.onclick = () => showScreen(ui.menu);
     });

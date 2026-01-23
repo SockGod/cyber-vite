@@ -5,24 +5,23 @@ import { gameState } from "./gameState.js";
 export async function openVerificationDrawer() {
     const MiniKit = window.MiniKit;
 
-    if (!MiniKit || !MiniKit.isInstalled || !MiniKit.isInstalled()) {
-        console.warn("MiniKit not installed or not available (are you inside World App?).");
+    if (!MiniKit) {
+        console.warn("MiniKit not available. Are you inside World App?");
         return;
     }
 
-    const VerificationLevel = MiniKit.VerificationLevel || window.VerificationLevel;
+    const VerificationLevel = MiniKit.VerificationLevel;
 
     try {
         const verifyPayload = {
             action: "play-cyber-space",
             signal: gameState.userReferralCode || "default-signal",
-            verification_level: VerificationLevel?.Orb ?? "orb"
+            verification_level: VerificationLevel.Orb
         };
 
         const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);
 
         if (!finalPayload || finalPayload.status === "error") {
-            console.error("Verification error payload:", finalPayload);
             alert("Verification failed.");
             return;
         }
@@ -47,7 +46,6 @@ export async function openVerificationDrawer() {
         }
 
     } catch (err) {
-        console.error("Verification error:", err);
         alert("Verification error. Try again.");
     }
 }
