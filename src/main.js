@@ -73,11 +73,8 @@ window.addEventListener("load", () => {
 });
 
 function resizeCanvas() {
-    const container = document.getElementById("game-container");
-    if (!container) return;
-
-    canvas.width = container.clientWidth;
-    canvas.height = container.clientHeight;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
 function gameLoop() {
