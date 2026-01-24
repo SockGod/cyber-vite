@@ -10,6 +10,7 @@ import { powerUps, handlePowerUps } from "./powerups.js";
 import { bullets, setupControls, handleShooting, drawBullets } from "./controls.js";
 import { ui, showScreen, updateUI, setupButtons } from "./ui.js";
 import { openVerificationDrawer } from "./minikit.js";
+import { startGame } from "./startGame.js";
 
 let canvas, ctx;
 
@@ -60,6 +61,9 @@ window.addEventListener("load", () => {
         enemies.length = 0;
         bullets.enemyBullets.length = 0;
     });
+
+    // Expor startGame para o ui.js
+    window.startGame = () => startGame(canvas);
 
     // Começar no menu
     showScreen(ui.menu);

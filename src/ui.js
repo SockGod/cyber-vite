@@ -106,10 +106,10 @@ export function setupButtons(openVerificationDrawer) {
         });
     });
 
-    // PLAY — AGORA VERIFICA SE O UTILIZADOR JÁ ESTÁ VERIFICADO
+    // PLAY — AGORA INICIA O JOGO
     document.getElementById("btn-play").onclick = () => {
         if (gameState.isVerified) {
-            showScreen(ui.game);
+            window.startGame();
         } else {
             showScreen(ui.verify);
         }
