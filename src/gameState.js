@@ -5,7 +5,7 @@ export const gameState = {
     shields: 5, 
     level: 1, 
     bombs: 2,
-    highScore: parseInt(localStorage.getItem('spaceDelta_highScore')) || 1,
+    highScore: parseInt(localStorage.getItem("spaceDelta_highScore")) || 1,
     isVerified: false, 
     isPaused: false,
     bossActive: false, 
@@ -15,15 +15,17 @@ export const gameState = {
     superShot: false,
     dualShot: false,
     screenShake: 0,
+    isPlaying: false, // <- controla se o jogo está realmente a decorrer
 
-    // REFERRAL CODE (renomeado para ser compatível com referral.js)
-    referralCode: localStorage.getItem('delta_myReferral') || 
+    // REFERRAL CODE (compatível com referral.js)
+    referralCode:
+        localStorage.getItem("delta_myReferral") ||
         "DELTA-" + Math.random().toString(36).substring(2, 7).toUpperCase()
 };
 
 // Guardar referral code se ainda não existir
-if (!localStorage.getItem('delta_myReferral')) {
-    localStorage.setItem('delta_myReferral', gameState.referralCode);
+if (!localStorage.getItem("delta_myReferral")) {
+    localStorage.setItem("delta_myReferral", gameState.referralCode);
 }
 
 // ==================== FUNÇÕES PARA A LOJA ====================
@@ -46,22 +48,27 @@ export function getLevelConfig(lvl) {
     const baseReq = 20;
     const baseHP = 150;
     const colors = ["#ff00ff", "#00ff00", "#ffffff", "#00ffff", "#ffff00", "#ff0000"];
+
     return {
         enemyColor: colors[(lvl - 1) % colors.length],
         bossColor: colors[lvl % colors.length],
-        bossHP: baseHP + (lvl * 250),
-        req: baseReq + (lvl * 10),
-        speed: Math.min(2 + (lvl * 0.5), 7),
-        fireRate: Math.min(0.005 + (lvl * 0.006), 0.05)
+        bossHP: baseHP + lvl * 250,
+        req: baseReq + lvl * 10,
+        speed: Math.min(2 + lvl * 0.5, 7),
+        fireRate: Math.min(0.005 + lvl * 0.006, 0.05)
     };
 }
 
 // ==================== FRASES E EFEITOS ====================
 
 export const blockchainPhrases = [
-    "MINING BLOCK...", "FIREWALL ACTIVE", "LIQUIDITY FOUND",
-    "ENCRYPTING DATA...", "HACK ATTEMPT BLOCK!", 
-    "MAINNET SECURED", "PROOF OF WORK"
+    "MINING BLOCK...",
+    "FIREWALL ACTIVE",
+    "LIQUIDITY FOUND",
+    "ENCRYPTING DATA...",
+    "HACK ATTEMPT BLOCK!",
+    "MAINNET SECURED",
+    "PROOF OF WORK"
 ];
 
 export let activePhrase = { text: "", alpha: 0 };

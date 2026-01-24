@@ -167,7 +167,7 @@ function drawBossDesign(ctx, pattern) {
 // ==================== LÓGICA DO BOSS ====================
 
 export function handleBoss(ctx, canvas, bullets, updateUI) {
-    if (gameState.isPaused) {
+    if (!gameState.isPlaying || gameState.isPaused) {
         if (boss.initialized) {
             const patternPaused = getBossPattern(gameState.level);
             drawBossDesign(ctx, patternPaused);

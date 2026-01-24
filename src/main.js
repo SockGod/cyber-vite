@@ -93,33 +93,41 @@ function gameLoop() {
     // Jogador
     drawAtariPlayer(ctx);
 
-    // Tiros do jogador
-    handleShooting();
-    drawBullets(ctx);
+    // ====================
+    //   LÓGICA DO JOGO
+    // ====================
+    if (gameState.isPlaying) {
 
-    // Inimigos
-    handleEnemies(
-        ctx,
-        canvas,
-        player,
-        bullets.playerBullets,
-        powerUps,
-        updateUI,
-        () => {}
-    );
+        // Tiros do jogador
+        handleShooting();
+        drawBullets(ctx);
 
-    // Tiros inimigos (normais + boss, tudo junto)
-    handleEnemyBullets(ctx, canvas, player, updateUI);
+        // Inimigos
+        handleEnemies(
+            ctx,
+            canvas,
+            player,
+            bullets.playerBullets,
+            powerUps,
+            updateUI,
+            () => {}
+        );
 
-    // Boss
-    if (gameState.bossActive) {
-        handleBoss(ctx, canvas, bullets, updateUI);
+        // Tiros inimigos (normais + boss)
+        handleEnemyBullets(ctx, canvas, player, updateUI);
+
+        // Boss
+        if (gameState.bossActive) {
+            handleBoss(ctx, canvas, bullets, updateUI);
+        }
+
+        // PowerUps
+        handlePowerUps(ctx, canvas, player, updateUI);
     }
 
-    // PowerUps
-    handlePowerUps(ctx, canvas, player, updateUI);
-
-    // Frase ativa (alertas)
+    // ====================
+    //   FRASES / ALERTAS
+    // ====================
     if (activePhrase.alpha > 0) {
         ctx.save();
         ctx.globalAlpha = activePhrase.alpha;

@@ -19,23 +19,28 @@ export function resetBullets() {
 }
 
 export function setupControls(canvas, updateUI, enemiesResetCallback) {
+
     // TOUCH START
     canvas.addEventListener("touchstart", e => {
-        if (gameState.isPaused) return;
+        if (!gameState.isPlaying || gameState.isPaused) return;
 
         isTouching = true;
 
+        // Desbloquear áudio no mobile
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === "suspended") audioCtx.resume();
 
         // Mega bomba (2 dedos)
         if (e.touches.length > 1 && gameState.bombs > 0) {
             gameState.bombs--;
+
+            // Limpa inimigos e tiros
             enemiesResetCallback();
+            bullets.enemyBullets = [];
+
             sfx.explosion(player.x, player.y, "#ffffff");
 
             gameState.screenShake = 25;
-            gameState.cyberSpace += 0;
 
             updateUI();
         }
@@ -50,7 +55,7 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
     canvas.addEventListener(
         "touchmove",
         e => {
-            if (gameState.isPaused) return;
+            if (!gameState.isPlaying || gameState.isPaused) return;
 
             if (e.touches[0]) {
                 player.x = e.touches[0].clientX;
@@ -64,10 +69,13 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
 }
 
 export function handleShooting() {
+    if (!gameState.isPlaying || gameState.isPaused) return;
+
     const now = Date.now();
     const currentSpeed = gameState.superShot ? 150 : shootingSpeed;
 
     if (isTouching && now - lastShot > currentSpeed) {
+
         if (gameState.dualShot) {
             bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40 });
             bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40 });

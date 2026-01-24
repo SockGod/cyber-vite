@@ -35,6 +35,13 @@ export function showAlert(message) {
 // ==================== TROCAR DE ECRÃ ====================
 
 export function showScreen(screenElement) {
+
+    // Quando voltamos ao MENU, o jogo deixa de estar ativo
+    if (screenElement === ui.menu) {
+        gameState.isPlaying = false;
+        gameState.isPaused = false;
+    }
+
     [
         ui.menu,
         ui.verify,
@@ -88,7 +95,7 @@ export function updateUI() {
     if (level) level.innerText = gameState.level;
     if (high) high.innerText = gameState.highScore;
     if (shields) shields.innerText = gameState.shields;
-    if (code) code.innerText = gameState.userReferralCode;
+    if (code) code.innerText = gameState.referralCode;
 }
 
 // ==================== BOTÕES ====================
@@ -106,7 +113,7 @@ export function setupButtons(openVerificationDrawer) {
         });
     });
 
-    // PLAY — AGORA INICIA O JOGO
+    // PLAY
     document.getElementById("btn-play").onclick = () => {
         if (gameState.isVerified) {
             window.startGame();
@@ -142,7 +149,9 @@ export function setupButtons(openVerificationDrawer) {
 
     // PAUSE
     document.getElementById("btn-pause").onclick = () => {
-        gameState.isPaused = !gameState.isPaused;
+        if (gameState.isPlaying) {
+            gameState.isPaused = !gameState.isPaused;
+        }
     };
 
     // BACK BUTTONS

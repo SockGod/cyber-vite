@@ -31,11 +31,12 @@ export function drawEnemyDesign(ctx, e, color) {
 }
 
 export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, updateUI, triggerBoss) {
-    if (gameState.isPaused || gameState.bossActive) return;
+    if (!gameState.isPlaying || gameState.isPaused || gameState.bossActive) return;
 
     const config = getLevelConfig(gameState.level);
     spawnTimer++;
 
+    // Spawn de inimigos
     if (spawnTimer > 30) {
         enemies.push({
             x: Math.random() * (canvas.width - 40),
@@ -49,6 +50,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     enemies.forEach((e, ei) => {
         e.y += e.speed;
 
+        // Chance de disparar
         if (Math.random() < config.fireRate) {
             bullets.enemyBullets.push({
                 x: e.x + e.size / 2,
@@ -58,6 +60,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
+        // Colisão com o jogador
         if (
             Math.abs(player.x - (e.x + e.size / 2)) < 25 &&
             Math.abs(player.y - (e.y + e.size / 2)) < 25
@@ -67,6 +70,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
             return;
         }
 
+        // Colisão com balas do jogador
         playerBullets.forEach((b, bi) => {
             if (
                 b.x > e.x &&
@@ -83,12 +87,14 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                 gameState.cyberSpace += 15;
                 gameState.enemiesDefeated++;
 
+                // Frase blockchain
                 if (Math.random() < 0.2) {
                     activePhrase.text =
                         blockchainPhrases[Math.floor(Math.random() * blockchainPhrases.length)];
                     activePhrase.alpha = 1.5;
                 }
 
+                // PowerUps
                 if (Math.random() < 0.18) {
                     const types = ["health", "shield", "power", "dual"];
                     powerUps.push({
@@ -98,6 +104,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                     });
                 }
 
+                // Boss trigger
                 if (gameState.enemiesDefeated >= config.req) {
                     gameState.bossActive = true;
                     gameState.bossHP = config.bossHP;
@@ -115,7 +122,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 }
 
 export function handleEnemyBullets(ctx, canvas, player, updateUI) {
-    if (gameState.isPaused) return;
+    if (!gameState.isPlaying || gameState.isPaused) return;
 
     bullets.enemyBullets.forEach((eb, i) => {
         eb.y += 7;
@@ -123,6 +130,7 @@ export function handleEnemyBullets(ctx, canvas, player, updateUI) {
         ctx.fillStyle = "#ff0000";
         ctx.fillRect(eb.x - 2, eb.y, 4, 18);
 
+        // Colisão com o jogador
         if (
             eb.x > player.x - 25 &&
             eb.x < player.x + 25 &&

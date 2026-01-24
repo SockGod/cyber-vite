@@ -5,10 +5,13 @@ import { player } from "./player.js";
 import { resetEnemies } from "./enemies.js";
 import { resetBoss } from "./boss.js";
 import { resetBullets } from "./controls.js";
-import { powerUps, resetPowerUps } from "./powerups.js";
+import { resetPowerUps } from "./powerups.js";
 import { showScreen, ui, updateUI } from "./ui.js";
 
 export function startGame(canvas) {
+
+    // O jogo começa oficialmente aqui
+    gameState.isPlaying = true;
 
     // Reset estado base
     gameState.shields = 5;
