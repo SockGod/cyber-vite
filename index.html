@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CyberSpace Shooter</title>
 
+    <!-- Pixel Font for Titles -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -17,7 +20,7 @@
     <!-- HOW TO PLAY POPUP -->
     <div id="howto-popup" class="hidden popup">
         <div class="popup-content">
-            <h2>How to Play</h2>
+            <h2 class="popup-title">HOW TO PLAY</h2>
             <p>• Drag anywhere to move</p>
             <p>• Shooting is automatic</p>
             <p>• Two fingers = Mega Bomb</p>
@@ -49,7 +52,7 @@
     <!-- GAME SCREEN -->
     <div id="game-screen" class="screen hidden">
 
-        <!-- HUD FINAL -->
+        <!-- HUD -->
         <div id="hud-container">
 
             <div id="hud-left">
@@ -83,48 +86,54 @@
         </div>
     </div>
 
-    <!-- SHOP SCREEN -->
+    <!-- BLOCKCHAIN SHOP (NEW) -->
     <div id="shop-screen" class="screen hidden">
-        <h2 class="screen-title">Neon Shop</h2>
+
+        <h2 class="screen-title">BLOCKCHAIN SHOP</h2>
 
         <div class="shop-item">
-            <h3>3 Shields Pack</h3>
+            <img src="/icons/shield.png" class="shop-icon">
+            <div class="shop-text">
+                <h3>PACK 3 SHIELDS</h3>
+                <p>0.35 WLD</p>
+            </div>
             <button id="buy-shields" class="shop-btn">Buy</button>
         </div>
 
         <div class="shop-item">
-            <h3>Super Shot</h3>
+            <img src="/icons/gun.png" class="shop-icon">
+            <div class="shop-text">
+                <h3>SUPER SHOT</h3>
+                <p>0.20 WLD</p>
+            </div>
             <button id="buy-supershot" class="shop-btn">Buy</button>
         </div>
 
         <div class="shop-item">
-            <h3>5 Mega Bombs</h3>
+            <img src="/icons/bomb.png" class="shop-icon">
+            <div class="shop-text">
+                <h3>5 MEGA BOMBS</h3>
+                <p>0.15 WLD</p>
+            </div>
             <button id="buy-bombs" class="shop-btn">Buy</button>
         </div>
 
-        <button id="btn-referral" class="menu-btn">Referral Bonus</button>
-        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
-    </div>
+        <!-- REFERRAL SECTION -->
+        <div class="referral-section">
 
-    <!-- REFERRAL SCREEN -->
-    <div id="referral-screen" class="screen hidden">
-        <h2 class="screen-title">Referral Bonus</h2>
+            <h3 class="ref-title">FREE CYBER SPACE</h3>
 
-        <div class="referral-box">
-            <p>Your Code:</p>
-            <div class="referral-code">
+            <div class="ref-row">
                 <span id="user-ref-code">ABC123</span>
-                <button id="copy-ref-code" class="small-btn">Copy</button>
+                <button id="copy-ref-code" class="small-btn">COPY</button>
             </div>
+
+            <input id="friend-code-input" type="text" maxlength="12" placeholder="ENTER FRIEND'S CODE">
+
+            <button id="redeem-referral" class="shop-btn">REDEEM BONUS</button>
         </div>
 
-        <div class="referral-box">
-            <p>Enter friend's code:</p>
-            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
-            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
-        </div>
-
-        <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
+        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
     </div>
 
     <!-- LEADERBOARD SCREEN -->

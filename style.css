@@ -1,429 +1,328 @@
-/* ========================= */
-/*        SCREENS BASE       */
-/* ========================= */
+/* ==================== GLOBAL ==================== */
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: black;
+    font-family: Arial, sans-serif;
+    color: white;
+}
 
 .screen {
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: 20px;
+    width: 100%;
+    height: 100%;
+    padding-top: 40px;
+    text-align: center;
 }
 
 .hidden {
-    display: none !important;
+    display: none;
 }
 
-/* ========================= */
-/*         TITLES            */
-/* ========================= */
+/* ==================== TITLES ==================== */
 
-.screen-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    color: #00ffff;
-    text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 30px #00ffff,
-        0 0 40px #00ffff;
-    margin-bottom: 25px;
-    letter-spacing: 3px;
-    text-align: center;
-}
-
-/* ========================= */
-/*         SHOP ITEMS        */
-/* ========================= */
-
-.shop-item {
-    width: 85%;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid #00ffff;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    box-shadow: 0 0 12px #00ffff;
-}
-
-.shop-btn {
-    background: #00ffff;
-    color: #000;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-}
-
-/* ========================= */
-/*       REFERRAL BOX        */
-/* ========================= */
-
-.referral-box {
-    width: 85%;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid #00ffff;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    box-shadow: 0 0 12px #00ffff;
-}
-
-.referral-code {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0,0,0,0.4);
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 8px;
-}
-
-.small-btn {
-    background: #00ffff;
-    color: #000;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* ========================= */
-/*     REFERRAL INPUT        */
-/* ========================= */
-
-#friend-code-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-    margin-top: 8px;
-    text-align: center;
-    background: rgba(0,0,0,0.4);
-    color: #00ffff;
-    font-size: 16px;
-}
-
-/* ========================= */
-/*        MENU BUTTONS       */
-/* ========================= */
-
-.menu-btn {
-    width: 85%;
-    padding: 12px;
-    margin: 12px 0;
-    background: transparent;
-    border: 2px solid #00ffff;
-    color: #00ffff;
-    font-family: 'Orbitron', sans-serif;
+.screen-title,
+.popup-title {
+    font-family: 'Press Start 2P', monospace;
     font-size: 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    text-shadow: 0 0 8px #00ffff;
-    box-shadow: 0 0 12px #00ffff;
+    color: #ffdd55; /* amarelo */
+    text-shadow: 0 0 6px #ff4444; /* sombra vermelha suave */
+    margin-bottom: 25px;
 }
 
-/* ========================= */
-/*     BUTTON ANIMATIONS     */
-/* ========================= */
+/* ==================== MENU BUTTONS ==================== */
 
-.menu-btn,
-.shop-btn,
-.small-btn,
-.pause-btn,
+/* PLAY - Roxo neon */
+#btn-play {
+    border: 2px solid #b44bff;
+    color: #d28aff;
+    text-shadow: 0 0 8px #b44bff;
+    width: 70%;
+    padding: 14px;
+    margin: 10px auto;
+    font-size: 18px;
+    background: transparent;
+    border-radius: 6px;
+}
+#btn-play:hover {
+    background: #b44bff33;
+}
+
+/* SHOP - Verde neon */
+#btn-shop {
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    text-shadow: 0 0 8px #00ff88;
+    width: 70%;
+    padding: 14px;
+    margin: 10px auto;
+    font-size: 18px;
+    background: transparent;
+    border-radius: 6px;
+}
+#btn-shop:hover {
+    background: #00ff8833;
+}
+
+/* LEADERBOARD - Dourado neon */
+#btn-leaderboard {
+    border: 2px solid #ffcc33;
+    color: #ffcc33;
+    text-shadow: 0 0 8px #ffcc33;
+    width: 70%;
+    padding: 14px;
+    margin: 10px auto;
+    font-size: 18px;
+    background: transparent;
+    border-radius: 6px;
+}
+#btn-leaderboard:hover {
+    background: #ffcc3333;
+}
+
+/* HOW TO PLAY - Azul neon */
+#btn-how {
+    border: 2px solid #33ccff;
+    color: #33ccff;
+    text-shadow: 0 0 8px #33ccff;
+    width: 70%;
+    padding: 14px;
+    margin: 10px auto;
+    font-size: 18px;
+    background: transparent;
+    border-radius: 6px;
+}
+#btn-how:hover {
+    background: #33ccff33;
+}
+
+/* BACK BUTTON */
 .back-btn {
-    transition: transform 0.15s ease, box-shadow 0.25s ease;
+    border-color: #ff4444;
+    color: #ff4444;
+    text-shadow: 0 0 6px #ff4444;
 }
-
-.menu-btn:hover,
-.shop-btn:hover,
-.small-btn:hover,
-.pause-btn:hover,
 .back-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px #00ffff;
+    background: #ff444433;
 }
 
-.menu-btn:active,
-.shop-btn:active,
-.small-btn:active,
-.pause-btn:active,
-.back-btn:active {
-    transform: scale(0.92);
-    box-shadow: 0 0 30px #00ffff;
-}
-
-/* ========================= */
-/*        ALERT BOX          */
-/* ========================= */
-
-.alert-box {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.85);
-    border: 2px solid #00ffff;
-    padding: 12px 20px;
-    border-radius: 10px;
-    color: #00ffff;
-    font-family: 'Orbitron', sans-serif;
-    text-shadow: 0 0 8px #00ffff;
-    box-shadow: 0 0 12px #00ffff;
-    z-index: 9999;
-}
-
-/* ========================= */
-/*     HOW TO PLAY POPUP     */
-/* ========================= */
+/* ==================== HOW TO PLAY POPUP ==================== */
 
 .popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: rgba(0,0,0,0.85);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 9000;
 }
 
 .popup-content {
+    background: #0a0a0a;
+    padding: 25px;
+    border: 2px solid #b44bff;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 350px;
+    box-shadow: 0 0 20px #b44bff;
+}
+
+#howto-close {
+    border-color: #ff4444;
+    color: #ff4444;
+    text-shadow: 0 0 8px #ff4444;
+}
+#howto-close:hover {
+    background: #ff444433;
+}
+
+/* ==================== SHOP ==================== */
+
+#shop-screen {
+    overflow-y: hidden;
+    padding-bottom: 20px;
+}
+
+.shop-item {
     width: 85%;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid #00ffff;
-    border-radius: 12px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 0 15px #00ffff;
+    margin: 12px auto;
+    padding: 12px;
+    background: #111;
+    border: 2px solid #00ffff55;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.popup-content h2 {
+.shop-icon {
+    width: 42px;
+    height: 42px;
+}
+
+.shop-text h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.shop-text p {
+    margin: 0;
+    font-size: 14px;
     color: #00ffff;
-    font-family: 'Orbitron', sans-serif;
-    margin-bottom: 15px;
 }
 
-.popup-content p {
-    color: #fff;
-    margin: 6px 0;
+.shop-btn {
+    margin-left: auto;
+    padding: 10px 16px;
+    background: #00ffff22;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    border-radius: 6px;
+    font-size: 14px;
+}
+.shop-btn:hover {
+    background: #00ffff55;
 }
 
-/* ========================= */
-/*         LOGO              */
-/* ========================= */
+/* ==================== REFERRAL SECTION ==================== */
 
-.logo-img {
-    width: 160px;
-    height: 160px;
-    margin: 20px 0 30px 0;
-    filter: drop-shadow(0 0 12px #00ffff);
-    animation: neonPulse 2.5s infinite ease-in-out;
+.referral-section {
+    width: 85%;
+    margin: 20px auto;
+    padding: 15px;
+    background: #111;
+    border: 2px solid #00ffff55;
+    border-radius: 10px;
 }
 
-@keyframes neonPulse {
-    0% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 8px #00ffff);
-    }
-    50% {
-        transform: scale(1.06);
-        filter: drop-shadow(0 0 18px #00ffff);
-    }
-    100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 8px #00ffff);
-    }
+.ref-title {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: #00ffff;
+    margin-bottom: 12px;
 }
 
-/* ========================= */
-/*     BACKGROUND STARS      */
-/* ========================= */
-
-#background-stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-
-    background: radial-gradient(circle at center,
-        #2a3b6e 0%,
-        #1f2a4d 35%,
-        #3b2a5e 65%,
-        #5a3b6e 100%
-    );
-
-    filter: drop-shadow(0 0 14px #00ffffaa);
+.ref-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #000;
+    padding: 10px;
+    border: 1px solid #00ffff55;
+    border-radius: 6px;
+    margin-bottom: 12px;
 }
 
-/* ========================= */
-/*        GAME LAYOUT        */
-/* ========================= */
-
-#game-container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+#user-ref-code {
+    color: #ff44ff;
+    font-weight: bold;
 }
 
-#game-canvas {
+.small-btn {
+    padding: 6px 10px;
+    background: #00ffff22;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+#friend-code-input {
     width: 100%;
-    height: 100%;
-    display: block;
+    padding: 10px;
+    background: #000;
+    border: 1px solid #00ffff55;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 12px;
+    text-align: center;
 }
 
-/* ========================= */
-/*        HUD FINAL          */
-/* ========================= */
+/* ==================== LEADERBOARD ==================== */
+
+#leaderboard-list {
+    width: 85%;
+    margin: 0 auto;
+    background: #111;
+    border: 2px solid #00ffff55;
+    border-radius: 10px;
+    padding: 10px;
+    max-height: 60vh;
+    overflow-y: hidden;
+}
+
+#leaderboard-list div {
+    padding: 10px;
+    border-bottom: 1px solid #00ffff33;
+}
+
+#leaderboard-list div:nth-child(odd) {
+    background: #00ffff11;
+}
+
+#leaderboard-list div:first-child {
+    color: #ffcc33 !important;
+    text-shadow: 0 0 8px #ffcc33;
+}
+
+/* ==================== HUD ==================== */
 
 #hud-container {
     position: absolute;
     top: 0;
-    left: 0;
     width: 100%;
-    height: 70px;
-    box-sizing: border-box;
-
+    padding: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-
-    padding: 0 10px;
-
-    background: rgba(0, 0, 0, 0.35);
-    backdrop-filter: blur(6px);
-
-    font-family: 'Orbitron', sans-serif;
-    color: #00ffff;
-    text-shadow: 0 0 8px #00ffff;
-    z-index: 9999;
-}
-
-#hud-left,
-#hud-center,
-#hud-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-#hud-right {
-    flex-shrink: 0;
 }
 
 .hud-item {
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 18px;
 }
 
 .hud-icon {
     font-size: 20px;
 }
 
-.hud-level {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.hud-cs {
-    font-size: 18px;
-    color: #00ffea;
-}
-
-.hud-high {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-/* ========================= */
-/*     PAUSE BUTTON FIX      */
-/* ========================= */
-
-.pause-btn {
-    background: rgba(0, 255, 255, 0.2);
-    border: 1px solid #00ffff;
+.hud-btn {
+    background: #00ffff22;
+    border: 2px solid #00ffff;
     color: #00ffff;
-    padding: 4px 8px;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 0 8px #00ffff;
-    min-width: 28px;
-    text-align: center;
 }
 
-.pause-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 14px #00ffff;
+/* ==================== BACKGROUND STARS ==================== */
+
+#background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
-.pause-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 0 20px #00ffff;
-}
+/* ==================== ALERT BOX ==================== */
 
-#hud-referral {
-    font-size: 12px;
-    opacity: 0.7;
-}
-
-/* ========================= */
-/*     MOBILE RESPONSIVE     */
-/* ========================= */
-
-@media (max-width: 600px) {
-    #hud-container {
-        height: 60px;
-        padding: 0 8px;
-    }
-
-    .hud-item {
-        font-size: 14px;
-    }
-
-    .hud-icon {
-        font-size: 16px;
-    }
-
-    .hud-level {
-        font-size: 18px;
-    }
-
-    .hud-cs {
-        font-size: 14px;
-    }
-
-    .hud-high {
-        font-size: 12px;
-    }
-
-    .pause-btn {
-        font-size: 14px;
-        padding: 3px 6px;
-        min-width: 24px;
-    }
-
-    #hud-referral {
-        display: none;
-    }
+.alert-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111;
+    padding: 12px 20px;
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    text-shadow: 0 0 6px #00ffff;
 }
