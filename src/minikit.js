@@ -2,13 +2,14 @@
 
 import { MiniKit } from "@worldcoin/minikit-js";
 import { gameState } from "./gameState.js";
+import { showScreen, ui } from "./ui.js";
 
-// ⚠️ Instalar o MiniKit com o app_id real
+// Instalar o MiniKit
 MiniKit.install({
-  app_id: "app_b51b29f3430ade0379a9f1dbc3017a69", // ← este é o teu app_id real
+  app_id: "app_b51b29f3430ade0379a9f1dbc3017a69",
 });
 
-// Opcional: expor no window (ajuda para debugging)
+// Expor no window (debug)
 if (typeof window !== "undefined") {
   window.MiniKit = MiniKit;
 }
@@ -26,7 +27,12 @@ export async function openVerificationDrawer() {
 
     if (result.finalPayload?.status === "success") {
       gameState.isVerified = true;
+
       alert("IDENTITY VERIFIED — ACCESS GRANTED");
+
+      // Voltar ao menu automaticamente
+      showScreen(ui.menu);
+
     } else {
       alert("Verification failed.");
     }

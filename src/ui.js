@@ -106,9 +106,13 @@ export function setupButtons(openVerificationDrawer) {
         });
     });
 
-    // PLAY
+    // PLAY — AGORA VERIFICA SE O UTILIZADOR JÁ ESTÁ VERIFICADO
     document.getElementById("btn-play").onclick = () => {
-        showScreen(ui.verify);
+        if (gameState.isVerified) {
+            showScreen(ui.game);
+        } else {
+            showScreen(ui.verify);
+        }
     };
 
     // LEADERBOARD
