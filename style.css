@@ -305,7 +305,7 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 20px;
+    padding: 0 16px;
 
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
@@ -321,7 +321,7 @@
 #hud-right {
     display: flex;
     align-items: center;
-    gap: 18px;
+    gap: 12px;
 }
 
 .hud-item {
@@ -371,12 +371,14 @@
     background: rgba(0, 255, 255, 0.2);
     border: 1px solid #00ffff;
     color: #00ffff;
-    padding: 6px 10px;
+    padding: 4px 8px;
     border-radius: 6px;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
     box-shadow: 0 0 8px #00ffff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-width: 32px;
+    text-align: center;
 }
 
 .pause-btn:hover {
@@ -419,6 +421,12 @@
 
     .hud-high {
         font-size: 12px;
+    }
+
+    .pause-btn {
+        font-size: 14px;
+        padding: 3px 6px;
+        min-width: 28px;
     }
 
     #hud-referral {
