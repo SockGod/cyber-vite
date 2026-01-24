@@ -1,328 +1,149 @@
-/* ==================== GLOBAL ==================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberSpace Shooter</title>
 
-body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: black;
-    font-family: Arial, sans-serif;
-    color: white;
-}
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
 
-.screen {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding-top: 40px;
-    text-align: center;
-}
+    <!-- ALERT BOX -->
+    <div id="alert-box" class="hidden alert-box">
+        <p id="alert-text"></p>
+    </div>
 
-.hidden {
-    display: none;
-}
+    <!-- HOW TO PLAY POPUP -->
+    <div id="howto-popup" class="hidden popup">
+        <div class="popup-content">
+            <h2>How to Play</h2>
+            <p>• Drag anywhere to move</p>
+            <p>• Shooting is automatic</p>
+            <p>• Two fingers = Mega Bomb</p>
+            <p>• Defeat the Boss to advance</p>
+            <p>• Survive as long as possible</p>
+            <button id="howto-close" class="menu-btn">Close</button>
+        </div>
+    </div>
 
-/* ==================== TITLES ==================== */
+    <!-- MENU SCREEN -->
+    <div id="menu-screen" class="screen">
+        <h1 class="screen-title">CYBERSPACE SHOOTER</h1>
 
-.screen-title,
-.popup-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 18px;
-    color: #ffdd55; /* amarelo */
-    text-shadow: 0 0 6px #ff4444; /* sombra vermelha suave */
-    margin-bottom: 25px;
-}
+        <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
 
-/* ==================== MENU BUTTONS ==================== */
+        <button id="btn-play" class="menu-btn">Play</button>
+        <button id="btn-shop" class="menu-btn">Shop</button>
+        <button id="btn-leaderboard" class="menu-btn">Leaderboard</button>
+        <button id="btn-how" class="menu-btn">How to Play</button>
+    </div>
 
-/* PLAY - Roxo neon */
-#btn-play {
-    border: 2px solid #b44bff;
-    color: #d28aff;
-    text-shadow: 0 0 8px #b44bff;
-    width: 70%;
-    padding: 14px;
-    margin: 10px auto;
-    font-size: 18px;
-    background: transparent;
-    border-radius: 6px;
-}
-#btn-play:hover {
-    background: #b44bff33;
-}
+    <!-- VERIFICATION SCREEN -->
+    <div id="verify-screen" class="screen hidden">
+        <h2 class="screen-title">Verify with World ID</h2>
+        <button id="btn-verify-now" class="menu-btn">Verify Now</button>
+        <button id="btn-verify-back" class="menu-btn back-btn">Back</button>
+    </div>
 
-/* SHOP - Verde neon */
-#btn-shop {
-    border: 2px solid #00ff88;
-    color: #00ff88;
-    text-shadow: 0 0 8px #00ff88;
-    width: 70%;
-    padding: 14px;
-    margin: 10px auto;
-    font-size: 18px;
-    background: transparent;
-    border-radius: 6px;
-}
-#btn-shop:hover {
-    background: #00ff8833;
-}
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="screen hidden">
 
-/* LEADERBOARD - Dourado neon */
-#btn-leaderboard {
-    border: 2px solid #ffcc33;
-    color: #ffcc33;
-    text-shadow: 0 0 8px #ffcc33;
-    width: 70%;
-    padding: 14px;
-    margin: 10px auto;
-    font-size: 18px;
-    background: transparent;
-    border-radius: 6px;
-}
-#btn-leaderboard:hover {
-    background: #ffcc3333;
-}
+        <!-- HUD FINAL -->
+        <div id="hud-container">
 
-/* HOW TO PLAY - Azul neon */
-#btn-how {
-    border: 2px solid #33ccff;
-    color: #33ccff;
-    text-shadow: 0 0 8px #33ccff;
-    width: 70%;
-    padding: 14px;
-    margin: 10px auto;
-    font-size: 18px;
-    background: transparent;
-    border-radius: 6px;
-}
-#btn-how:hover {
-    background: #33ccff33;
-}
+            <div id="hud-left">
+                <div class="hud-item">
+                    <span class="hud-icon">🛡</span>
+                    <span id="hud-shields">5</span>
+                </div>
 
-/* BACK BUTTON */
-.back-btn {
-    border-color: #ff4444;
-    color: #ff4444;
-    text-shadow: 0 0 6px #ff4444;
-}
-.back-btn:hover {
-    background: #ff444433;
-}
+                <div class="hud-item">
+                    <span class="hud-icon">💣</span>
+                    <span id="hud-bombs">2</span>
+                </div>
+            </div>
 
-/* ==================== HOW TO PLAY POPUP ==================== */
+            <div id="hud-center">
+                <div class="hud-level">LVL <span id="hud-level-num">1</span></div>
+                <div class="hud-cs"><span id="hud-credits">0 CS</span></div>
+                <div class="hud-high">HIGH <span id="hud-high">1</span></div>
+            </div>
 
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+            <div id="hud-right">
+                <button id="btn-pause" class="hud-btn pause-btn">II</button>
+                <div id="hud-referral">CODE: <span id="display-user-code"></span></div>
+            </div>
 
-.popup-content {
-    background: #0a0a0a;
-    padding: 25px;
-    border: 2px solid #b44bff;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 350px;
-    box-shadow: 0 0 20px #b44bff;
-}
+        </div>
 
-#howto-close {
-    border-color: #ff4444;
-    color: #ff4444;
-    text-shadow: 0 0 8px #ff4444;
-}
-#howto-close:hover {
-    background: #ff444433;
-}
+        <!-- GAME CANVAS -->
+        <div id="game-container">
+            <canvas id="game-canvas"></canvas>
+        </div>
+    </div>
 
-/* ==================== SHOP ==================== */
+    <!-- SHOP SCREEN -->
+    <div id="shop-screen" class="screen hidden">
+        <h2 class="screen-title">Neon Shop</h2>
 
-#shop-screen {
-    overflow-y: hidden;
-    padding-bottom: 20px;
-}
+        <div class="shop-item">
+            <h3>3 Shields Pack</h3>
+            <button id="buy-shields" class="shop-btn">Buy</button>
+        </div>
 
-.shop-item {
-    width: 85%;
-    margin: 12px auto;
-    padding: 12px;
-    background: #111;
-    border: 2px solid #00ffff55;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+        <div class="shop-item">
+            <h3>Super Shot</h3>
+            <button id="buy-supershot" class="shop-btn">Buy</button>
+        </div>
 
-.shop-icon {
-    width: 42px;
-    height: 42px;
-}
+        <div class="shop-item">
+            <h3>5 Mega Bombs</h3>
+            <button id="buy-bombs" class="shop-btn">Buy</button>
+        </div>
 
-.shop-text h3 {
-    margin: 0;
-    font-size: 16px;
-    color: #ffffff;
-}
+        <button id="btn-referral" class="menu-btn">Referral Bonus</button>
+        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
+    </div>
 
-.shop-text p {
-    margin: 0;
-    font-size: 14px;
-    color: #00ffff;
-}
+    <!-- REFERRAL SCREEN -->
+    <div id="referral-screen" class="screen hidden">
+        <h2 class="screen-title">Referral Bonus</h2>
 
-.shop-btn {
-    margin-left: auto;
-    padding: 10px 16px;
-    background: #00ffff22;
-    border: 2px solid #00ffff;
-    color: #00ffff;
-    border-radius: 6px;
-    font-size: 14px;
-}
-.shop-btn:hover {
-    background: #00ffff55;
-}
+        <div class="referral-box">
+            <p>Your Code:</p>
+            <div class="referral-code">
+                <span id="user-ref-code">ABC123</span>
+                <button id="copy-ref-code" class="small-btn">Copy</button>
+            </div>
+        </div>
 
-/* ==================== REFERRAL SECTION ==================== */
+        <div class="referral-box">
+            <p>Enter friend's code:</p>
+            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
+            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
+        </div>
 
-.referral-section {
-    width: 85%;
-    margin: 20px auto;
-    padding: 15px;
-    background: #111;
-    border: 2px solid #00ffff55;
-    border-radius: 10px;
-}
+        <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
+    </div>
 
-.ref-title {
-    font-family: 'Press Start 2P', monospace;
-    font-size: 14px;
-    color: #00ffff;
-    margin-bottom: 12px;
-}
+    <!-- LEADERBOARD SCREEN -->
+    <div id="leaderboard-screen" class="screen hidden">
+        <h2 class="screen-title">Leaderboard</h2>
+        <div id="leaderboard-list"></div>
+        <button id="btn-leaderboard-back" class="menu-btn back-btn">Back</button>
+    </div>
 
-.ref-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #000;
-    padding: 10px;
-    border: 1px solid #00ffff55;
-    border-radius: 6px;
-    margin-bottom: 12px;
-}
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen" class="screen hidden">
+        <h2 class="screen-title">Loading...</h2>
+        <p id="status-text"></p>
+    </div>
 
-#user-ref-code {
-    color: #ff44ff;
-    font-weight: bold;
-}
+    <!-- BACKGROUND STARS -->
+    <canvas id="background-stars"></canvas>
 
-.small-btn {
-    padding: 6px 10px;
-    background: #00ffff22;
-    border: 1px solid #00ffff;
-    color: #00ffff;
-    border-radius: 6px;
-    font-size: 12px;
-}
+    <script type="module" src="src/main.js"></script>
 
-#friend-code-input {
-    width: 100%;
-    padding: 10px;
-    background: #000;
-    border: 1px solid #00ffff55;
-    border-radius: 6px;
-    color: white;
-    margin-bottom: 12px;
-    text-align: center;
-}
-
-/* ==================== LEADERBOARD ==================== */
-
-#leaderboard-list {
-    width: 85%;
-    margin: 0 auto;
-    background: #111;
-    border: 2px solid #00ffff55;
-    border-radius: 10px;
-    padding: 10px;
-    max-height: 60vh;
-    overflow-y: hidden;
-}
-
-#leaderboard-list div {
-    padding: 10px;
-    border-bottom: 1px solid #00ffff33;
-}
-
-#leaderboard-list div:nth-child(odd) {
-    background: #00ffff11;
-}
-
-#leaderboard-list div:first-child {
-    color: #ffcc33 !important;
-    text-shadow: 0 0 8px #ffcc33;
-}
-
-/* ==================== HUD ==================== */
-
-#hud-container {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.hud-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.hud-icon {
-    font-size: 20px;
-}
-
-.hud-btn {
-    background: #00ffff22;
-    border: 2px solid #00ffff;
-    color: #00ffff;
-    padding: 6px 10px;
-    border-radius: 6px;
-}
-
-/* ==================== BACKGROUND STARS ==================== */
-
-#background-stars {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-/* ==================== ALERT BOX ==================== */
-
-.alert-box {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #111;
-    padding: 12px 20px;
-    border: 2px solid #00ffff;
-    border-radius: 8px;
-    text-shadow: 0 0 6px #00ffff;
-}
+</body>
+</html>
