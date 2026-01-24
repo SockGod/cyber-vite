@@ -1,52 +1,33 @@
-// ==================== WORLD ID / MINIKIT (MINI APP VERSION) ====================
+// ==================== WORLD ID / MINIKIT (SDK VERSION) ====================
 
+import { MiniKit } from "@worldcoin/minikit-js";
 import { gameState } from "./gameState.js";
 
+// Opcional: expor no window (não é obrigatório, mas ajuda se quisermos debugar)
+if (typeof window !== "undefined") {
+    window.MiniKit = MiniKit;
+}
+
 export async function openVerificationDrawer() {
-    console.log("MiniKit inside WLD:", window.MiniKit);
-
-    const MiniKit = window.MiniKit;
-    if (!MiniKit) {
-        console.warn("MiniKit not available. Are you inside World App?");
-        return;
-    }
-
-    const VerificationLevel = MiniKit.VerificationLevel;
+    console.log("MiniKit (SDK):", MiniKit);
 
     try {
-        const verifyPayload = {
+        const result = await MiniKit.commandsAsync.verify({
             action: "play-cyber-space",
             signal: gameState.userReferralCode || "default-signal",
-            verification_level: VerificationLevel.Orb
-        };
-
-        const { finalPayload } = await MiniKit.commandsAsync.verify(verifyPayload);
-
-        if (!finalPayload || finalPayload.status === "error") {
-            alert("Verification failed.");
-            return;
-        }
-
-        const response = await fetch("/api/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                payload: finalPayload,
-                action: "play-cyber-space",
-                signal: verifyPayload.signal
-            })
         });
 
-        const data = await response.json();
+        console.log("Verify result:", result);
 
-        if (data.status === 200) {
+        if (result.finalPayload?.status === "success") {
             gameState.isVerified = true;
             alert("IDENTITY VERIFIED — ACCESS GRANTED");
         } else {
-            alert("Verification rejected.");
+            alert("Verification failed.");
         }
 
     } catch (err) {
+        console.error("Verification error:", err);
         alert("Verification error. Try again.");
     }
 }
