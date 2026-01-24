@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CyberSpace Shooter</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -50,8 +49,9 @@
     <!-- GAME SCREEN -->
     <div id="game-screen" class="screen hidden">
 
-        <!-- NOVO HUD C -->
+        <!-- HUD FINAL -->
         <div id="hud-container">
+
             <div id="hud-left">
                 <div class="hud-item">
                     <span class="hud-icon">🛡</span>
@@ -62,8 +62,6 @@
                     <span class="hud-icon">💣</span>
                     <span id="hud-bombs">2</span>
                 </div>
-
-                <div class="hud-item" id="hud-powerups"></div>
             </div>
 
             <div id="hud-center">
@@ -73,9 +71,10 @@
             </div>
 
             <div id="hud-right">
-                <button id="btn-pause" class="hud-btn pause-btn">⏸</button>
+                <button id="btn-pause" class="hud-btn pause-btn">II</button>
                 <div id="hud-referral">CODE: <span id="display-user-code"></span></div>
             </div>
+
         </div>
 
         <!-- GAME CANVAS -->
@@ -141,10 +140,9 @@
         <p id="status-text"></p>
     </div>
 
-    <!-- BACKGROUND STARS CANVAS -->
+    <!-- BACKGROUND STARS -->
     <canvas id="background-stars"></canvas>
 
-    <!-- MAIN GAME SCRIPT -->
     <script type="module" src="src/main.js"></script>
 
 </body>

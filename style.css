@@ -291,7 +291,7 @@
 }
 
 /* ========================= */
-/*        NEW HUD C          */
+/*        HUD FINAL          */
 /* ========================= */
 
 #hud-container {
@@ -355,19 +355,6 @@
     opacity: 0.8;
 }
 
-#hud-powerups {
-    display: flex;
-    gap: 8px;
-}
-
-.hud-power {
-    padding: 2px 6px;
-    border: 1px solid #00ffff;
-    border-radius: 4px;
-    font-size: 12px;
-    color: #00ffff;
-}
-
 /* ========================= */
 /*     PAUSE BUTTON FIX      */
 /* ========================= */
@@ -400,7 +387,10 @@
     opacity: 0.7;
 }
 
-/* MOBILE RESPONSIVE */
+/* ========================= */
+/*     MOBILE RESPONSIVE     */
+/* ========================= */
+
 @media (max-width: 600px) {
     #hud-container {
         height: 60px;
