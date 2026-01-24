@@ -4,6 +4,7 @@ import { gameState } from "./gameState.js";
 import { sfx } from "./audio.js";
 import { setupShopScreen } from "./shop.js";
 import { setupReferralScreen } from "./referral.js";
+import { getLeaderboardData } from "./utils.js";
 
 // ELEMENTOS DA UI
 export const ui = {
@@ -58,8 +59,6 @@ export function showScreen(screenElement) {
 
 // ==================== LEADERBOARD ====================
 
-import { getLeaderboardData } from "./utils.js";
-
 export function updateLeaderboardUI() {
     const list = document.getElementById("leaderboard-list");
     if (!list) return;
@@ -82,20 +81,42 @@ export function updateLeaderboardUI() {
     });
 }
 
-// ==================== HUD ====================
+// ==================== HUD (NOVO HUD C) ====================
 
 export function updateUI() {
     const credits = document.getElementById("hud-credits");
     const level = document.getElementById("hud-level-num");
     const high = document.getElementById("hud-high");
-    const shields = document.getElementById("shields-count-game");
+    const shields = document.getElementById("hud-shields");
+    const bombs = document.getElementById("hud-bombs");
     const code = document.getElementById("display-user-code");
+    const powerups = document.getElementById("hud-powerups");
 
     if (credits) credits.innerText = gameState.cyberSpace + " CS";
     if (level) level.innerText = gameState.level;
     if (high) high.innerText = gameState.highScore;
     if (shields) shields.innerText = gameState.shields;
+    if (bombs) bombs.innerText = gameState.bombs;
     if (code) code.innerText = gameState.referralCode;
+
+    // PowerUps ativos
+    if (powerups) {
+        powerups.innerHTML = "";
+
+        if (gameState.superShot) {
+            const p = document.createElement("div");
+            p.className = "hud-power";
+            p.innerText = "SUPER";
+            powerups.appendChild(p);
+        }
+
+        if (gameState.dualShot) {
+            const p = document.createElement("div");
+            p.className = "hud-power";
+            p.innerText = "DUAL";
+            powerups.appendChild(p);
+        }
+    }
 }
 
 // ==================== BOTÕES ====================

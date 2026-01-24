@@ -256,10 +256,6 @@
 /*     BACKGROUND STARS      */
 /* ========================= */
 
-/* ========================= */
-/*     BACKGROUND STARS      */
-/* ========================= */
-
 #background-stars {
     position: fixed;
     top: 0;
@@ -269,10 +265,10 @@
     z-index: -1;
 
     background: radial-gradient(circle at center,
-        #2a3b6e 0%,    /* azul galáxia */
-        #1f2a4d 35%,   /* azul escuro */
-        #3b2a5e 65%,   /* violeta suave */
-        #5a3b6e 100%   /* rosa-violeta visível */
+        #2a3b6e 0%,
+        #1f2a4d 35%,
+        #3b2a5e 65%,
+        #5a3b6e 100%
     );
 
     filter: drop-shadow(0 0 14px #00ffffaa);
@@ -294,32 +290,122 @@
     display: block;
 }
 
-/* HUD no topo do jogo */
-#hud {
+/* ========================= */
+/*        NEW HUD C          */
+/* ========================= */
+
+#hud-container {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #00ffff;
+
+    padding: 0 20px;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+
     font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
+    color: #00ffff;
     text-shadow: 0 0 8px #00ffff;
-    z-index: 10;
+    z-index: 9999;
 }
 
-/* Botão de pause no canto superior direito */
-.pause-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 8px 12px;
-    background: rgba(0,0,0,0.7);
-    border: 2px solid #00ffff;
+#hud-left,
+#hud-center,
+#hud-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.hud-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+}
+
+.hud-icon {
+    font-size: 20px;
+}
+
+.hud-level {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.hud-cs {
+    font-size: 18px;
+    color: #00ffea;
+}
+
+.hud-high {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+#hud-powerups {
+    display: flex;
+    gap: 8px;
+}
+
+.hud-power {
+    padding: 2px 6px;
+    border: 1px solid #00ffff;
+    border-radius: 4px;
+    font-size: 12px;
     color: #00ffff;
-    border-radius: 10px;
-    font-family: 'Orbitron', sans-serif;
-    z-index: 11;
+}
+
+.hud-btn {
+    background: rgba(0, 255, 255, 0.15);
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#hud-referral {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+    #hud-container {
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    .hud-item {
+        font-size: 14px;
+    }
+
+    .hud-icon {
+        font-size: 16px;
+    }
+
+    .hud-level {
+        font-size: 18px;
+    }
+
+    .hud-cs {
+        font-size: 14px;
+    }
+
+    .hud-high {
+        font-size: 12px;
+    }
+
+    #hud-referral {
+        display: none;
+    }
 }

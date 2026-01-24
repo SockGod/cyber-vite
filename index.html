@@ -49,18 +49,39 @@
 
     <!-- GAME SCREEN -->
     <div id="game-screen" class="screen hidden">
+
+        <!-- NOVO HUD C -->
+        <div id="hud-container">
+            <div id="hud-left">
+                <div class="hud-item">
+                    <span class="hud-icon">🛡</span>
+                    <span id="hud-shields">5</span>
+                </div>
+
+                <div class="hud-item">
+                    <span class="hud-icon">💣</span>
+                    <span id="hud-bombs">2</span>
+                </div>
+
+                <div class="hud-item" id="hud-powerups"></div>
+            </div>
+
+            <div id="hud-center">
+                <div class="hud-level">LVL <span id="hud-level-num">1</span></div>
+                <div class="hud-cs"><span id="hud-credits">0 CS</span></div>
+                <div class="hud-high">HIGH <span id="hud-high">1</span></div>
+            </div>
+
+            <div id="hud-right">
+                <button id="btn-pause" class="hud-btn">II</button>
+                <div id="hud-referral">CODE: <span id="display-user-code"></span></div>
+            </div>
+        </div>
+
+        <!-- GAME CANVAS -->
         <div id="game-container">
             <canvas id="game-canvas"></canvas>
         </div>
-
-        <div id="hud">
-            <span id="hud-credits">0 CS</span>
-            <span id="hud-level-num">1</span>
-            <span id="hud-high">0</span>
-            <span id="shields-count-game">0</span>
-        </div>
-
-        <button id="btn-pause" class="pause-btn">Pause</button>
     </div>
 
     <!-- SHOP SCREEN -->
