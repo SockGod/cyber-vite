@@ -108,8 +108,8 @@ function gameLoop() {
         () => {}
     );
 
-    // Tiros inimigos
-    handleEnemyBullets(ctx, canvas, player, updateUI, () => {});
+    // Tiros inimigos (normais + boss, tudo junto)
+    handleEnemyBullets(ctx, canvas, player, updateUI);
 
     // Boss
     if (gameState.bossActive) {
@@ -127,7 +127,7 @@ function gameLoop() {
         ctx.font = "bold 24px Orbitron";
         ctx.textAlign = "center";
         const maxWidth = canvas.width * 0.9;
-        ctx.fillText(activePhrase.text, canvas.width / 2, canvas.height * 0.35);
+        ctx.fillText(activePhrase.text, canvas.width / 2, canvas.height * 0.35, maxWidth);
         ctx.restore();
 
         activePhrase.alpha -= 0.02;

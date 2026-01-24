@@ -95,65 +95,67 @@ function drawBossDesign(ctx, pattern) {
     ctx.shadowColor = color;
     ctx.fillStyle = color;
 
+    const cx = boss.x + boss.width / 2;
+
     if (id === 0) {
         // NEON SKULL
-        ctx.fillRect(boss.x + 40, boss.y + 20, boss.width - 80, 40);
-        ctx.fillRect(boss.x + 25, boss.y + 40, boss.width - 50, 40);
+        ctx.fillRect(cx - 70, boss.y + 20, 140, 40);
+        ctx.fillRect(cx - 85, boss.y + 40, 170, 40);
 
-        ctx.fillRect(boss.x + 10, boss.y + 30, 20, 60);
-        ctx.fillRect(boss.x + boss.width - 30, boss.y + 30, 20, 60);
+        ctx.fillRect(cx - 100, boss.y + 30, 20, 60);
+        ctx.fillRect(cx + 80, boss.y + 30, 20, 60);
 
-        ctx.fillRect(boss.x + 60, boss.y, 12, 25);
-        ctx.fillRect(boss.x + boss.width - 72, boss.y, 12, 25);
+        ctx.fillRect(cx - 40, boss.y, 12, 25);
+        ctx.fillRect(cx + 28, boss.y, 12, 25);
     } else if (id === 1) {
         // CYBER CENTIPEDE
-        const segmentWidth = 32;
+        const segmentWidth = 28;
         const segmentCount = 5;
-        const startX = boss.x + boss.width / 2 - (segmentCount * segmentWidth) / 2;
+        const startX = cx - ((segmentCount * segmentWidth) / 2);
 
         for (let i = 0; i < segmentCount; i++) {
-            ctx.fillRect(startX + i * segmentWidth, boss.y + 30, 24, 30);
-            ctx.fillRect(startX + i * segmentWidth + 4, boss.y + 60, 16, 22);
+            ctx.fillRect(startX + i * segmentWidth, boss.y + 30, 22, 30);
+            ctx.fillRect(startX + i * segmentWidth + 3, boss.y + 60, 16, 22);
         }
 
-        ctx.fillRect(boss.x + 20, boss.y + 40, 16, 40);
-        ctx.fillRect(boss.x + boss.width - 36, boss.y + 40, 16, 40);
+        ctx.fillRect(cx - 90, boss.y + 40, 16, 40);
+        ctx.fillRect(cx + 74, boss.y + 40, 16, 40);
     } else if (id === 2) {
         // DELTA CORE
         ctx.beginPath();
-        ctx.moveTo(boss.x + boss.width / 2, boss.y + 10);
-        ctx.lineTo(boss.x + boss.width - 40, boss.y + 80);
-        ctx.lineTo(boss.x + 40, boss.y + 80);
+        ctx.moveTo(cx, boss.y + 10);
+        ctx.lineTo(cx + 70, boss.y + 80);
+        ctx.lineTo(cx - 70, boss.y + 80);
         ctx.closePath();
         ctx.fill();
 
-        ctx.fillRect(boss.x + boss.width / 2 - 18, boss.y + 80, 36, 30);
+        ctx.fillRect(cx - 20, boss.y + 80, 40, 30);
     } else if (id === 3) {
         // VOID SENTINEL
-        ctx.fillRect(boss.x + 35, boss.y + 25, boss.width - 70, 30);
-        ctx.fillRect(boss.x + 50, boss.y + 55, boss.width - 100, 30);
+        ctx.fillRect(cx - 75, boss.y + 25, 150, 30);
+        ctx.fillRect(cx - 60, boss.y + 55, 120, 30);
 
-        ctx.fillRect(boss.x + 15, boss.y + 35, 18, 50);
-        ctx.fillRect(boss.x + boss.width - 33, boss.y + 35, 18, 50);
+        ctx.fillRect(cx - 95, boss.y + 35, 18, 50);
+        ctx.fillRect(cx + 77, boss.y + 35, 18, 50);
     }
 
-    // Olhos neon (sempre simétricos)
+    // Olhos neon simétricos
     ctx.fillStyle = eyeColor;
     ctx.globalAlpha = Math.random() > 0.15 ? 1 : 0.45;
-    const eyeOffsetX = 70;
+    const eyeOffsetX = 55;
     const eyeSize = 16;
-    ctx.fillRect(boss.x + eyeOffsetX, boss.y + 42, eyeSize, eyeSize);
-    ctx.fillRect(boss.x + boss.width - eyeOffsetX - eyeSize, boss.y + 42, eyeSize, eyeSize);
+    ctx.fillRect(cx - eyeOffsetX - eyeSize / 2, boss.y + 42, eyeSize, eyeSize);
+    ctx.fillRect(cx + eyeOffsetX - eyeSize / 2, boss.y + 42, eyeSize, eyeSize);
 
     // Boca / canhão central
     ctx.globalAlpha = 1;
     ctx.fillStyle = color;
-    ctx.fillRect(boss.x + boss.width / 2 - 10, boss.y + 72, 20, 26);
+    ctx.fillRect(cx - 10, boss.y + 72, 20, 26);
 
     // Dentes simétricos
-    const toothSpacing = 26;
+    const toothSpacing = 24;
     const toothCount = 5;
-    const startX = boss.x + boss.width / 2 - ((toothCount - 1) * toothSpacing) / 2;
+    const startX = cx - ((toothCount - 1) * toothSpacing) / 2;
 
     for (let i = 0; i < toothCount; i++) {
         ctx.fillRect(startX + i * toothSpacing, boss.y + 94, 8, 12);
@@ -175,7 +177,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
 
     const pattern = getBossPattern(gameState.level);
 
-    // Inicialização
     if (!boss.initialized) {
         boss.width = 220;
         boss.height = 120;
@@ -194,7 +195,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         activePhrase.alpha = 2.8;
     }
 
-    // Movimento vertical inicial (entra no ecrã)
     if (boss.y < 70) {
         boss.y += 2;
     } else {
@@ -216,12 +216,8 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         }
     }
 
-    // Desenhar boss
     drawBossDesign(ctx, pattern);
 
-    // ====================
-    // BARRA DE VIDA CENTRADA
-    // ====================
     const barWidth = 220;
     const barX = (canvas.width - barWidth) / 2;
 
@@ -231,10 +227,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     ctx.fillStyle = pattern.color;
     const hpRatio = Math.max(0, gameState.bossHP / boss.currentMaxHP);
     ctx.fillRect(barX, 35, barWidth * hpRatio, 12);
-
-    // ====================
-    // TIROS DO BOSS
-    // ====================
 
     if (boss.fireCooldown > 0) {
         boss.fireCooldown--;
@@ -273,10 +265,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
 
         boss.fireCooldown = Math.max(8, 38 - gameState.level * 2);
     }
-
-    // ====================
-    // COLISÃO COM TIROS DO JOGADOR
-    // ====================
 
     bullets.playerBullets.forEach((b, bi) => {
         if (

@@ -36,7 +36,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     const config = getLevelConfig(gameState.level);
     spawnTimer++;
 
-    // Spawn de inimigos
     if (spawnTimer > 30) {
         enemies.push({
             x: Math.random() * (canvas.width - 40),
@@ -50,7 +49,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     enemies.forEach((e, ei) => {
         e.y += e.speed;
 
-        // Chance de disparar
         if (Math.random() < config.fireRate) {
             bullets.enemyBullets.push({
                 x: e.x + e.size / 2,
@@ -60,7 +58,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
-        // Colisão com o jogador
         if (
             Math.abs(player.x - (e.x + e.size / 2)) < 25 &&
             Math.abs(player.y - (e.y + e.size / 2)) < 25
@@ -70,7 +67,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
             return;
         }
 
-        // Colisão com balas do jogador
         playerBullets.forEach((b, bi) => {
             if (
                 b.x > e.x &&
@@ -118,7 +114,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     });
 }
 
-export function handleEnemyBullets(ctx, canvas, player, updateUI, triggerDamage) {
+export function handleEnemyBullets(ctx, canvas, player, updateUI) {
     if (gameState.isPaused) return;
 
     bullets.enemyBullets.forEach((eb, i) => {

@@ -6,7 +6,7 @@ import { player } from "./player.js";
 
 export const bullets = {
     playerBullets: [],
-    enemyBullets: [] // preenchido pelo enemies.js e boss.js
+    enemyBullets: [] // usado por inimigos e boss
 };
 
 let lastShot = 0;
@@ -19,25 +19,23 @@ export function resetBullets() {
 }
 
 export function setupControls(canvas, updateUI, enemiesResetCallback) {
-
     // TOUCH START
     canvas.addEventListener("touchstart", e => {
         if (gameState.isPaused) return;
 
         isTouching = true;
 
-        // Ativar áudio no mobile
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === "suspended") audioCtx.resume();
 
         // Mega bomba (2 dedos)
         if (e.touches.length > 1 && gameState.bombs > 0) {
             gameState.bombs--;
-            enemiesResetCallback(); // limpa inimigos e tiros
+            enemiesResetCallback();
             sfx.explosion(player.x, player.y, "#ffffff");
 
             gameState.screenShake = 25;
-            gameState.cyberSpace += 0; // não altera CS
+            gameState.cyberSpace += 0;
 
             updateUI();
         }
@@ -71,7 +69,6 @@ export function handleShooting() {
 
     if (isTouching && now - lastShot > currentSpeed) {
         if (gameState.dualShot) {
-            // Tiro duplo (Moeda W)
             bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40 });
             bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40 });
         } else {
