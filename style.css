@@ -363,14 +363,30 @@
     color: #00ffff;
 }
 
-.hud-btn {
-    background: rgba(0, 255, 255, 0.15);
+/* ========================= */
+/*     PAUSE BUTTON FIX      */
+/* ========================= */
+
+.pause-btn {
+    background: rgba(0, 255, 255, 0.2);
     border: 1px solid #00ffff;
     color: #00ffff;
-    padding: 6px 12px;
+    padding: 6px 10px;
     border-radius: 6px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
+    box-shadow: 0 0 8px #00ffff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pause-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 14px #00ffff;
+}
+
+.pause-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 20px #00ffff;
 }
 
 #hud-referral {
