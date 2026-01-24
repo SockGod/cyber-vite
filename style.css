@@ -1,149 +1,429 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CyberSpace Shooter</title>
+/* ========================= */
+/*        SCREENS BASE       */
+/* ========================= */
 
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
+.screen {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 20px;
+}
 
-    <!-- ALERT BOX -->
-    <div id="alert-box" class="hidden alert-box">
-        <p id="alert-text"></p>
-    </div>
+.hidden {
+    display: none !important;
+}
 
-    <!-- HOW TO PLAY POPUP -->
-    <div id="howto-popup" class="hidden popup">
-        <div class="popup-content">
-            <h2>How to Play</h2>
-            <p>• Drag anywhere to move</p>
-            <p>• Shooting is automatic</p>
-            <p>• Two fingers = Mega Bomb</p>
-            <p>• Defeat the Boss to advance</p>
-            <p>• Survive as long as possible</p>
-            <button id="howto-close" class="menu-btn">Close</button>
-        </div>
-    </div>
+/* ========================= */
+/*         TITLES            */
+/* ========================= */
 
-    <!-- MENU SCREEN -->
-    <div id="menu-screen" class="screen">
-        <h1 class="screen-title">CYBERSPACE SHOOTER</h1>
+.screen-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #00ffff;
+    text-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff;
+    margin-bottom: 25px;
+    letter-spacing: 3px;
+    text-align: center;
+}
 
-        <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
+/* ========================= */
+/*         SHOP ITEMS        */
+/* ========================= */
 
-        <button id="btn-play" class="menu-btn">Play</button>
-        <button id="btn-shop" class="menu-btn">Shop</button>
-        <button id="btn-leaderboard" class="menu-btn">Leaderboard</button>
-        <button id="btn-how" class="menu-btn">How to Play</button>
-    </div>
+.shop-item {
+    width: 85%;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 0 12px #00ffff;
+}
 
-    <!-- VERIFICATION SCREEN -->
-    <div id="verify-screen" class="screen hidden">
-        <h2 class="screen-title">Verify with World ID</h2>
-        <button id="btn-verify-now" class="menu-btn">Verify Now</button>
-        <button id="btn-verify-back" class="menu-btn back-btn">Back</button>
-    </div>
+.shop-btn {
+    background: #00ffff;
+    color: #000;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
 
-    <!-- GAME SCREEN -->
-    <div id="game-screen" class="screen hidden">
+/* ========================= */
+/*       REFERRAL BOX        */
+/* ========================= */
 
-        <!-- HUD FINAL -->
-        <div id="hud-container">
+.referral-box {
+    width: 85%;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 0 12px #00ffff;
+}
 
-            <div id="hud-left">
-                <div class="hud-item">
-                    <span class="hud-icon">🛡</span>
-                    <span id="hud-shields">5</span>
-                </div>
+.referral-code {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 8px;
+}
 
-                <div class="hud-item">
-                    <span class="hud-icon">💣</span>
-                    <span id="hud-bombs">2</span>
-                </div>
-            </div>
+.small-btn {
+    background: #00ffff;
+    color: #000;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
 
-            <div id="hud-center">
-                <div class="hud-level">LVL <span id="hud-level-num">1</span></div>
-                <div class="hud-cs"><span id="hud-credits">0 CS</span></div>
-                <div class="hud-high">HIGH <span id="hud-high">1</span></div>
-            </div>
+/* ========================= */
+/*     REFERRAL INPUT        */
+/* ========================= */
 
-            <div id="hud-right">
-                <button id="btn-pause" class="hud-btn pause-btn">II</button>
-                <div id="hud-referral">CODE: <span id="display-user-code"></span></div>
-            </div>
+#friend-code-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 8px;
+    text-align: center;
+    background: rgba(0,0,0,0.4);
+    color: #00ffff;
+    font-size: 16px;
+}
 
-        </div>
+/* ========================= */
+/*        MENU BUTTONS       */
+/* ========================= */
 
-        <!-- GAME CANVAS -->
-        <div id="game-container">
-            <canvas id="game-canvas"></canvas>
-        </div>
-    </div>
+.menu-btn {
+    width: 85%;
+    padding: 12px;
+    margin: 12px 0;
+    background: transparent;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-shadow: 0 0 8px #00ffff;
+    box-shadow: 0 0 12px #00ffff;
+}
 
-    <!-- SHOP SCREEN -->
-    <div id="shop-screen" class="screen hidden">
-        <h2 class="screen-title">Neon Shop</h2>
+/* ========================= */
+/*     BUTTON ANIMATIONS     */
+/* ========================= */
 
-        <div class="shop-item">
-            <h3>3 Shields Pack</h3>
-            <button id="buy-shields" class="shop-btn">Buy</button>
-        </div>
+.menu-btn,
+.shop-btn,
+.small-btn,
+.pause-btn,
+.back-btn {
+    transition: transform 0.15s ease, box-shadow 0.25s ease;
+}
 
-        <div class="shop-item">
-            <h3>Super Shot</h3>
-            <button id="buy-supershot" class="shop-btn">Buy</button>
-        </div>
+.menu-btn:hover,
+.shop-btn:hover,
+.small-btn:hover,
+.pause-btn:hover,
+.back-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #00ffff;
+}
 
-        <div class="shop-item">
-            <h3>5 Mega Bombs</h3>
-            <button id="buy-bombs" class="shop-btn">Buy</button>
-        </div>
+.menu-btn:active,
+.shop-btn:active,
+.small-btn:active,
+.pause-btn:active,
+.back-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 30px #00ffff;
+}
 
-        <button id="btn-referral" class="menu-btn">Referral Bonus</button>
-        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
-    </div>
+/* ========================= */
+/*        ALERT BOX          */
+/* ========================= */
 
-    <!-- REFERRAL SCREEN -->
-    <div id="referral-screen" class="screen hidden">
-        <h2 class="screen-title">Referral Bonus</h2>
+.alert-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.85);
+    border: 2px solid #00ffff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 8px #00ffff;
+    box-shadow: 0 0 12px #00ffff;
+    z-index: 9999;
+}
 
-        <div class="referral-box">
-            <p>Your Code:</p>
-            <div class="referral-code">
-                <span id="user-ref-code">ABC123</span>
-                <button id="copy-ref-code" class="small-btn">Copy</button>
-            </div>
-        </div>
+/* ========================= */
+/*     HOW TO PLAY POPUP     */
+/* ========================= */
 
-        <div class="referral-box">
-            <p>Enter friend's code:</p>
-            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
-            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
-        </div>
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
+}
 
-        <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
-    </div>
+.popup-content {
+    width: 85%;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid #00ffff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 15px #00ffff;
+}
 
-    <!-- LEADERBOARD SCREEN -->
-    <div id="leaderboard-screen" class="screen hidden">
-        <h2 class="screen-title">Leaderboard</h2>
-        <div id="leaderboard-list"></div>
-        <button id="btn-leaderboard-back" class="menu-btn back-btn">Back</button>
-    </div>
+.popup-content h2 {
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 15px;
+}
 
-    <!-- LOADING SCREEN -->
-    <div id="loading-screen" class="screen hidden">
-        <h2 class="screen-title">Loading...</h2>
-        <p id="status-text"></p>
-    </div>
+.popup-content p {
+    color: #fff;
+    margin: 6px 0;
+}
 
-    <!-- BACKGROUND STARS -->
-    <canvas id="background-stars"></canvas>
+/* ========================= */
+/*         LOGO              */
+/* ========================= */
 
-    <script type="module" src="src/main.js"></script>
+.logo-img {
+    width: 160px;
+    height: 160px;
+    margin: 20px 0 30px 0;
+    filter: drop-shadow(0 0 12px #00ffff);
+    animation: neonPulse 2.5s infinite ease-in-out;
+}
 
-</body>
-</html>
+@keyframes neonPulse {
+    0% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px #00ffff);
+    }
+    50% {
+        transform: scale(1.06);
+        filter: drop-shadow(0 0 18px #00ffff);
+    }
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 8px #00ffff);
+    }
+}
+
+/* ========================= */
+/*     BACKGROUND STARS      */
+/* ========================= */
+
+#background-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+
+    background: radial-gradient(circle at center,
+        #2a3b6e 0%,
+        #1f2a4d 35%,
+        #3b2a5e 65%,
+        #5a3b6e 100%
+    );
+
+    filter: drop-shadow(0 0 14px #00ffffaa);
+}
+
+/* ========================= */
+/*        GAME LAYOUT        */
+/* ========================= */
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* ========================= */
+/*        HUD FINAL          */
+/* ========================= */
+
+#hud-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 10px;
+
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+
+    font-family: 'Orbitron', sans-serif;
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+    z-index: 9999;
+}
+
+#hud-left,
+#hud-center,
+#hud-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#hud-right {
+    flex-shrink: 0;
+}
+
+.hud-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+}
+
+.hud-icon {
+    font-size: 20px;
+}
+
+.hud-level {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.hud-cs {
+    font-size: 18px;
+    color: #00ffea;
+}
+
+.hud-high {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* ========================= */
+/*     PAUSE BUTTON FIX      */
+/* ========================= */
+
+.pause-btn {
+    background: rgba(0, 255, 255, 0.2);
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 0 8px #00ffff;
+    min-width: 28px;
+    text-align: center;
+}
+
+.pause-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 14px #00ffff;
+}
+
+.pause-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 20px #00ffff;
+}
+
+#hud-referral {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* ========================= */
+/*     MOBILE RESPONSIVE     */
+/* ========================= */
+
+@media (max-width: 600px) {
+    #hud-container {
+        height: 60px;
+        padding: 0 8px;
+    }
+
+    .hud-item {
+        font-size: 14px;
+    }
+
+    .hud-icon {
+        font-size: 16px;
+    }
+
+    .hud-level {
+        font-size: 18px;
+    }
+
+    .hud-cs {
+        font-size: 14px;
+    }
+
+    .hud-high {
+        font-size: 12px;
+    }
+
+    .pause-btn {
+        font-size: 14px;
+        padding: 3px 6px;
+        min-width: 24px;
+    }
+
+    #hud-referral {
+        display: none;
+    }
+}
