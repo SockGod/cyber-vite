@@ -2,7 +2,8 @@
 
 import { gameState } from "./gameState.js";
 import { sfx } from "./audio.js";
-import { setupShopScreen } from "./shop.js"; // still used for purchases
+import { setupShopScreen } from "./shop.js";
+import { setupReferralScreen } from "./referral.js";
 import { getLeaderboardData } from "./utils.js";
 
 // ELEMENTOS DA UI
@@ -11,6 +12,7 @@ export const ui = {
     verify: document.getElementById("verify-screen"),
     game: document.getElementById("game-screen"),
     shop: document.getElementById("shop-screen"),
+    referral: document.getElementById("referral-screen"),
     loading: document.getElementById("loading-screen"),
     statusText: document.getElementById("status-text"),
     leaderboard: document.getElementById("leaderboard-screen")
@@ -46,6 +48,7 @@ export function showScreen(screenElement) {
         ui.verify,
         ui.game,
         ui.shop,
+        ui.referral,
         ui.loading,
         ui.leaderboard
     ].forEach(s => s.classList.add("hidden"));
@@ -78,7 +81,7 @@ export function updateLeaderboardUI() {
     });
 }
 
-// ==================== HUD ====================
+// ==================== HUD (NOVO HUD C) ====================
 
 export function updateUI() {
     const credits = document.getElementById("hud-credits");
@@ -151,10 +154,9 @@ export function setupButtons(openVerificationDrawer) {
         openVerificationDrawer();
     };
 
-    // SHOP (abre a nova loja integrada)
+    // SHOP
     document.getElementById("btn-shop").onclick = () => {
         setupShopScreen(gameState, ui, showScreen, showAlert);
-        showScreen(ui.shop);
     };
 
     // HOW TO PLAY
@@ -172,29 +174,6 @@ export function setupButtons(openVerificationDrawer) {
             gameState.isPaused = !gameState.isPaused;
         }
     };
-
-    // COPY REFERRAL CODE
-    const copyBtn = document.getElementById("copy-ref-code");
-    if (copyBtn) {
-        copyBtn.onclick = () => {
-            const code = document.getElementById("user-ref-code").innerText;
-            navigator.clipboard.writeText(code);
-            showAlert("Copied!");
-        };
-    }
-
-    // REDEEM REFERRAL
-    const redeemBtn = document.getElementById("redeem-referral");
-    if (redeemBtn) {
-        redeemBtn.onclick = () => {
-            const friendCode = document.getElementById("friend-code-input").value.trim();
-            if (friendCode.length < 4) {
-                showAlert("Invalid code");
-                return;
-            }
-            showAlert("Bonus redeemed!");
-        };
-    }
 
     // BACK BUTTONS
     document.querySelectorAll(".back-btn").forEach(b => {
