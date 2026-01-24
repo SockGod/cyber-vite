@@ -10,6 +10,7 @@ export const bullets = {
 };
 
 let lastShot = 0;
+let lastMegaShot = 0;
 let shootingSpeed = 350;
 let isTouching = false;
 
@@ -74,13 +75,30 @@ export function handleShooting() {
     const now = Date.now();
     const currentSpeed = gameState.superShot ? 150 : shootingSpeed;
 
+    // ============================
+    //       MEGA SHOT
+    // ============================
+    if (gameState.megaShot && isTouching && now - lastMegaShot > 900) {
+        bullets.playerBullets.push({
+            x: player.x,
+            y: player.y - 60,
+            type: "mega"
+        });
+
+        lastMegaShot = now;
+        sfx.shoot();
+    }
+
+    // ============================
+    //     TIRO NORMAL / DUAL
+    // ============================
     if (isTouching && now - lastShot > currentSpeed) {
 
         if (gameState.dualShot) {
-            bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40 });
-            bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40 });
+            bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40, type: "normal" });
+            bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40, type: "normal" });
         } else {
-            bullets.playerBullets.push({ x: player.x, y: player.y - 40 });
+            bullets.playerBullets.push({ x: player.x, y: player.y - 40, type: "normal" });
         }
 
         lastShot = now;
@@ -90,6 +108,26 @@ export function handleShooting() {
 
 export function drawBullets(ctx) {
     bullets.playerBullets.forEach((b, i) => {
+
+        // ============================
+        //         MEGA SHOT
+        // ============================
+        if (b.type === "mega") {
+            b.y -= 22;
+
+            ctx.fillStyle = "#00ffff";
+            ctx.shadowColor = "#00ffff";
+            ctx.shadowBlur = 20;
+
+            ctx.fillRect(b.x - 6, b.y, 12, 60);
+
+            if (b.y < -80) bullets.playerBullets.splice(i, 1);
+            return;
+        }
+
+        // ============================
+        //     TIRO NORMAL / DUAL
+        // ============================
         b.y -= 15;
 
         ctx.fillStyle = gameState.dualShot

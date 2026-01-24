@@ -15,9 +15,14 @@ export const gameState = {
     superShot: false,
     dualShot: false,
     screenShake: 0,
-    isPlaying: false, // <- controla se o jogo está realmente a decorrer
+    isPlaying: false,
 
-    // REFERRAL CODE (compatível com referral.js)
+    // NOVOS POWERUPS
+    slowMotion: false,   // abrandar inimigos e boss
+    magnetActive: false, // atrair moedas/powerups
+    megaShot: false,     // tiro gigante que atravessa tudo
+
+    // REFERRAL CODE
     referralCode:
         localStorage.getItem("delta_myReferral") ||
         "DELTA-" + Math.random().toString(36).substring(2, 7).toUpperCase()

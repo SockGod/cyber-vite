@@ -36,6 +36,9 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     const config = getLevelConfig(gameState.level);
     spawnTimer++;
 
+    // Slow Motion multiplier
+    const slowFactor = gameState.slowMotion ? 0.4 : 1;
+
     // Spawn de inimigos
     if (spawnTimer > 30) {
         enemies.push({
@@ -48,7 +51,8 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     }
 
     enemies.forEach((e, ei) => {
-        e.y += e.speed;
+        // Movimento com slow motion
+        e.y += e.speed * slowFactor;
 
         // Chance de disparar
         if (Math.random() < config.fireRate) {
@@ -70,8 +74,59 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
             return;
         }
 
-        // Colisão com balas do jogador
+        // ============================
+        //   COLISÃO COM BALAS
+        // ============================
         playerBullets.forEach((b, bi) => {
+
+            // MEGA SHOT — atravessa tudo
+            if (b.type === "mega") {
+                if (
+                    b.x > e.x &&
+                    b.x < e.x + e.size &&
+                    b.y > e.y &&
+                    b.y < e.y + e.size
+                ) {
+                    sfx.explosion(e.x + 17, e.y + 17, config.enemyColor);
+                    createParticles(e.x + 17, e.y + 17, config.enemyColor, 12);
+
+                    enemies.splice(ei, 1);
+
+                    gameState.cyberSpace += 25;
+                    gameState.enemiesDefeated++;
+
+                    if (Math.random() < 0.2) {
+                        activePhrase.text =
+                            blockchainPhrases[Math.floor(Math.random() * blockchainPhrases.length)];
+                        activePhrase.alpha = 1.5;
+                    }
+
+                    // Drop de powerups
+                    if (Math.random() < 0.18) {
+                        const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega"];
+                        powerUps.push({
+                            x: e.x + 17,
+                            y: e.y + 17,
+                            type: types[Math.floor(Math.random() * types.length)]
+                        });
+                    }
+
+                    // Boss trigger
+                    if (gameState.enemiesDefeated >= config.req) {
+                        gameState.bossActive = true;
+                        gameState.bossHP = config.bossHP;
+                        gameState.enemiesDefeated = 0;
+                        sfx.levelup();
+                        triggerBoss();
+                    }
+
+                    updateUI();
+                }
+
+                return; // Mega shot não é removido
+            }
+
+            // TIROS NORMAIS / SUPER / DUAL
             if (
                 b.x > e.x &&
                 b.x < e.x + e.size &&
@@ -87,20 +142,19 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                 gameState.cyberSpace += 15;
                 gameState.enemiesDefeated++;
 
-                // Frase blockchain
                 if (Math.random() < 0.2) {
                     activePhrase.text =
                         blockchainPhrases[Math.floor(Math.random() * blockchainPhrases.length)];
                     activePhrase.alpha = 1.5;
                 }
 
-                // PowerUps
+                // Drop de powerups
                 if (Math.random() < 0.18) {
-                    const types = ["health", "shield", "power", "dual"];
+                    const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega"];
                     powerUps.push({
                         x: e.x + 17,
                         y: e.y + 17,
-                        type: types[Math.floor(Math.random() * 4)]
+                        type: types[Math.floor(Math.random() * types.length)]
                     });
                 }
 
@@ -124,13 +178,14 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 export function handleEnemyBullets(ctx, canvas, player, updateUI) {
     if (!gameState.isPlaying || gameState.isPaused) return;
 
+    const slowFactor = gameState.slowMotion ? 0.4 : 1;
+
     bullets.enemyBullets.forEach((eb, i) => {
-        eb.y += 7;
+        eb.y += 7 * slowFactor;
 
         ctx.fillStyle = "#ff0000";
         ctx.fillRect(eb.x - 2, eb.y, 4, 18);
 
-        // Colisão com o jogador
         if (
             eb.x > player.x - 25 &&
             eb.x < player.x + 25 &&

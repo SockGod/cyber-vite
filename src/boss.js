@@ -98,17 +98,13 @@ function drawBossDesign(ctx, pattern) {
     const cx = boss.x + boss.width / 2;
 
     if (id === 0) {
-        // NEON SKULL
         ctx.fillRect(cx - 70, boss.y + 20, 140, 40);
         ctx.fillRect(cx - 85, boss.y + 40, 170, 40);
-
         ctx.fillRect(cx - 100, boss.y + 30, 20, 60);
         ctx.fillRect(cx + 80, boss.y + 30, 20, 60);
-
         ctx.fillRect(cx - 40, boss.y, 12, 25);
         ctx.fillRect(cx + 28, boss.y, 12, 25);
     } else if (id === 1) {
-        // CYBER CENTIPEDE
         const segmentWidth = 28;
         const segmentCount = 5;
         const startX = cx - ((segmentCount * segmentWidth) / 2);
@@ -121,7 +117,6 @@ function drawBossDesign(ctx, pattern) {
         ctx.fillRect(cx - 90, boss.y + 40, 16, 40);
         ctx.fillRect(cx + 74, boss.y + 40, 16, 40);
     } else if (id === 2) {
-        // DELTA CORE
         ctx.beginPath();
         ctx.moveTo(cx, boss.y + 10);
         ctx.lineTo(cx + 70, boss.y + 80);
@@ -131,15 +126,12 @@ function drawBossDesign(ctx, pattern) {
 
         ctx.fillRect(cx - 20, boss.y + 80, 40, 30);
     } else if (id === 3) {
-        // VOID SENTINEL
         ctx.fillRect(cx - 75, boss.y + 25, 150, 30);
         ctx.fillRect(cx - 60, boss.y + 55, 120, 30);
-
         ctx.fillRect(cx - 95, boss.y + 35, 18, 50);
         ctx.fillRect(cx + 77, boss.y + 35, 18, 50);
     }
 
-    // Olhos neon simétricos
     ctx.fillStyle = eyeColor;
     ctx.globalAlpha = Math.random() > 0.15 ? 1 : 0.45;
     const eyeOffsetX = 55;
@@ -147,12 +139,10 @@ function drawBossDesign(ctx, pattern) {
     ctx.fillRect(cx - eyeOffsetX - eyeSize / 2, boss.y + 42, eyeSize, eyeSize);
     ctx.fillRect(cx + eyeOffsetX - eyeSize / 2, boss.y + 42, eyeSize, eyeSize);
 
-    // Boca / canhão central
     ctx.globalAlpha = 1;
     ctx.fillStyle = color;
     ctx.fillRect(cx - 10, boss.y + 72, 20, 26);
 
-    // Dentes simétricos
     const toothSpacing = 24;
     const toothCount = 5;
     const startX = cx - ((toothCount - 1) * toothSpacing) / 2;
@@ -177,6 +167,9 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
 
     const pattern = getBossPattern(gameState.level);
 
+    // Slow Motion multiplier
+    const slowFactor = gameState.slowMotion ? 0.4 : 1;
+
     if (!boss.initialized) {
         boss.width = 220;
         boss.height = 120;
@@ -196,23 +189,23 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     }
 
     if (boss.y < 70) {
-        boss.y += 2;
+        boss.y += 2 * slowFactor;
     } else {
         if (pattern.moveMode === "horizontal") {
-            boss.x += boss.speed * boss.direction;
+            boss.x += boss.speed * boss.direction * slowFactor;
             if (boss.x <= 10 || boss.x + boss.width >= canvas.width - 10) {
                 boss.direction *= -1;
             }
         } else if (pattern.moveMode === "zigzag") {
-            boss.x += boss.speed * boss.direction;
-            boss.y += Math.sin(Date.now() / 250) * 0.8;
+            boss.x += boss.speed * boss.direction * slowFactor;
+            boss.y += Math.sin(Date.now() / 250) * 0.8 * slowFactor;
             if (boss.x <= 10 || boss.x + boss.width >= canvas.width - 10) {
                 boss.direction *= -1;
             }
         } else if (pattern.moveMode === "hover") {
-            boss.x += Math.sin(Date.now() / 300) * 1.4;
+            boss.x += Math.sin(Date.now() / 300) * 1.4 * slowFactor;
         } else if (pattern.moveMode === "stalker") {
-            boss.x += Math.sin(Date.now() / 200) * 2.0;
+            boss.x += Math.sin(Date.now() / 200) * 2.0 * slowFactor;
         }
     }
 
@@ -266,7 +259,63 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         boss.fireCooldown = Math.max(8, 38 - gameState.level * 2);
     }
 
+    // ============================
+    //     COLISÃO COM BALAS
+    // ============================
     bullets.playerBullets.forEach((b, bi) => {
+
+        // MEGA SHOT — atravessa o boss
+        if (b.type === "mega") {
+            if (
+                b.x > boss.x &&
+                b.x < boss.x + boss.width &&
+                b.y > boss.y &&
+                b.y < boss.y + boss.height
+            ) {
+                const damage = 40; // Mega Shot dano aumentado
+                gameState.bossHP -= damage;
+
+                createParticles(b.x, b.y, pattern.color, 10);
+
+                if (gameState.bossHP <= 0) {
+                    sfx.bossExplosion(
+                        boss.x + boss.width / 2,
+                        boss.y + boss.height / 2,
+                        pattern.color
+                    );
+
+                    createParticles(
+                        boss.x + boss.width / 2,
+                        boss.y + boss.height / 2,
+                        pattern.color,
+                        60
+                    );
+
+                    gameState.bossActive = false;
+                    boss.initialized = false;
+                    boss.y = -200;
+
+                    gameState.level++;
+
+                    if (gameState.level > gameState.highScore) {
+                        gameState.highScore = gameState.level;
+                        localStorage.setItem("spaceDelta_highScore", gameState.level);
+                    }
+
+                    gameState.cyberSpace += 500 * gameState.level;
+
+                    activePhrase.text = `SECTOR ${gameState.level - 1} SECURED! +BONUS CS`;
+                    activePhrase.alpha = 2.4;
+
+                    sfx.levelup();
+                    updateUI();
+                }
+            }
+
+            return; // Mega shot não é removido
+        }
+
+        // TIROS NORMAIS / SUPER / DUAL
         if (
             b.x > boss.x &&
             b.x < boss.x + boss.width &&
