@@ -1,4 +1,4 @@
-// ==================== BOSS (NOVA VERSÃO) ====================
+// ==================== BOSS (VERSÃO POLIDA) ====================
 //
 // Estilo: Atari + Neon (pixel vibes)
 // Lógica: níveis infinitos, bosses mais agressivos a cada nível,
@@ -36,7 +36,6 @@ export function resetBoss() {
 // ==================== CONFIGURAÇÃO DE PADRÕES ====================
 
 function getBossPattern(level) {
-    // Escolhe um padrão base com base no nível
     const patterns = [
         {
             id: 0,
@@ -72,17 +71,16 @@ function getBossPattern(level) {
         }
     ];
 
-    // A partir daqui, vamos ciclando pelos padrões
-    const base = patterns[level % patterns.length];
+    const index = (Math.max(1, level) - 1) % patterns.length;
+    const base = patterns[index];
 
-    // Escala de dificuldade
     const difficultyScale = 1 + level * 0.12;
 
     return {
         ...base,
-        hp: 120 + level * 40,
-        speed: 1.4 + level * 0.12,
-        fireRate: 0.02 * difficultyScale, // probabilidade por frame
+        hp: 140 + level * 45,
+        speed: 1.6 + level * 0.14,
+        fireRate: Math.min(0.28, 0.06 + level * 0.02),
         difficultyScale
     };
 }
@@ -90,39 +88,75 @@ function getBossPattern(level) {
 // ==================== DESENHO DO BOSS ====================
 
 function drawBossDesign(ctx, pattern) {
-    const { color, eyeColor } = pattern;
+    const { color, eyeColor, id } = pattern;
 
     ctx.save();
-    ctx.shadowBlur = 25;
+    ctx.shadowBlur = 26;
     ctx.shadowColor = color;
     ctx.fillStyle = color;
 
-    // Base pixelizada (corpo principal)
-    ctx.fillRect(boss.x + 40, boss.y + 20, boss.width - 80, 40);
-    ctx.fillRect(boss.x + 20, boss.y + 40, boss.width - 40, 40);
+    if (id === 0) {
+        // NEON SKULL
+        ctx.fillRect(boss.x + 40, boss.y + 20, boss.width - 80, 40);
+        ctx.fillRect(boss.x + 25, boss.y + 40, boss.width - 50, 40);
 
-    // "Asas" laterais
-    ctx.fillRect(boss.x + 10, boss.y + 30, 20, 60);
-    ctx.fillRect(boss.x + boss.width - 30, boss.y + 30, 20, 60);
+        ctx.fillRect(boss.x + 10, boss.y + 30, 20, 60);
+        ctx.fillRect(boss.x + boss.width - 30, boss.y + 30, 20, 60);
 
-    // "Antenas" superiores
-    ctx.fillRect(boss.x + 60, boss.y, 12, 25);
-    ctx.fillRect(boss.x + boss.width - 72, boss.y, 12, 25);
+        ctx.fillRect(boss.x + 60, boss.y, 12, 25);
+        ctx.fillRect(boss.x + boss.width - 72, boss.y, 12, 25);
+    } else if (id === 1) {
+        // CYBER CENTIPEDE
+        const segmentWidth = 32;
+        const segmentCount = 5;
+        const startX = boss.x + boss.width / 2 - (segmentCount * segmentWidth) / 2;
 
-    // Olhos neon
+        for (let i = 0; i < segmentCount; i++) {
+            ctx.fillRect(startX + i * segmentWidth, boss.y + 30, 24, 30);
+            ctx.fillRect(startX + i * segmentWidth + 4, boss.y + 60, 16, 22);
+        }
+
+        ctx.fillRect(boss.x + 20, boss.y + 40, 16, 40);
+        ctx.fillRect(boss.x + boss.width - 36, boss.y + 40, 16, 40);
+    } else if (id === 2) {
+        // DELTA CORE
+        ctx.beginPath();
+        ctx.moveTo(boss.x + boss.width / 2, boss.y + 10);
+        ctx.lineTo(boss.x + boss.width - 40, boss.y + 80);
+        ctx.lineTo(boss.x + 40, boss.y + 80);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillRect(boss.x + boss.width / 2 - 18, boss.y + 80, 36, 30);
+    } else if (id === 3) {
+        // VOID SENTINEL
+        ctx.fillRect(boss.x + 35, boss.y + 25, boss.width - 70, 30);
+        ctx.fillRect(boss.x + 50, boss.y + 55, boss.width - 100, 30);
+
+        ctx.fillRect(boss.x + 15, boss.y + 35, 18, 50);
+        ctx.fillRect(boss.x + boss.width - 33, boss.y + 35, 18, 50);
+    }
+
+    // Olhos neon (sempre simétricos)
     ctx.fillStyle = eyeColor;
-    ctx.globalAlpha = Math.random() > 0.15 ? 1 : 0.4;
-    ctx.fillRect(boss.x + 70, boss.y + 42, 16, 16);
-    ctx.fillRect(boss.x + boss.width - 86, boss.y + 42, 16, 16);
+    ctx.globalAlpha = Math.random() > 0.15 ? 1 : 0.45;
+    const eyeOffsetX = 70;
+    const eyeSize = 16;
+    ctx.fillRect(boss.x + eyeOffsetX, boss.y + 42, eyeSize, eyeSize);
+    ctx.fillRect(boss.x + boss.width - eyeOffsetX - eyeSize, boss.y + 42, eyeSize, eyeSize);
 
-    // "Boca" / canhão central
+    // Boca / canhão central
     ctx.globalAlpha = 1;
     ctx.fillStyle = color;
-    ctx.fillRect(boss.x + boss.width / 2 - 10, boss.y + 70, 20, 25);
+    ctx.fillRect(boss.x + boss.width / 2 - 10, boss.y + 72, 20, 26);
 
-    // Detalhes pixel
-    for (let i = 0; i < 5; i++) {
-        ctx.fillRect(boss.x + 40 + i * 25, boss.y + 90, 8, 12);
+    // Dentes simétricos
+    const toothSpacing = 26;
+    const toothCount = 5;
+    const startX = boss.x + boss.width / 2 - ((toothCount - 1) * toothSpacing) / 2;
+
+    for (let i = 0; i < toothCount; i++) {
+        ctx.fillRect(startX + i * toothSpacing, boss.y + 94, 8, 12);
     }
 
     ctx.restore();
@@ -151,6 +185,9 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         boss.direction = 1;
         boss.currentMaxHP = pattern.hp;
         boss.fireCooldown = 0;
+        boss.patternId = pattern.id;
+        gameState.bossHP = pattern.hp;
+
         boss.initialized = true;
 
         activePhrase.text = `${pattern.name} INBOUND - LEVEL ${gameState.level}`;
@@ -161,7 +198,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     if (boss.y < 70) {
         boss.y += 2;
     } else {
-        // Movimento conforme o padrão
         if (pattern.moveMode === "horizontal") {
             boss.x += boss.speed * boss.direction;
             if (boss.x <= 10 || boss.x + boss.width >= canvas.width - 10) {
@@ -176,8 +212,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         } else if (pattern.moveMode === "hover") {
             boss.x += Math.sin(Date.now() / 300) * 1.4;
         } else if (pattern.moveMode === "stalker") {
-            // Move ligeiramente na direção do jogador (x)
-            // (não temos acesso direto ao player aqui, mas podemos oscilar)
             boss.x += Math.sin(Date.now() / 200) * 2.0;
         }
     }
@@ -188,8 +222,8 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     // ====================
     // BARRA DE VIDA CENTRADA
     // ====================
-    const barWidth = 240;
-    const barX = canvas.width / 2 - barWidth / 2;
+    const barWidth = 220;
+    const barX = (canvas.width - barWidth) / 2;
 
     ctx.fillStyle = "rgba(255,255,255,0.12)";
     ctx.fillRect(barX, 35, barWidth, 12);
@@ -202,7 +236,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     // TIROS DO BOSS
     // ====================
 
-    // Fire cooldown simples (para evitar spam absurdo)
     if (boss.fireCooldown > 0) {
         boss.fireCooldown--;
     }
@@ -216,8 +249,8 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
 
         if (pattern.fireMode === "triple") {
             bullets.enemyBullets.push({ x: centerX, y: muzzleY });
-            bullets.enemyBullets.push({ x: centerX - 30, y: muzzleY + 5 });
-            bullets.enemyBullets.push({ x: centerX + 30, y: muzzleY + 5 });
+            bullets.enemyBullets.push({ x: centerX - 26, y: muzzleY + 4 });
+            bullets.enemyBullets.push({ x: centerX + 26, y: muzzleY + 4 });
         } else if (pattern.fireMode === "spray") {
             for (let i = -2; i <= 2; i++) {
                 bullets.enemyBullets.push({
@@ -233,14 +266,12 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
                 });
             }
         } else if (pattern.fireMode === "aimed") {
-            // Simples: vários tiros centrados (podemos depois apontar ao player)
             bullets.enemyBullets.push({ x: centerX, y: muzzleY });
             bullets.enemyBullets.push({ x: centerX - 20, y: muzzleY + 4 });
             bullets.enemyBullets.push({ x: centerX + 20, y: muzzleY + 4 });
         }
 
-        // Cooldown dinâmico (níveis altos disparam mais vezes)
-        boss.fireCooldown = Math.max(10, 40 - gameState.level * 2);
+        boss.fireCooldown = Math.max(8, 38 - gameState.level * 2);
     }
 
     // ====================
@@ -259,11 +290,9 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
             const damage = gameState.superShot ? 18 : 7;
             gameState.bossHP -= damage;
 
-            // Pequenas partículas de impacto
             createParticles(b.x, b.y, pattern.color, 6);
 
             if (gameState.bossHP <= 0) {
-                // Explosão final
                 sfx.bossExplosion(
                     boss.x + boss.width / 2,
                     boss.y + boss.height / 2,
@@ -277,8 +306,10 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
                     60
                 );
 
-                // Avança nível
                 gameState.bossActive = false;
+                boss.initialized = false;
+                boss.y = -200;
+
                 gameState.level++;
 
                 if (gameState.level > gameState.highScore) {

@@ -3,14 +3,14 @@
 import { gameState, getLevelConfig, blockchainPhrases, activePhrase } from "./gameState.js";
 import { sfx } from "./audio.js";
 import { createParticles } from "./particles.js";
+import { bullets } from "./controls.js";
 
 export let enemies = [];
-export let enemyBullets = [];
 let spawnTimer = 0;
 
 export function resetEnemies() {
     enemies = [];
-    enemyBullets = [];
+    bullets.enemyBullets = [];
 }
 
 export function drawEnemyDesign(ctx, e, color) {
@@ -30,7 +30,7 @@ export function drawEnemyDesign(ctx, e, color) {
     ctx.restore();
 }
 
-export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, triggerBoss) {
+export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, updateUI, triggerBoss) {
     if (gameState.isPaused || gameState.bossActive) return;
 
     const config = getLevelConfig(gameState.level);
@@ -52,7 +52,7 @@ export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, 
 
         // Chance de disparar
         if (Math.random() < config.fireRate) {
-            enemyBullets.push({
+            bullets.enemyBullets.push({
                 x: e.x + e.size / 2,
                 y: e.y + e.size
             });
@@ -70,8 +70,8 @@ export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, 
             return;
         }
 
-        // Colisão com balas
-        bullets.forEach((b, bi) => {
+        // Colisão com balas do jogador
+        playerBullets.forEach((b, bi) => {
             if (
                 b.x > e.x &&
                 b.x < e.x + e.size &&
@@ -82,18 +82,17 @@ export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, 
                 createParticles(e.x + 17, e.y + 17, config.enemyColor, 12);
 
                 enemies.splice(ei, 1);
-                bullets.splice(bi, 1);
+                playerBullets.splice(bi, 1);
 
                 gameState.cyberSpace += 15;
                 gameState.enemiesDefeated++;
 
-                // Frases blockchain
                 if (Math.random() < 0.2) {
-                    activePhrase.text = blockchainPhrases[Math.floor(Math.random() * blockchainPhrases.length)];
+                    activePhrase.text =
+                        blockchainPhrases[Math.floor(Math.random() * blockchainPhrases.length)];
                     activePhrase.alpha = 1.5;
                 }
 
-                // Drops (inclui moeda W)
                 if (Math.random() < 0.18) {
                     const types = ["health", "shield", "power", "dual"];
                     powerUps.push({
@@ -103,7 +102,6 @@ export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, 
                     });
                 }
 
-                // Trigger do boss
                 if (gameState.enemiesDefeated >= config.req) {
                     gameState.bossActive = true;
                     gameState.bossHP = config.bossHP;
@@ -116,7 +114,6 @@ export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, 
             }
         });
 
-        // Saiu do ecrã
         if (e.y > canvas.height) enemies.splice(ei, 1);
     });
 }
@@ -124,24 +121,23 @@ export function handleEnemies(ctx, canvas, player, bullets, powerUps, updateUI, 
 export function handleEnemyBullets(ctx, canvas, player, updateUI, triggerDamage) {
     if (gameState.isPaused) return;
 
-    enemyBullets.forEach((eb, i) => {
+    bullets.enemyBullets.forEach((eb, i) => {
         eb.y += 7;
 
         ctx.fillStyle = "#ff0000";
         ctx.fillRect(eb.x - 2, eb.y, 4, 18);
 
-        // Colisão com o jogador
         if (
             eb.x > player.x - 25 &&
             eb.x < player.x + 25 &&
             eb.y > player.y - 25 &&
             eb.y < player.y + 25
         ) {
-            enemyBullets.splice(i, 1);
+            bullets.enemyBullets.splice(i, 1);
             triggerDamage(updateUI);
         }
 
-        if (eb.y > canvas.height) enemyBullets.splice(i, 1);
+        if (eb.y > canvas.height) bullets.enemyBullets.splice(i, 1);
     });
 }
 

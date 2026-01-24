@@ -123,9 +123,10 @@ function gameLoop() {
     if (activePhrase.alpha > 0) {
         ctx.save();
         ctx.globalAlpha = activePhrase.alpha;
-        ctx.fillStyle = "#00ffff";
+        ctx.fillStyle = "rgba(220, 220, 220, 0.6)";
         ctx.font = "bold 24px Orbitron";
         ctx.textAlign = "center";
+        const maxWidth = canvas.width * 0.9;
         ctx.fillText(activePhrase.text, canvas.width / 2, canvas.height * 0.35);
         ctx.restore();
 
