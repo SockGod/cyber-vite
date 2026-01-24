@@ -97,27 +97,54 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
 
     drawBossDesign(ctx);
 
-    // Barra de vida
+    // ====================
+    // BARRA DE VIDA CENTRADA
+    // ====================
+    const barWidth = 220;
+    const barX = canvas.width / 2 - barWidth / 2;
+
     ctx.fillStyle = "rgba(255,255,255,0.1)";
-    ctx.fillRect(canvas.width / 2 - 100, 35, 200, 12);
+    ctx.fillRect(barX, 35, barWidth, 12);
 
     ctx.fillStyle = config.bossColor;
     ctx.fillRect(
-        canvas.width / 2 - 100,
+        barX,
         35,
-        200 * (gameState.bossHP / boss.currentMaxHP),
+        barWidth * (gameState.bossHP / boss.currentMaxHP),
         12
     );
 
-    // Tiros do boss
-    if (Math.random() < 0.05 + gameState.level * 0.01) {
+    // ====================
+    // TIROS DO BOSS — AGRESSIVO
+    // ====================
+
+    // Agressividade aumenta rápido por nível
+    const fireChance = 0.03 + gameState.level * 0.02;
+
+    if (Math.random() < fireChance) {
+        // tiro central
         bullets.enemyBullets.push({
-            x: boss.x + Math.random() * boss.width,
-            y: boss.y + 70
+            x: boss.x + boss.width / 2,
+            y: boss.y + boss.height
         });
+
+        // tiros laterais a partir do nível 3
+        if (gameState.level >= 3) {
+            bullets.enemyBullets.push({
+                x: boss.x + 40,
+                y: boss.y + boss.height
+            });
+            bullets.enemyBullets.push({
+                x: boss.x + boss.width - 40,
+                y: boss.y + boss.height
+            });
+        }
     }
 
-    // Colisão com balas do jogador
+    // ====================
+    // COLISÃO COM TIROS DO JOGADOR
+    // ====================
+
     bullets.playerBullets.forEach((b, bi) => {
         if (
             b.x > boss.x &&
