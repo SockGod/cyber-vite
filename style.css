@@ -80,13 +80,14 @@
 
 .referral-box {
     width: 85%;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid #00ffff;
+    background: #000000; /* fundo sólido */
+    border: 2px solid #ff00aa;
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 15px;
     text-align: center;
-    box-shadow: 0 0 12px #00ffff;
+    box-shadow: 0 0 12px #ff33cc;
+    color: #ffe600; /* texto amarelo vivo */
 }
 
 .referral-code {
@@ -99,6 +100,7 @@
     margin-top: 8px;
     border: 2px solid #ff00aa;
     box-shadow: 0 0 8px #ff33cc;
+    color: #ffe600;
 }
 
 .small-btn {
@@ -116,8 +118,8 @@
 /* ========================= */
 
 #friend-code-input {
-    background-color: #000000;
-    color: #ffe600;
+    background-color: #000000; /* fundo sólido */
+    color: #ffe600; /* texto amarelo vivo */
     border: 2px solid #ff00aa;
     box-shadow: 0 0 8px #ff33cc;
     font-size: 16px;
