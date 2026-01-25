@@ -1,5 +1,5 @@
 // =========================
-//      NEON SHOP SCREEN
+//      CYBER SHOP SCREEN
 // =========================
 
 export function setupShopScreen(gameState, ui, showScreen, showAlert) {
