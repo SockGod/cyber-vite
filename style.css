@@ -27,9 +27,12 @@
 
 .screen-title {
     font-family: 'Press Start 2P', monospace;
-    font-size: 32px; /* mantém o tamanho atual */
-    color: #ffdd55; /* amarelo */
-    text-shadow: 0 0 6px #ff4444; /* sombra vermelha suave */
+    font-size: 32px;
+    color: #ffe600; /* amarelo mais vivo */
+    text-shadow:
+        2px 2px 0 #ff0000,   /* sombra vermelha forte */
+        0 0 10px #ff0000,    /* glow vermelho */
+        0 0 18px #ff0000;    /* glow extra */
     margin-bottom: 25px;
     letter-spacing: 2px;
     text-align: center;
