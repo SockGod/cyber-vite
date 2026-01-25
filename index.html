@@ -107,25 +107,25 @@
 </div>
 
     <!-- REFERRAL SCREEN -->
-    <div id="referral-screen" class="screen hidden">
-        <h2 class="screen-title">REFERRAL BONUS</h2>
+<div id="referral-screen" class="screen hidden">
+    <h2 class="screen-title">REFERRAL BONUS</h2>
 
-        <div class="referral-box">
-            <p>Your Code:</p>
-            <div class="referral-code">
-                <span id="user-ref-code">ABC123</span>
-                <button id="copy-ref-code" class="small-btn">Copy</button>
-            </div>
+    <div class="referral-box">
+        <p>Your Code:</p>
+        <div class="referral-code">
+            <span id="user-ref-code">ABC123</span>
+            <button id="copy-ref-code" class="small-btn">Copy</button>
         </div>
-
-        <div class="referral-box">
-            <p>Enter friend's code:</p>
-            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
-            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
-        </div>
-
-        <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
     </div>
+
+    <div class="referral-box">
+        <p>Enter friend's code:</p>
+        <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
+        <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
+    </div>
+
+    <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
+</div>
 
     <!-- LEADERBOARD SCREEN -->
     <div id="leaderboard-screen" class="screen hidden">
@@ -144,6 +144,21 @@
     <canvas id="background-stars"></canvas>
 
     <script type="module" src="src/main.js"></script>
+
+    <script>
+document.getElementById("copy-ref-code").addEventListener("click", function () {
+    const code = document.getElementById("user-ref-code").innerText;
+    navigator.clipboard.writeText(code).then(() => {
+        const alertBox = document.createElement("div");
+        alertBox.className = "alert-box";
+        alertBox.innerText = "Referral code copied!";
+        document.body.appendChild(alertBox);
+        setTimeout(() => {
+            alertBox.remove();
+        }, 2000);
+    });
+});
+</script>
 
 </body>
 </html>
