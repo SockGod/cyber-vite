@@ -26,17 +26,12 @@
 /* ========================= */
 
 .screen-title {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 32px;
-    font-weight: bold;
-    color: #00ffff;
-    text-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 30px #00ffff,
-        0 0 40px #00ffff;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 32px; /* mantém o tamanho atual */
+    color: #ffdd55; /* amarelo */
+    text-shadow: 0 0 6px #ff4444; /* sombra vermelha suave */
     margin-bottom: 25px;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     text-align: center;
 }
 
