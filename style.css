@@ -51,13 +51,15 @@
 
 .shop-item {
     width: 85%;
-    background: rgba(255,255,255,0.08);
-    border: 2px solid #00ffff;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
+    background: rgba(0,0,0,0.6);
+    border: 2px solid #ff00aa; /* rosa neon */
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 12px;
     text-align: center;
-    box-shadow: 0 0 12px #00ffff;
+    box-shadow: 0 0 10px #ff33cc;
+    color: #ffe600; /* texto amarelo vivo */
+    font-size: 16px;
 }
 
 .shop-btn {
