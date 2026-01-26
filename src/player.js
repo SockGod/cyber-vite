@@ -53,22 +53,20 @@ export function drawAtariPlayer(ctx) {
         ctx.fill();
     }
 
-    // === EFEITO DE PROPULSÃO COM BRILHO PULSANTE ===
-    const pulseSize = 6 + Math.random() * 6;
+    // === EFEITO DE PROPULSÃO RADIAL ===
+    const pulse = 4 + Math.random() * 4;
 
-    ctx.shadowBlur = 30;
-    ctx.shadowColor = "#ffff00";
-    ctx.fillStyle = "#ffff66";
+    const drawEnginePulse = (x, y) => {
+        for (let i = 0; i < 3; i++) {
+            ctx.beginPath();
+            ctx.arc(x, y, pulse + i * 4, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${255 - i * 40}, ${255 - i * 20}, 100, ${0.3 - i * 0.08})`;
+            ctx.fill();
+        }
+    };
 
-    // Motor esquerdo
-    ctx.beginPath();
-    ctx.arc(player.x - 26, player.y + 36, pulseSize, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Motor direito
-    ctx.beginPath();
-    ctx.arc(player.x + 20, player.y + 36, pulseSize, 0, Math.PI * 2);
-    ctx.fill();
+    drawEnginePulse(player.x - 26, player.y + 36); // motor esquerdo
+    drawEnginePulse(player.x + 20, player.y + 36); // motor direito
 
     ctx.restore();
 }
