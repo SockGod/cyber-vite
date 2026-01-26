@@ -53,27 +53,21 @@ export function drawAtariPlayer(ctx) {
         ctx.fill();
     }
 
-    // === EFEITO DOS MOTORES (CHAMAS AMARELAS) ===
-    const pulse = 10 + Math.random() * 12;
+    // === EFEITO DE PROPULSÃO COM BRILHO PULSANTE ===
+    const pulseSize = 6 + Math.random() * 6;
 
-    ctx.shadowBlur = 25;
+    ctx.shadowBlur = 30;
     ctx.shadowColor = "#ffff00";
     ctx.fillStyle = "#ffff66";
 
-    // Motor esquerdo (triângulo invertido)
+    // Motor esquerdo
     ctx.beginPath();
-    ctx.moveTo(player.x - 26, player.y + 34);
-    ctx.lineTo(player.x - 30, player.y + 34 + pulse);
-    ctx.lineTo(player.x - 22, player.y + 34 + pulse);
-    ctx.closePath();
+    ctx.arc(player.x - 26, player.y + 36, pulseSize, 0, Math.PI * 2);
     ctx.fill();
 
-    // Motor direito (triângulo invertido)
+    // Motor direito
     ctx.beginPath();
-    ctx.moveTo(player.x + 20, player.y + 34);
-    ctx.lineTo(player.x + 16, player.y + 34 + pulse);
-    ctx.lineTo(player.x + 24, player.y + 34 + pulse);
-    ctx.closePath();
+    ctx.arc(player.x + 20, player.y + 36, pulseSize, 0, Math.PI * 2);
     ctx.fill();
 
     ctx.restore();
