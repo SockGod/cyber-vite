@@ -6,7 +6,7 @@ import { player } from "./player.js";
 
 export const bullets = {
     playerBullets: [],
-    enemyBullets: [] // usado por inimigos e boss
+    enemyBullets: []
 };
 
 let lastShot = 0;
@@ -14,24 +14,27 @@ let lastMegaShot = 0;
 let shootingSpeed = 350;
 let isTouching = false;
 
+// === Carregar sprites dos tiros ===
+const shotNormal = new Image();
+shotNormal.src = "/assets/sprites/shot_player_normal.png";
+
+const shotMega = new Image();
+shotMega.src = "/assets/sprites/shot_player_mega.png";
+
 export function resetBullets() {
     bullets.playerBullets = [];
     bullets.enemyBullets = [];
 }
 
 export function setupControls(canvas, updateUI, enemiesResetCallback) {
-
-    // TOUCH START
     canvas.addEventListener("touchstart", e => {
         if (!gameState.isPlaying || gameState.isPaused) return;
 
         isTouching = true;
 
-        // Desbloquear áudio no mobile
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === "suspended") audioCtx.resume();
 
-        // Mega bomba (2 dedos)
         if (e.touches.length > 1 && gameState.bombs > 0) {
             gameState.bombs--;
 
@@ -46,12 +49,10 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
         }
     });
 
-    // TOUCH END
     canvas.addEventListener("touchend", () => {
         isTouching = false;
     });
 
-    // TOUCH MOVE
     canvas.addEventListener(
         "touchmove",
         e => {
@@ -61,11 +62,8 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
                 const touchX = e.touches[0].clientX;
                 const touchY = e.touches[0].clientY;
 
-                // ============================
-                //   OFFSET PARA O DEDO NÃO TAPAR A NAVE
-                // ============================
                 player.x = touchX;
-                player.y = touchY - 100; // <- ajuste perfeito para o sprite novo
+                player.y = touchY - 100;
             }
 
             e.preventDefault();
@@ -80,9 +78,6 @@ export function handleShooting() {
     const now = Date.now();
     const currentSpeed = gameState.superShot ? 150 : shootingSpeed;
 
-    // ============================
-    //       MEGA SHOT
-    // ============================
     if (gameState.megaShot && isTouching && now - lastMegaShot > 900) {
         bullets.playerBullets.push({
             x: player.x,
@@ -94,11 +89,7 @@ export function handleShooting() {
         sfx.shoot();
     }
 
-    // ============================
-    //     TIRO NORMAL / DUAL
-    // ============================
     if (isTouching && now - lastShot > currentSpeed) {
-
         if (gameState.dualShot) {
             bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40, type: "normal" });
             bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40, type: "normal" });
@@ -113,35 +104,43 @@ export function handleShooting() {
 
 export function drawBullets(ctx) {
     bullets.playerBullets.forEach((b, i) => {
-
-        // ============================
-        //         MEGA SHOT
-        // ============================
         if (b.type === "mega") {
             b.y -= 22;
 
-            ctx.fillStyle = "#00ffff";
-            ctx.shadowColor = "#00ffff";
             ctx.shadowBlur = 20;
+            ctx.shadowColor = "#00ffff";
 
-            ctx.fillRect(b.x - 6, b.y, 12, 60);
+            if (shotMega.complete && shotMega.naturalWidth > 0) {
+                ctx.drawImage(shotMega, b.x - 6, b.y, 12, 60);
+            } else {
+                ctx.fillStyle = "#00ffff";
+                ctx.fillRect(b.x - 6, b.y, 12, 60);
+            }
 
             if (b.y < -80) bullets.playerBullets.splice(i, 1);
             return;
         }
 
-        // ============================
-        //     TIRO NORMAL / DUAL
-        // ============================
         b.y -= 15;
 
-        ctx.fillStyle = gameState.dualShot
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = gameState.dualShot
             ? "#FFD700"
             : gameState.superShot
             ? "#ffff00"
             : "#ffffff";
 
-        ctx.fillRect(b.x - 2, b.y, 4, 20);
+        if (shotNormal.complete && shotNormal.naturalWidth > 0) {
+            ctx.drawImage(shotNormal, b.x - 2, b.y, 4, 20);
+        } else {
+            ctx.fillStyle = gameState.dualShot
+                ? "#FFD700"
+                : gameState.superShot
+                ? "#ffff00"
+                : "#ffffff";
+
+            ctx.fillRect(b.x - 2, b.y, 4, 20);
+        }
 
         if (b.y < 0) bullets.playerBullets.splice(i, 1);
     });
