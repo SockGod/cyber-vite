@@ -11,7 +11,6 @@ export const player = {
 const playerImage = new Image();
 playerImage.src = "/assets/sprites/player_ship.png";
 
-// Tamanho do sprite (podes ajustar mais tarde se quiseres)
 const PLAYER_WIDTH = 96;
 const PLAYER_HEIGHT = 96;
 
@@ -50,7 +49,6 @@ export function drawAtariPlayer(ctx) {
             PLAYER_HEIGHT
         );
     } else {
-        // Fallback (caso a imagem ainda não tenha carregado)
         ctx.fillStyle = "#00ffff";
         ctx.beginPath();
         ctx.moveTo(player.x - 25, player.y + 18);
@@ -58,6 +56,19 @@ export function drawAtariPlayer(ctx) {
         ctx.lineTo(player.x + 25, player.y + 18);
         ctx.fill();
     }
+
+    // === EFEITO DOS MOTORES (PROPULSÃO) ===
+    const enginePulse = 10 + Math.random() * 15;
+
+    ctx.shadowBlur = 20;
+    ctx.shadowColor = "#ffaa00";
+    ctx.fillStyle = "#ff6600";
+
+    // Motor esquerdo
+    ctx.fillRect(player.x - 20, player.y + 30, 6, enginePulse);
+
+    // Motor direito
+    ctx.fillRect(player.x + 14, player.y + 30, 6, enginePulse);
 
     ctx.restore();
 }
