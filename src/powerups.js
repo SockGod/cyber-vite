@@ -3,6 +3,28 @@
 import { gameState, activePhrase } from "./gameState.js";
 import { sfx } from "./audio.js";
 
+// ==================== SPRITES DOS POWERUPS ====================
+const spriteShield = new Image();
+spriteShield.src = "/assets/sprites/powerup_shield.png";
+
+const spritePower = new Image();
+spritePower.src = "/assets/sprites/powerup_power.png";
+
+const spriteDual = new Image();
+spriteDual.src = "/assets/sprites/powerup_dual.png";
+
+const spriteHealth = new Image();
+spriteHealth.src = "/assets/sprites/powerup_health.png";
+
+const spriteMagnet = new Image();
+spriteMagnet.src = "/assets/sprites/powerup_magnet.png";
+
+const spriteSlow = new Image();
+spriteSlow.src = "/assets/sprites/powerup_slow.png";
+
+const spriteMega = new Image();
+spriteMega.src = "/assets/sprites/powerup_mega.png";
+
 export let powerUps = [];
 let shieldTimer = 0;
 let slowTimer = 0;
@@ -23,105 +45,27 @@ export function resetPowerUps() {
 
 export function drawPowerUp(ctx, p) {
     ctx.save();
-    ctx.shadowBlur = 15;
 
-    // ============================
-    // SHIELD (azul)
-    // ============================
-    if (p.type === "shield") {
-        ctx.fillStyle = "#00ffff";
-        ctx.shadowColor = "#00ffff";
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y - 10);
-        ctx.lineTo(p.x + 10, p.y - 5);
-        ctx.lineTo(p.x + 10, p.y + 5);
-        ctx.lineTo(p.x, p.y + 10);
-        ctx.lineTo(p.x - 10, p.y + 5);
-        ctx.lineTo(p.x - 10, p.y - 5);
-        ctx.closePath();
-        ctx.fill();
-    }
+    const size = 40; // tamanho uniforme
+    ctx.shadowBlur = 25;
+    ctx.shadowColor = "#ffffff";
 
-    // ============================
-    // SUPER SHOT (amarelo)
-    // ============================
-    else if (p.type === "power") {
-        ctx.fillStyle = "#ffff00";
-        ctx.shadowColor = "#ffff00";
-        ctx.beginPath();
-        ctx.moveTo(p.x + 8, p.y - 15);
-        ctx.lineTo(p.x - 8, p.y + 2);
-        ctx.lineTo(p.x + 2, p.y + 2);
-        ctx.lineTo(p.x - 8, p.y + 15);
-        ctx.lineTo(p.x + 8, p.y - 2);
-        ctx.lineTo(p.x - 2, p.y - 2);
-        ctx.closePath();
-        ctx.fill();
-    }
+    let sprite = null;
 
-    // ============================
-    // DUAL SHOT (moeda W)
-    // ============================
-    else if (p.type === "dual") {
-        ctx.fillStyle = "#FFD700";
-        ctx.shadowColor = "#FFD700";
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 15, 0, Math.PI * 2);
-        ctx.fill();
+    if (p.type === "shield") sprite = spriteShield;
+    else if (p.type === "power") sprite = spritePower;
+    else if (p.type === "dual") sprite = spriteDual;
+    else if (p.type === "health") sprite = spriteHealth;
+    else if (p.type === "magnet") sprite = spriteMagnet;
+    else if (p.type === "slow") sprite = spriteSlow;
+    else if (p.type === "mega") sprite = spriteMega;
 
-        ctx.fillStyle = "black";
-        ctx.font = "bold 16px Arial";
-        ctx.textAlign = "center";
-        ctx.fillText("W", p.x, p.y + 6);
-    }
-
-    // ============================
-    // HEALTH (coração verde)
-    // ============================
-    else if (p.type === "health") {
-        ctx.fillStyle = "#00ff00";
-        ctx.shadowColor = "#00ff00";
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y + 6);
-        ctx.bezierCurveTo(p.x, p.y + 6, p.x - 10, p.y - 2, p.x - 10, p.y - 8);
-        ctx.bezierCurveTo(p.x - 10, p.y - 14, p.x, p.y - 14, p.x, p.y - 8);
-        ctx.bezierCurveTo(p.x, p.y - 14, p.x + 10, p.y - 14, p.x + 10, p.y - 8);
-        ctx.bezierCurveTo(p.x + 10, p.y - 2, p.x, p.y + 6, p.x, p.y + 6);
-        ctx.fill();
-    }
-
-    // ============================
-    // MAGNET (ímã azul neon)
-    // ============================
-    else if (p.type === "magnet") {
-        ctx.fillStyle = "#00aaff";
-        ctx.shadowColor = "#00aaff";
-        ctx.fillRect(p.x - 10, p.y - 15, 20, 30);
-        ctx.clearRect(p.x - 6, p.y - 15, 12, 12);
-    }
-
-    // ============================
-    // SLOW MOTION (relógio neon)
-    // ============================
-    else if (p.type === "slow") {
-        ctx.fillStyle = "#ff00ff";
-        ctx.shadowColor = "#ff00ff";
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 14, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = "white";
-        ctx.fillRect(p.x - 2, p.y - 8, 4, 8);
-        ctx.fillRect(p.x - 2, p.y, 4, 8);
-    }
-
-    // ============================
-    // MEGA SHOT (laser azul)
-    // ============================
-    else if (p.type === "mega") {
-        ctx.fillStyle = "#00ffff";
-        ctx.shadowColor = "#00ffff";
-        ctx.fillRect(p.x - 12, p.y - 12, 24, 24);
+    if (sprite && sprite.complete && sprite.naturalWidth > 0) {
+        ctx.drawImage(sprite, p.x - size / 2, p.y - size / 2, size, size);
+    } else {
+        // fallback caso a imagem ainda não tenha carregado
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
     }
 
     ctx.restore();
