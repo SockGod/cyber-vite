@@ -53,20 +53,20 @@ export function drawAtariPlayer(ctx) {
         ctx.fill();
     }
 
-    // === EFEITO DE PROPULSÃO RADIAL ===
-    const pulse = 4 + Math.random() * 4;
+    // === CHAMA CENTRAL COM BRILHO E PULSO ===
+    const flameHeight = 10 + Math.random() * 10;
+    const flameWidth = 8;
 
-    const drawEnginePulse = (x, y) => {
-        for (let i = 0; i < 3; i++) {
-            ctx.beginPath();
-            ctx.arc(x, y, pulse + i * 4, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${255 - i * 40}, ${255 - i * 20}, 100, ${0.3 - i * 0.08})`;
-            ctx.fill();
-        }
-    };
+    ctx.shadowBlur = 30;
+    ctx.shadowColor = "#ffff00";
+    ctx.fillStyle = "#ffff66";
 
-    drawEnginePulse(player.x - 26, player.y + 36); // motor esquerdo
-    drawEnginePulse(player.x + 20, player.y + 36); // motor direito
+    ctx.beginPath();
+    ctx.moveTo(player.x, player.y + 38); // topo da chama
+    ctx.lineTo(player.x - flameWidth / 2, player.y + 38 + flameHeight);
+    ctx.lineTo(player.x + flameWidth / 2, player.y + 38 + flameHeight);
+    ctx.closePath();
+    ctx.fill();
 
     ctx.restore();
 }
