@@ -14,12 +14,15 @@ let lastMegaShot = 0;
 let shootingSpeed = 350;
 let isTouching = false;
 
-// === Carregar sprites dos tiros ===
+// ==================== SPRITES DOS TIROS ====================
 const shotNormal = new Image();
 shotNormal.src = "/assets/sprites/shot_player_normal.png";
 
 const shotMega = new Image();
 shotMega.src = "/assets/sprites/shot_player_mega.png";
+
+const shotEnemy = new Image();
+shotEnemy.src = "/assets/sprites/shot_enemy.png";
 
 export function resetBullets() {
     bullets.playerBullets = [];
@@ -27,6 +30,7 @@ export function resetBullets() {
 }
 
 export function setupControls(canvas, updateUI, enemiesResetCallback) {
+
     canvas.addEventListener("touchstart", e => {
         if (!gameState.isPlaying || gameState.isPaused) return;
 
@@ -78,18 +82,26 @@ export function handleShooting() {
     const now = Date.now();
     const currentSpeed = gameState.superShot ? 150 : shootingSpeed;
 
+    // ============================
+    //       MEGA SHOT (LASER)
+    // ============================
     if (gameState.megaShot && isTouching && now - lastMegaShot > 900) {
         bullets.playerBullets.push({
             x: player.x,
-            y: player.y - 60,
-            type: "mega"
+            y: player.y - 120,
+            type: "mega",
+            life: 0
         });
 
         lastMegaShot = now;
         sfx.shoot();
     }
 
+    // ============================
+    //     TIRO NORMAL / DUAL
+    // ============================
     if (isTouching && now - lastShot > currentSpeed) {
+
         if (gameState.dualShot) {
             bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40, type: "normal" });
             bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40, type: "normal" });
@@ -103,24 +115,40 @@ export function handleShooting() {
 }
 
 export function drawBullets(ctx) {
-    bullets.playerBullets.forEach((b, i) => {
-        if (b.type === "mega") {
-            b.y -= 22;
 
-            ctx.shadowBlur = 20;
+    // ============================
+    //     TIROS DO JOGADOR
+    // ============================
+    bullets.playerBullets.forEach((b, i) => {
+
+        // ============================
+        //         MEGA SHOT (LASER)
+        // ============================
+        if (b.type === "mega") {
+
+            b.y -= 14;          // mais lento para ser visível
+            b.life += 1;        // vida interna para controlar duração
+
+            ctx.shadowBlur = 35;
             ctx.shadowColor = "#00ffff";
 
+            const width = 22;
+            const height = 140; // laser gigante
+
             if (shotMega.complete && shotMega.naturalWidth > 0) {
-                ctx.drawImage(shotMega, b.x - 6, b.y, 12, 60);
+                ctx.drawImage(shotMega, b.x - width / 2, b.y, width, height);
             } else {
                 ctx.fillStyle = "#00ffff";
-                ctx.fillRect(b.x - 6, b.y, 12, 60);
+                ctx.fillRect(b.x - width / 2, b.y, width, height);
             }
 
-            if (b.y < -80) bullets.playerBullets.splice(i, 1);
+            if (b.life > 40 || b.y < -200) bullets.playerBullets.splice(i, 1);
             return;
         }
 
+        // ============================
+        //     TIRO NORMAL / DUAL
+        // ============================
         b.y -= 15;
 
         ctx.shadowBlur = 15;
@@ -143,5 +171,25 @@ export function drawBullets(ctx) {
         }
 
         if (b.y < 0) bullets.playerBullets.splice(i, 1);
+    });
+
+    // ============================
+    //     TIROS DOS INIMIGOS
+    // ============================
+    bullets.enemyBullets.forEach((eb, i) => {
+
+        eb.y += 9;
+
+        ctx.shadowBlur = 20;
+        ctx.shadowColor = "#ff0000";
+
+        if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
+            ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, 28);
+        } else {
+            ctx.fillStyle = "#ff0000";
+            ctx.fillRect(eb.x - 2, eb.y, 4, 18);
+        }
+
+        if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
     });
 }
