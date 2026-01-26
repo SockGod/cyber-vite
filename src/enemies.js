@@ -32,9 +32,13 @@ export function resetEnemies() {
 export function drawEnemyDesign(ctx, e, color) {
     ctx.save();
 
+    // === CORREÇÃO DO BRILHO INDESEJADO ===
+    ctx.shadowBlur = 0;
+    ctx.shadowColor = "transparent";
+
     const sprite = loadedSprites[e.spriteIndex];
 
-    if (sprite.complete) {
+    if (sprite.complete && sprite.naturalWidth > 0) {
         ctx.drawImage(sprite, e.x, e.y, e.size, e.size);
     } else {
         // fallback caso a imagem ainda não tenha carregado
