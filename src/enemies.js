@@ -58,27 +58,35 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
     // Spawn de inimigos
-    if (spawnTimer > 30) {
-        enemies.push({
-            x: Math.random() * (canvas.width - 40),
-            y: -40,
-            size: 35,
-            speed: config.speed,
-            spriteIndex: Math.floor(Math.random() * loadedSprites.length) // ALEATÓRIO
+if (spawnTimer > 30) {
+    enemies.push({
+        x: Math.random() * (canvas.width - 40),
+        y: -40,
+        size: 35,
+        speed: config.speed,
+        spriteIndex: Math.floor(Math.random() * loadedSprites.length),
+        lastShot: 0 // <<< NOVO: cooldown individual
+    });
+    spawnTimer = 0;
+}
+
+enemies.forEach((e, ei) => {
+    e.y += e.speed * slowFactor;
+
+    // ============================
+    //   SISTEMA DE COOLDOWN (800ms)
+    // ============================
+    const now = Date.now();
+    const canShoot = now - e.lastShot > 800;
+
+    if (canShoot && Math.random() < config.fireRate) {
+        bullets.enemyBullets.push({
+            x: e.x + e.size / 2,
+            y: e.y + e.size
         });
-        spawnTimer = 0;
+
+        e.lastShot = now; // <<< regista o disparo
     }
-
-    enemies.forEach((e, ei) => {
-        e.y += e.speed * slowFactor;
-
-        // Chance de disparar
-        if (Math.random() < config.fireRate) {
-            bullets.enemyBullets.push({
-                x: e.x + e.size / 2,
-                y: e.y + e.size
-            });
-        }
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
@@ -192,13 +200,10 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 export function handleEnemyBullets(ctx, canvas, player, updateUI) {
     if (!gameState.isPlaying || gameState.isPaused) return;
 
-    const slowFactor = gameState.slowMotion ? 0.4 : 1;
-
     bullets.enemyBullets.forEach((eb, i) => {
-        eb.y += 7 * slowFactor;
 
-        ctx.fillStyle = "#ff0000";
-        ctx.fillRect(eb.x - 2, eb.y, 4, 18);
+        // aqui NÃO mexemos em eb.y nem desenhamos nada
+        // isso já é tratado em controls.js
 
         if (
             eb.x > player.x - 15 &&
