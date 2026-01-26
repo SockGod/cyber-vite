@@ -7,7 +7,6 @@ export const player = {
     y: 0
 };
 
-// === Carregar sprite da nave ===
 const playerImage = new Image();
 playerImage.src = "/assets/sprites/player_ship.png";
 
@@ -17,7 +16,6 @@ const PLAYER_HEIGHT = 96;
 export function drawAtariPlayer(ctx) {
     ctx.save();
 
-    // Efeito de screen shake
     if (gameState.screenShake > 0) {
         ctx.translate(
             (Math.random() - 0.5) * gameState.screenShake,
@@ -28,7 +26,6 @@ export function drawAtariPlayer(ctx) {
         }
     }
 
-    // Escudo (invencibilidade temporária)
     if (gameState.isInvincible) {
         ctx.shadowBlur = 25;
         ctx.shadowColor = "#00ffff";
@@ -39,7 +36,6 @@ export function drawAtariPlayer(ctx) {
         ctx.stroke();
     }
 
-    // === DESENHAR A NAVE COM SPRITE ===
     if (playerImage.complete) {
         ctx.drawImage(
             playerImage,
@@ -57,18 +53,28 @@ export function drawAtariPlayer(ctx) {
         ctx.fill();
     }
 
-    // === EFEITO DOS MOTORES (PROPULSÃO) ===
-    const enginePulse = 10 + Math.random() * 15;
+    // === EFEITO DOS MOTORES (CHAMAS AMARELAS) ===
+    const pulse = 10 + Math.random() * 12;
 
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = "#ffaa00";
-    ctx.fillStyle = "#ff6600";
+    ctx.shadowBlur = 25;
+    ctx.shadowColor = "#ffff00";
+    ctx.fillStyle = "#ffff66";
 
-    // Motor esquerdo
-    ctx.fillRect(player.x - 20, player.y + 30, 6, enginePulse);
+    // Motor esquerdo (triângulo invertido)
+    ctx.beginPath();
+    ctx.moveTo(player.x - 26, player.y + 34);
+    ctx.lineTo(player.x - 30, player.y + 34 + pulse);
+    ctx.lineTo(player.x - 22, player.y + 34 + pulse);
+    ctx.closePath();
+    ctx.fill();
 
-    // Motor direito
-    ctx.fillRect(player.x + 14, player.y + 30, 6, enginePulse);
+    // Motor direito (triângulo invertido)
+    ctx.beginPath();
+    ctx.moveTo(player.x + 20, player.y + 34);
+    ctx.lineTo(player.x + 16, player.y + 34 + pulse);
+    ctx.lineTo(player.x + 24, player.y + 34 + pulse);
+    ctx.closePath();
+    ctx.fill();
 
     ctx.restore();
 }
