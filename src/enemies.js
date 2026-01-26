@@ -57,36 +57,38 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
     const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
-    // Spawn de inimigos
-if (spawnTimer > 30) {
-    enemies.push({
-        x: Math.random() * (canvas.width - 40),
-        y: -40,
-        size: 35,
-        speed: config.speed,
-        spriteIndex: Math.floor(Math.random() * loadedSprites.length),
-        lastShot: 0 // <<< NOVO: cooldown individual
-    });
-    spawnTimer = 0;
-}
-
-enemies.forEach((e, ei) => {
-    e.y += e.speed * slowFactor;
-
     // ============================
-    //   SISTEMA DE COOLDOWN (800ms)
+    //       SPAWN DE INIMIGOS
     // ============================
-    const now = Date.now();
-    const canShoot = now - e.lastShot > 800;
-
-    if (canShoot && Math.random() < config.fireRate) {
-        bullets.enemyBullets.push({
-            x: e.x + e.size / 2,
-            y: e.y + e.size
+    if (spawnTimer > 30) {
+        enemies.push({
+            x: Math.random() * (canvas.width - 40),
+            y: -40,
+            size: 35,
+            speed: config.speed,
+            spriteIndex: Math.floor(Math.random() * loadedSprites.length),
+            lastShot: 0 // cooldown individual
         });
-
-        e.lastShot = now; // <<< regista o disparo
+        spawnTimer = 0;
     }
+
+    enemies.forEach((e, ei) => {
+        e.y += e.speed * slowFactor;
+
+        // ============================
+        //   SISTEMA DE COOLDOWN (800ms)
+        // ============================
+        const now = Date.now();
+        const canShoot = now - e.lastShot > 800;
+
+        if (canShoot && Math.random() < config.fireRate) {
+            bullets.enemyBullets.push({
+                x: e.x + e.size / 2,
+                y: e.y + e.size - 4 // nasce logo abaixo da nave
+            });
+
+            e.lastShot = now;
+        }
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
@@ -202,8 +204,7 @@ export function handleEnemyBullets(ctx, canvas, player, updateUI) {
 
     bullets.enemyBullets.forEach((eb, i) => {
 
-        // aqui NÃO mexemos em eb.y nem desenhamos nada
-        // isso já é tratado em controls.js
+        // movimento e desenho já são tratados em controls.js
 
         if (
             eb.x > player.x - 15 &&

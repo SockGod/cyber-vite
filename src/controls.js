@@ -174,22 +174,25 @@ export function drawBullets(ctx) {
     });
 
     // ============================
-//     TIROS DOS INIMIGOS
-// ============================
-bullets.enemyBullets.forEach((eb, i) => {
+    //     TIROS DOS INIMIGOS
+    // ============================
+    const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
-    eb.y += 4.2;   // velocidade final REALMENTE justa
+    bullets.enemyBullets.forEach((eb, i) => {
 
-    ctx.shadowBlur = 25;
-    ctx.shadowColor = "#ff0000";
+        // velocidade dos tiros dos inimigos — sempre maior que a da nave
+        eb.y += 7 * slowFactor;
 
-    if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
-        ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, 28);
-    } else {
-        ctx.fillStyle = "#ff0000";
-        ctx.fillRect(eb.x - 2, eb.y, 4, 18);
-    }
+        ctx.shadowBlur = 25;
+        ctx.shadowColor = "#ff0000";
 
-    if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
-});
+        if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
+            ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, 28);
+        } else {
+            ctx.fillStyle = "#ff0000";
+            ctx.fillRect(eb.x - 2, eb.y, 4, 18);
+        }
+
+        if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
+    });
 }
