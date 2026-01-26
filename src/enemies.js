@@ -8,6 +8,10 @@ import { bullets } from "./controls.js";
 export let enemies = [];
 let spawnTimer = 0;
 
+// === Carregar sprite do inimigo ===
+const enemySprite = new Image();
+enemySprite.src = "/assets/sprites/enemy_03.png";
+
 export function resetEnemies() {
     enemies = [];
     bullets.enemyBullets = [];
@@ -15,17 +19,15 @@ export function resetEnemies() {
 
 export function drawEnemyDesign(ctx, e, color) {
     ctx.save();
-    ctx.fillStyle = color;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = color;
 
-    const p = e.size / 8;
-
-    ctx.fillRect(e.x + 2 * p, e.y, 4 * p, p);
-    ctx.fillRect(e.x + p, e.y + p, 6 * p, p);
-    ctx.fillRect(e.x, e.y + 2 * p, 8 * p, 3 * p);
-    ctx.fillRect(e.x + p, e.y + 5 * p, p, p);
-    ctx.fillRect(e.x + 6 * p, e.y + 5 * p, p, p);
+    // Se o sprite estiver carregado, desenha-o
+    if (enemySprite.complete) {
+        ctx.drawImage(enemySprite, e.x, e.y, e.size, e.size);
+    } else {
+        // fallback (caso a imagem ainda não tenha carregado)
+        ctx.fillStyle = color;
+        ctx.fillRect(e.x, e.y, e.size, e.size);
+    }
 
     ctx.restore();
 }
@@ -62,7 +64,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
         // ============================
         //   COLISÃO COM O PLAYER
-        //   (HITBOX REDUZIDA)
         // ============================
         if (
             Math.abs(player.x - (e.x + e.size / 2)) < 15 &&
@@ -179,10 +180,6 @@ export function handleEnemyBullets(ctx, canvas, player, updateUI) {
         ctx.fillStyle = "#ff0000";
         ctx.fillRect(eb.x - 2, eb.y, 4, 18);
 
-        // ============================
-        //   COLISÃO COM TIROS
-        //   (HITBOX REDUZIDA)
-        // ============================
         if (
             eb.x > player.x - 15 &&
             eb.x < player.x + 15 &&
