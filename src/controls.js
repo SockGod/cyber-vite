@@ -88,7 +88,7 @@ export function handleShooting() {
     if (gameState.megaShot && isTouching && now - lastMegaShot > 900) {
         bullets.playerBullets.push({
             x: player.x,
-            y: player.y - 120,
+            y: player.y - 150,
             type: "mega",
             life: 0
         });
@@ -126,14 +126,14 @@ export function drawBullets(ctx) {
         // ============================
         if (b.type === "mega") {
 
-            b.y -= 14;          // mais lento para ser visível
-            b.life += 1;        // vida interna para controlar duração
+            b.y -= 10;          // mais lento → mais visível
+            b.life += 1;        // controla duração
 
-            ctx.shadowBlur = 35;
+            ctx.shadowBlur = 45;
             ctx.shadowColor = "#00ffff";
 
-            const width = 22;
-            const height = 140; // laser gigante
+            const width = 26;
+            const height = 180; // laser ainda mais comprido
 
             if (shotMega.complete && shotMega.naturalWidth > 0) {
                 ctx.drawImage(shotMega, b.x - width / 2, b.y, width, height);
@@ -142,7 +142,7 @@ export function drawBullets(ctx) {
                 ctx.fillRect(b.x - width / 2, b.y, width, height);
             }
 
-            if (b.life > 40 || b.y < -200) bullets.playerBullets.splice(i, 1);
+            if (b.life > 55 || b.y < -250) bullets.playerBullets.splice(i, 1);
             return;
         }
 
@@ -178,9 +178,9 @@ export function drawBullets(ctx) {
     // ============================
     bullets.enemyBullets.forEach((eb, i) => {
 
-        eb.y += 9;
+        eb.y += 5;   // antes era 9 → agora mais justo
 
-        ctx.shadowBlur = 20;
+        ctx.shadowBlur = 25;
         ctx.shadowColor = "#ff0000";
 
         if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
