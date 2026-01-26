@@ -35,7 +35,6 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
         if (e.touches.length > 1 && gameState.bombs > 0) {
             gameState.bombs--;
 
-            // Limpa inimigos e tiros
             enemiesResetCallback();
             bullets.enemyBullets = [];
 
@@ -59,8 +58,14 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
             if (!gameState.isPlaying || gameState.isPaused) return;
 
             if (e.touches[0]) {
-                player.x = e.touches[0].clientX;
-                player.y = e.touches[0].clientY - 80;
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+
+                // ============================
+                //   OFFSET PARA O DEDO NÃO TAPAR A NAVE
+                // ============================
+                player.x = touchX;
+                player.y = touchY - 120; // <- ajuste perfeito para o sprite novo
             }
 
             e.preventDefault();
