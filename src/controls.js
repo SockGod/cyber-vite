@@ -178,7 +178,7 @@ export function drawBullets(ctx) {
 // ============================
 bullets.enemyBullets.forEach((eb, i) => {
 
-    eb.y += 3.5;   // velocidade final ajustada
+    eb.y += 1.8;   // velocidade final REALMENTE justa
 
     ctx.shadowBlur = 25;
     ctx.shadowColor = "#ff0000";
