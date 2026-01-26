@@ -46,7 +46,7 @@ export function resetPowerUps() {
 export function drawPowerUp(ctx, p) {
     ctx.save();
 
-    const size = 40; // tamanho uniforme
+    const size = 28; // tamanho uniforme
     ctx.shadowBlur = 25;
     ctx.shadowColor = "#ffffff";
 
