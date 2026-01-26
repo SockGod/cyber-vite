@@ -174,22 +174,22 @@ export function drawBullets(ctx) {
     });
 
     // ============================
-    //     TIROS DOS INIMIGOS
-    // ============================
-    bullets.enemyBullets.forEach((eb, i) => {
+//     TIROS DOS INIMIGOS
+// ============================
+bullets.enemyBullets.forEach((eb, i) => {
 
-        eb.y += 5;   // antes era 9 → agora mais justo
+    eb.y += 3.5;   // velocidade final ajustada
 
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = "#ff0000";
+    ctx.shadowBlur = 25;
+    ctx.shadowColor = "#ff0000";
 
-        if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
-            ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, 28);
-        } else {
-            ctx.fillStyle = "#ff0000";
-            ctx.fillRect(eb.x - 2, eb.y, 4, 18);
-        }
+    if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
+        ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, 28);
+    } else {
+        ctx.fillStyle = "#ff0000";
+        ctx.fillRect(eb.x - 2, eb.y, 4, 18);
+    }
 
-        if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
-    });
+    if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
+});
 }
