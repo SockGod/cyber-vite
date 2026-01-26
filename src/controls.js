@@ -65,7 +65,7 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
                 //   OFFSET PARA O DEDO NÃO TAPAR A NAVE
                 // ============================
                 player.x = touchX;
-                player.y = touchY - 120; // <- ajuste perfeito para o sprite novo
+                player.y = touchY - 100; // <- ajuste perfeito para o sprite novo
             }
 
             e.preventDefault();
