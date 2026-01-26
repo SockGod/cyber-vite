@@ -8,9 +8,21 @@ import { bullets } from "./controls.js";
 export let enemies = [];
 let spawnTimer = 0;
 
-// === Carregar sprite do inimigo ===
-const enemySprite = new Image();
-enemySprite.src = "/assets/sprites/enemy_03.png";
+// === Carregar todos os sprites dos inimigos ===
+const enemySprites = [
+    "/assets/sprites/enemy_01.png",
+    "/assets/sprites/enemy_02.png",
+    "/assets/sprites/enemy_03.png",
+    "/assets/sprites/enemy_04.png",
+    "/assets/sprites/enemy_05.png"
+];
+
+// Criar objetos Image para cada sprite
+const loadedSprites = enemySprites.map(src => {
+    const img = new Image();
+    img.src = src;
+    return img;
+});
 
 export function resetEnemies() {
     enemies = [];
@@ -20,11 +32,12 @@ export function resetEnemies() {
 export function drawEnemyDesign(ctx, e, color) {
     ctx.save();
 
-    // Se o sprite estiver carregado, desenha-o
-    if (enemySprite.complete) {
-        ctx.drawImage(enemySprite, e.x, e.y, e.size, e.size);
+    const sprite = loadedSprites[e.spriteIndex];
+
+    if (sprite.complete) {
+        ctx.drawImage(sprite, e.x, e.y, e.size, e.size);
     } else {
-        // fallback (caso a imagem ainda não tenha carregado)
+        // fallback caso a imagem ainda não tenha carregado
         ctx.fillStyle = color;
         ctx.fillRect(e.x, e.y, e.size, e.size);
     }
@@ -40,12 +53,14 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
     const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
+    // Spawn de inimigos
     if (spawnTimer > 30) {
         enemies.push({
             x: Math.random() * (canvas.width - 40),
             y: -40,
             size: 35,
-            speed: config.speed
+            speed: config.speed,
+            spriteIndex: Math.floor(Math.random() * loadedSprites.length) // ALEATÓRIO
         });
         spawnTimer = 0;
     }
@@ -53,6 +68,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     enemies.forEach((e, ei) => {
         e.y += e.speed * slowFactor;
 
+        // Chance de disparar
         if (Math.random() < config.fireRate) {
             bullets.enemyBullets.push({
                 x: e.x + e.size / 2,
