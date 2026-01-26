@@ -174,25 +174,33 @@ export function drawBullets(ctx) {
     });
 
     // ============================
-    //     TIROS DOS INIMIGOS
-    // ============================
-    const slowFactor = gameState.slowMotion ? 0.4 : 1;
+//     TIROS DOS INIMIGOS (ESCALÁVEIS)
+// ============================
+const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
-    bullets.enemyBullets.forEach((eb, i) => {
+// velocidade dinâmica por nível
+const enemyBulletSpeed = 6 + gameState.level * 0.35;
 
-        // velocidade dos tiros dos inimigos — sempre maior que a da nave
-        eb.y += 7 * slowFactor;
+// brilho dinâmico por nível
+const enemyBulletBlur = 25 + gameState.level * 0.4;
 
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = "#ff0000";
+// altura dinâmica do tiro
+const enemyBulletHeight = 28 + gameState.level * 0.1;
 
-        if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
-            ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, 28);
-        } else {
-            ctx.fillStyle = "#ff0000";
-            ctx.fillRect(eb.x - 2, eb.y, 4, 18);
-        }
+bullets.enemyBullets.forEach((eb, i) => {
 
-        if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
-    });
+    eb.y += enemyBulletSpeed * slowFactor;
+
+    ctx.shadowBlur = enemyBulletBlur;
+    ctx.shadowColor = "#ff0000";
+
+    if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
+        ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, enemyBulletHeight);
+    } else {
+        ctx.fillStyle = "#ff0000";
+        ctx.fillRect(eb.x - 2, eb.y, 4, enemyBulletHeight);
+    }
+
+    if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
+});
 }

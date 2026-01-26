@@ -81,14 +81,17 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
         const now = Date.now();
         const canShoot = now - e.lastShot > 800;
 
-        if (canShoot && Math.random() < config.fireRate) {
-            bullets.enemyBullets.push({
-                x: e.x + e.size / 2,
-                y: e.y + e.size - 4 // nasce logo abaixo da nave
-            });
+        // distância inicial dinâmica
+const spawnOffset = 4 + gameState.level * 0.15;
 
-            e.lastShot = now;
-        }
+if (canShoot && Math.random() < config.fireRate) {
+    bullets.enemyBullets.push({
+        x: e.x + e.size / 2,
+        y: e.y + e.size + spawnOffset
+    });
+
+    e.lastShot = now;
+}
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
