@@ -7,6 +7,14 @@ export const player = {
     y: 0
 };
 
+// === Carregar sprite da nave ===
+const playerImage = new Image();
+playerImage.src = "/assets/sprites/player_ship.png";
+
+// Tamanho do sprite (podes ajustar mais tarde se quiseres)
+const PLAYER_WIDTH = 96;
+const PLAYER_HEIGHT = 96;
+
 export function drawAtariPlayer(ctx) {
     ctx.save();
 
@@ -32,47 +40,24 @@ export function drawAtariPlayer(ctx) {
         ctx.stroke();
     }
 
-    // Cor do jogador (normal, super shot, dual shot)
-    ctx.shadowBlur = 15;
-    ctx.shadowColor = gameState.dualShot
-        ? "#FFD700"
-        : gameState.superShot
-        ? "#ffff00"
-        : "#00ffff";
-
-    ctx.fillStyle = gameState.dualShot
-        ? "#FFD700"
-        : gameState.superShot
-        ? "#ffff00"
-        : "#00ffff";
-
-    // Corpo principal (forma Atari)
-    ctx.beginPath();
-    ctx.moveTo(player.x - 25, player.y + 18);
-    ctx.lineTo(player.x, player.y - 12);
-    ctx.lineTo(player.x + 25, player.y + 18);
-    ctx.fill();
-
-    // Cockpit
-    ctx.fillStyle = "white";
-    ctx.fillRect(player.x - 4, player.y - 28, 8, 35);
-
-    // Lados
-    ctx.fillStyle = gameState.dualShot
-        ? "#FFD700"
-        : gameState.superShot
-        ? "#ffff00"
-        : "#00ffff";
-
-    ctx.fillRect(player.x - 22, player.y + 4, 6, 14);
-    ctx.fillRect(player.x + 16, player.y + 4, 6, 14);
-
-    // Motor (efeito de chama)
-    const enginePulse = 10 + Math.random() * 15;
-    ctx.shadowBlur = 20;
-    ctx.shadowColor = "#ff6600";
-    ctx.fillStyle = "#ffaa00";
-    ctx.fillRect(player.x - 3, player.y + 18, 6, enginePulse);
+    // === DESENHAR A NAVE COM SPRITE ===
+    if (playerImage.complete) {
+        ctx.drawImage(
+            playerImage,
+            player.x - PLAYER_WIDTH / 2,
+            player.y - PLAYER_HEIGHT / 2,
+            PLAYER_WIDTH,
+            PLAYER_HEIGHT
+        );
+    } else {
+        // Fallback (caso a imagem ainda não tenha carregado)
+        ctx.fillStyle = "#00ffff";
+        ctx.beginPath();
+        ctx.moveTo(player.x - 25, player.y + 18);
+        ctx.lineTo(player.x, player.y - 12);
+        ctx.lineTo(player.x + 25, player.y + 18);
+        ctx.fill();
+    }
 
     ctx.restore();
 }
