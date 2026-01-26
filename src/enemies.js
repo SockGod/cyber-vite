@@ -36,10 +36,8 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     const config = getLevelConfig(gameState.level);
     spawnTimer++;
 
-    // Slow Motion multiplier
     const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
-    // Spawn de inimigos
     if (spawnTimer > 30) {
         enemies.push({
             x: Math.random() * (canvas.width - 40),
@@ -51,10 +49,8 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
     }
 
     enemies.forEach((e, ei) => {
-        // Movimento com slow motion
         e.y += e.speed * slowFactor;
 
-        // Chance de disparar
         if (Math.random() < config.fireRate) {
             bullets.enemyBullets.push({
                 x: e.x + e.size / 2,
@@ -64,10 +60,13 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
-        // Colisão com o jogador
+        // ============================
+        //   COLISÃO COM O PLAYER
+        //   (HITBOX REDUZIDA)
+        // ============================
         if (
-            Math.abs(player.x - (e.x + e.size / 2)) < 25 &&
-            Math.abs(player.y - (e.y + e.size / 2)) < 25
+            Math.abs(player.x - (e.x + e.size / 2)) < 15 &&
+            Math.abs(player.y - (e.y + e.size / 2)) < 15
         ) {
             enemies.splice(ei, 1);
             triggerDamage(updateUI);
@@ -79,7 +78,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
         // ============================
         playerBullets.forEach((b, bi) => {
 
-            // MEGA SHOT — atravessa tudo
             if (b.type === "mega") {
                 if (
                     b.x > e.x &&
@@ -101,7 +99,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                         activePhrase.alpha = 1.5;
                     }
 
-                    // Drop de powerups
                     if (Math.random() < 0.18) {
                         const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega"];
                         powerUps.push({
@@ -111,7 +108,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                         });
                     }
 
-                    // Boss trigger
                     if (gameState.enemiesDefeated >= config.req) {
                         gameState.bossActive = true;
                         gameState.bossHP = config.bossHP;
@@ -123,10 +119,9 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                     updateUI();
                 }
 
-                return; // Mega shot não é removido
+                return;
             }
 
-            // TIROS NORMAIS / SUPER / DUAL
             if (
                 b.x > e.x &&
                 b.x < e.x + e.size &&
@@ -148,7 +143,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                     activePhrase.alpha = 1.5;
                 }
 
-                // Drop de powerups
                 if (Math.random() < 0.18) {
                     const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega"];
                     powerUps.push({
@@ -158,7 +152,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                     });
                 }
 
-                // Boss trigger
                 if (gameState.enemiesDefeated >= config.req) {
                     gameState.bossActive = true;
                     gameState.bossHP = config.bossHP;
@@ -186,11 +179,15 @@ export function handleEnemyBullets(ctx, canvas, player, updateUI) {
         ctx.fillStyle = "#ff0000";
         ctx.fillRect(eb.x - 2, eb.y, 4, 18);
 
+        // ============================
+        //   COLISÃO COM TIROS
+        //   (HITBOX REDUZIDA)
+        // ============================
         if (
-            eb.x > player.x - 25 &&
-            eb.x < player.x + 25 &&
-            eb.y > player.y - 25 &&
-            eb.y < player.y + 25
+            eb.x > player.x - 15 &&
+            eb.x < player.x + 15 &&
+            eb.y > player.y - 15 &&
+            eb.y < player.y + 15
         ) {
             bullets.enemyBullets.splice(i, 1);
             triggerDamage(updateUI);
