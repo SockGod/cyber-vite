@@ -10,6 +10,8 @@ import { sfx } from "./audio.js";
 import { createParticles } from "./particles.js";
 
 // ==================== SPRITES DOS BOSSES ====================
+
+// Bosses originais
 const bossSprite1 = new Image();
 bossSprite1.src = "/assets/sprites/boss_01.png";
 
@@ -28,13 +30,31 @@ bossSprite5.src = "/assets/sprites/boss_05.png";
 const bossSprite6 = new Image();
 bossSprite6.src = "/assets/sprites/boss_06.png";
 
+// Novos bosses
+const bossSprite7 = new Image();
+bossSprite7.src = "/assets/sprites/boss_07.png";
+
+const bossSprite8 = new Image();
+bossSprite8.src = "/assets/sprites/boss_08.png";
+
+const bossSprite9 = new Image();
+bossSprite9.src = "/assets/sprites/boss_09.png";
+
+const bossSprite10 = new Image();
+bossSprite10.src = "/assets/sprites/boss_10.png";
+
+// Array final com os 10 bosses
 const bossSprites = [
     bossSprite1,
     bossSprite2,
     bossSprite3,
     bossSprite4,
     bossSprite5,
-    bossSprite6
+    bossSprite6,
+    bossSprite7,
+    bossSprite8,
+    bossSprite9,
+    bossSprite10
 ];
 
 export const boss = {
@@ -48,7 +68,7 @@ export const boss = {
     currentMaxHP: 100,
     patternId: 0,
     fireCooldown: 0,
-    glowPulse: 0 // brilho reativo (disparos / dano)
+    glowPulse: 0
 };
 
 export function resetBoss() {
@@ -122,35 +142,32 @@ function drawBossDesign(ctx, pattern) {
 
     ctx.save();
 
-    // brilho base + pulso reativo
     const hpRatio = Math.max(0, gameState.bossHP / boss.currentMaxHP || 1);
-    const baseBlur = 24 + (1 - hpRatio) * 10; // mais fraco quando está quase a morrer
+    const baseBlur = 24 + (1 - hpRatio) * 10;
     const pulse = boss.glowPulse;
     const totalBlur = baseBlur + pulse;
 
     ctx.shadowBlur = totalBlur;
     ctx.shadowColor = color;
 
-    // Escolher sprite do boss baseado no nível (OPÇÃO A)
-const spriteIndex = (gameState.level - 1) % bossSprites.length;
-const sprite = bossSprites[spriteIndex];
+    // Escolher sprite baseado no nível (agora com 10 bosses)
+    const spriteIndex = (gameState.level - 1) % bossSprites.length;
+    const sprite = bossSprites[spriteIndex];
 
-const drawX = boss.x;
-const drawY = boss.y;
-const drawW = boss.width;
-const drawH = boss.height;
+    const drawX = boss.x;
+    const drawY = boss.y;
+    const drawW = boss.width;
+    const drawH = boss.height;
 
-if (sprite && sprite.complete && sprite.naturalWidth > 0) {
-    ctx.drawImage(sprite, drawX, drawY, drawW, drawH);
-} else {
-    // fallback: caixa simples com cor do padrão
-    ctx.fillStyle = color;
-    ctx.fillRect(drawX, drawY, drawW, drawH);
-}
+    if (sprite && sprite.complete && sprite.naturalWidth > 0) {
+        ctx.drawImage(sprite, drawX, drawY, drawW, drawH);
+    } else {
+        ctx.fillStyle = color;
+        ctx.fillRect(drawX, drawY, drawW, drawH);
+    }
 
     ctx.restore();
 
-    // decaimento suave do pulso de brilho
     if (boss.glowPulse > 0) {
         boss.glowPulse -= 1;
     }
@@ -168,7 +185,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     }
 
     const pattern = getBossPattern(gameState.level);
-
     const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
     if (!boss.initialized) {
@@ -258,18 +274,12 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
             bullets.enemyBullets.push({ x: centerX + 20, y: muzzleY + 4 });
         }
 
-        // pulso de brilho quando dispara
         boss.glowPulse = 18;
-
         boss.fireCooldown = Math.max(8, 38 - gameState.level * 2);
     }
 
-    // ============================
-    //     COLISÃO COM BALAS
-    // ============================
     bullets.playerBullets.forEach((b, bi) => {
 
-        // MEGA SHOT — atravessa o boss
         if (b.type === "mega") {
             if (
                 b.x > boss.x &&
@@ -281,8 +291,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
                 gameState.bossHP -= damage;
 
                 createParticles(b.x, b.y, pattern.color, 10);
-
-                // pulso de brilho mais forte ao levar mega
                 boss.glowPulse = 24;
 
                 if (gameState.bossHP <= 0) {
@@ -320,10 +328,9 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
                 }
             }
 
-            return; // Mega shot não é removido
+            return;
         }
 
-        // TIROS NORMAIS / SUPER / DUAL
         if (
             b.x > boss.x &&
             b.x < boss.x + boss.width &&
@@ -336,8 +343,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
             gameState.bossHP -= damage;
 
             createParticles(b.x, b.y, pattern.color, 6);
-
-            // pulso de brilho ao levar dano normal
             boss.glowPulse = 16;
 
             if (gameState.bossHP <= 0) {
