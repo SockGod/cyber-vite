@@ -68,9 +68,9 @@ export function drawPowerUp(ctx, p) {
     else if (p.type === "slow") sprite = spriteSlow;
     else if (p.type === "mega") sprite = spriteMega;
     else if (p.type === "tri_formation") {
-        sprite = spriteTriFormation;
-        size = 64; // tamanho especial
-    }
+    sprite = spriteTriFormation;
+    size = 48; // tamanho ajustado e mais elegante
+}
 
     if (sprite && sprite.complete && sprite.naturalWidth > 0) {
         ctx.drawImage(sprite, p.x - size / 2, p.y - size / 2, size, size);
