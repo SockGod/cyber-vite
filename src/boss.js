@@ -131,22 +131,22 @@ function drawBossDesign(ctx, pattern) {
     ctx.shadowBlur = totalBlur;
     ctx.shadowColor = color;
 
-    const spriteIndex =
-        (pattern.id + Math.max(0, gameState.level - 1)) % bossSprites.length;
-    const sprite = bossSprites[spriteIndex];
+    // Escolher sprite do boss baseado no nível (OPÇÃO A)
+const spriteIndex = (gameState.level - 1) % bossSprites.length;
+const sprite = bossSprites[spriteIndex];
 
-    const drawX = boss.x;
-    const drawY = boss.y;
-    const drawW = boss.width;
-    const drawH = boss.height;
+const drawX = boss.x;
+const drawY = boss.y;
+const drawW = boss.width;
+const drawH = boss.height;
 
-    if (sprite && sprite.complete && sprite.naturalWidth > 0) {
-        ctx.drawImage(sprite, drawX, drawY, drawW, drawH);
-    } else {
-        // fallback: caixa simples com cor do padrão
-        ctx.fillStyle = color;
-        ctx.fillRect(drawX, drawY, drawW, drawH);
-    }
+if (sprite && sprite.complete && sprite.naturalWidth > 0) {
+    ctx.drawImage(sprite, drawX, drawY, drawW, drawH);
+} else {
+    // fallback: caixa simples com cor do padrão
+    ctx.fillStyle = color;
+    ctx.fillRect(drawX, drawY, drawW, drawH);
+}
 
     ctx.restore();
 
