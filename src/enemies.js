@@ -1,9 +1,9 @@
 // ==================== INIMIGOS ====================
-
 import { gameState, getLevelConfig, blockchainPhrases, activePhrase } from "./gameState.js";
 import { sfx } from "./audio.js";
 import { createParticles } from "./particles.js";
 import { bullets } from "./controls.js";
+import { spawnExplosion } from "./explosions.js";
 
 export let enemies = [];
 let spawnTimer = 0;
@@ -120,7 +120,7 @@ if (canShoot && Math.random() < config.fireRate) {
                     b.y < e.y + e.size
                 ) {
                     sfx.explosion(e.x + 17, e.y + 17, config.enemyColor);
-                    createParticles(e.x + 17, e.y + 17, config.enemyColor, 12);
+                    spawnExplosion(e.x + 17, e.y + 17, "medium", config.enemyColor);
 
                     enemies.splice(ei, 1);
 
@@ -163,7 +163,7 @@ if (canShoot && Math.random() < config.fireRate) {
                 b.y < e.y + e.size
             ) {
                 sfx.explosion(e.x + 17, e.y + 17, config.enemyColor);
-                createParticles(e.x + 17, e.y + 17, config.enemyColor, 12);
+                spawnExplosion(e.x + 17, e.y + 17, "medium", config.enemyColor);
 
                 enemies.splice(ei, 1);
                 playerBullets.splice(bi, 1);
