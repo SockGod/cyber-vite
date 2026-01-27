@@ -3,6 +3,7 @@
 import { gameState, activePhrase } from "./gameState.js";
 import { initStars, drawStars } from "./stars.js";
 import { updateParticles } from "./particles.js";
+import { updateExplosions } from "./explosions.js";
 import { player, drawAtariPlayer } from "./player.js";
 import { enemies, handleEnemies, handleEnemyBullets } from "./enemies.js";
 import { boss, handleBoss } from "./boss.js";
@@ -89,6 +90,10 @@ function gameLoop() {
 
     // Partículas
     updateParticles(ctx);
+
+    // Explosões
+    updateExplosions(ctx);
+
 
     // Jogador
     drawAtariPlayer(ctx);
