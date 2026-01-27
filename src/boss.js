@@ -1,13 +1,41 @@
-// ==================== BOSS (VERSÃO POLIDA) ====================
+// ==================== BOSS (VERSÃO SPRITES + GLOW) ====================
 //
-// Estilo: Atari + Neon (pixel vibes)
-// Lógica: níveis infinitos, bosses mais agressivos a cada nível,
-//         múltiplos designs, padrões de tiro diferentes.
+// Estilo: Sprites 220x120 + neon reativo
+// Lógica: mantém tudo o que já tinhas (HP, padrões, tiros, etc.)
+// Visual: usa apenas sprites, com brilho que reage a tiros e disparos
 //
 
 import { gameState, activePhrase } from "./gameState.js";
 import { sfx } from "./audio.js";
 import { createParticles } from "./particles.js";
+
+// ==================== SPRITES DOS BOSSES ====================
+const bossSprite1 = new Image();
+bossSprite1.src = "/assets/sprites/boss_01.png";
+
+const bossSprite2 = new Image();
+bossSprite2.src = "/assets/sprites/boss_02.png";
+
+const bossSprite3 = new Image();
+bossSprite3.src = "/assets/sprites/boss_03.png";
+
+const bossSprite4 = new Image();
+bossSprite4.src = "/assets/sprites/boss_04.png";
+
+const bossSprite5 = new Image();
+bossSprite5.src = "/assets/sprites/boss_05.png";
+
+const bossSprite6 = new Image();
+bossSprite6.src = "/assets/sprites/boss_06.png";
+
+const bossSprites = [
+    bossSprite1,
+    bossSprite2,
+    bossSprite3,
+    bossSprite4,
+    bossSprite5,
+    bossSprite6
+];
 
 export const boss = {
     x: 0,
@@ -19,7 +47,8 @@ export const boss = {
     initialized: false,
     currentMaxHP: 100,
     patternId: 0,
-    fireCooldown: 0
+    fireCooldown: 0,
+    glowPulse: 0 // brilho reativo (disparos / dano)
 };
 
 export function resetBoss() {
@@ -31,6 +60,7 @@ export function resetBoss() {
     boss.currentMaxHP = 100;
     boss.patternId = 0;
     boss.fireCooldown = 0;
+    boss.glowPulse = 0;
 }
 
 // ==================== CONFIGURAÇÃO DE PADRÕES ====================
@@ -85,73 +115,45 @@ function getBossPattern(level) {
     };
 }
 
-// ==================== DESENHO DO BOSS ====================
+// ==================== DESENHO DO BOSS (SPRITES + GLOW) ====================
 
 function drawBossDesign(ctx, pattern) {
-    const { color, eyeColor, id } = pattern;
+    const { color } = pattern;
 
     ctx.save();
-    ctx.shadowBlur = 26;
+
+    // brilho base + pulso reativo
+    const hpRatio = Math.max(0, gameState.bossHP / boss.currentMaxHP || 1);
+    const baseBlur = 24 + (1 - hpRatio) * 10; // mais fraco quando está quase a morrer
+    const pulse = boss.glowPulse;
+    const totalBlur = baseBlur + pulse;
+
+    ctx.shadowBlur = totalBlur;
     ctx.shadowColor = color;
-    ctx.fillStyle = color;
 
-    const cx = boss.x + boss.width / 2;
+    const spriteIndex =
+        (pattern.id + Math.max(0, gameState.level - 1)) % bossSprites.length;
+    const sprite = bossSprites[spriteIndex];
 
-    if (id === 0) {
-        ctx.fillRect(cx - 70, boss.y + 20, 140, 40);
-        ctx.fillRect(cx - 85, boss.y + 40, 170, 40);
-        ctx.fillRect(cx - 100, boss.y + 30, 20, 60);
-        ctx.fillRect(cx + 80, boss.y + 30, 20, 60);
-        ctx.fillRect(cx - 40, boss.y, 12, 25);
-        ctx.fillRect(cx + 28, boss.y, 12, 25);
-    } else if (id === 1) {
-        const segmentWidth = 28;
-        const segmentCount = 5;
-        const startX = cx - ((segmentCount * segmentWidth) / 2);
+    const drawX = boss.x;
+    const drawY = boss.y;
+    const drawW = boss.width;
+    const drawH = boss.height;
 
-        for (let i = 0; i < segmentCount; i++) {
-            ctx.fillRect(startX + i * segmentWidth, boss.y + 30, 22, 30);
-            ctx.fillRect(startX + i * segmentWidth + 3, boss.y + 60, 16, 22);
-        }
-
-        ctx.fillRect(cx - 90, boss.y + 40, 16, 40);
-        ctx.fillRect(cx + 74, boss.y + 40, 16, 40);
-    } else if (id === 2) {
-        ctx.beginPath();
-        ctx.moveTo(cx, boss.y + 10);
-        ctx.lineTo(cx + 70, boss.y + 80);
-        ctx.lineTo(cx - 70, boss.y + 80);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.fillRect(cx - 20, boss.y + 80, 40, 30);
-    } else if (id === 3) {
-        ctx.fillRect(cx - 75, boss.y + 25, 150, 30);
-        ctx.fillRect(cx - 60, boss.y + 55, 120, 30);
-        ctx.fillRect(cx - 95, boss.y + 35, 18, 50);
-        ctx.fillRect(cx + 77, boss.y + 35, 18, 50);
-    }
-
-    ctx.fillStyle = eyeColor;
-    ctx.globalAlpha = Math.random() > 0.15 ? 1 : 0.45;
-    const eyeOffsetX = 55;
-    const eyeSize = 16;
-    ctx.fillRect(cx - eyeOffsetX - eyeSize / 2, boss.y + 42, eyeSize, eyeSize);
-    ctx.fillRect(cx + eyeOffsetX - eyeSize / 2, boss.y + 42, eyeSize, eyeSize);
-
-    ctx.globalAlpha = 1;
-    ctx.fillStyle = color;
-    ctx.fillRect(cx - 10, boss.y + 72, 20, 26);
-
-    const toothSpacing = 24;
-    const toothCount = 5;
-    const startX = cx - ((toothCount - 1) * toothSpacing) / 2;
-
-    for (let i = 0; i < toothCount; i++) {
-        ctx.fillRect(startX + i * toothSpacing, boss.y + 94, 8, 12);
+    if (sprite && sprite.complete && sprite.naturalWidth > 0) {
+        ctx.drawImage(sprite, drawX, drawY, drawW, drawH);
+    } else {
+        // fallback: caixa simples com cor do padrão
+        ctx.fillStyle = color;
+        ctx.fillRect(drawX, drawY, drawW, drawH);
     }
 
     ctx.restore();
+
+    // decaimento suave do pulso de brilho
+    if (boss.glowPulse > 0) {
+        boss.glowPulse -= 1;
+    }
 }
 
 // ==================== LÓGICA DO BOSS ====================
@@ -167,7 +169,6 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
 
     const pattern = getBossPattern(gameState.level);
 
-    // Slow Motion multiplier
     const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
     if (!boss.initialized) {
@@ -180,6 +181,7 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         boss.currentMaxHP = pattern.hp;
         boss.fireCooldown = 0;
         boss.patternId = pattern.id;
+        boss.glowPulse = 0;
         gameState.bossHP = pattern.hp;
 
         boss.initialized = true;
@@ -256,6 +258,9 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
             bullets.enemyBullets.push({ x: centerX + 20, y: muzzleY + 4 });
         }
 
+        // pulso de brilho quando dispara
+        boss.glowPulse = 18;
+
         boss.fireCooldown = Math.max(8, 38 - gameState.level * 2);
     }
 
@@ -272,10 +277,13 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
                 b.y > boss.y &&
                 b.y < boss.y + boss.height
             ) {
-                const damage = 40; // Mega Shot dano aumentado
+                const damage = 40;
                 gameState.bossHP -= damage;
 
                 createParticles(b.x, b.y, pattern.color, 10);
+
+                // pulso de brilho mais forte ao levar mega
+                boss.glowPulse = 24;
 
                 if (gameState.bossHP <= 0) {
                     sfx.bossExplosion(
@@ -328,6 +336,9 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
             gameState.bossHP -= damage;
 
             createParticles(b.x, b.y, pattern.color, 6);
+
+            // pulso de brilho ao levar dano normal
+            boss.glowPulse = 16;
 
             if (gameState.bossHP <= 0) {
                 sfx.bossExplosion(
