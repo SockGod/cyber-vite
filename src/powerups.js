@@ -25,6 +25,10 @@ spriteSlow.src = "/assets/sprites/powerup_slow.png";
 const spriteMega = new Image();
 spriteMega.src = "/assets/sprites/powerup_mega.png";
 
+// NOVO POWERUP — TRI-FORMATION
+const spriteTriFormation = new Image();
+spriteTriFormation.src = "/assets/sprites/tri_formation_core.png";
+
 export let powerUps = [];
 let shieldTimer = 0;
 let slowTimer = 0;
@@ -41,12 +45,16 @@ export function resetPowerUps() {
     gameState.slowMotion = false;
     gameState.magnetActive = false;
     gameState.megaShot = false;
+
+    // Reset dos mini drones
+    gameState.miniDronesActive = false;
+    gameState.miniDronesTimer = 0;
 }
 
 export function drawPowerUp(ctx, p) {
     ctx.save();
 
-    const size = 28; // tamanho uniforme
+    let size = 28; // tamanho padrão
     ctx.shadowBlur = 25;
     ctx.shadowColor = "#ffffff";
 
@@ -59,11 +67,14 @@ export function drawPowerUp(ctx, p) {
     else if (p.type === "magnet") sprite = spriteMagnet;
     else if (p.type === "slow") sprite = spriteSlow;
     else if (p.type === "mega") sprite = spriteMega;
+    else if (p.type === "tri_formation") {
+        sprite = spriteTriFormation;
+        size = 64; // tamanho especial
+    }
 
     if (sprite && sprite.complete && sprite.naturalWidth > 0) {
         ctx.drawImage(sprite, p.x - size / 2, p.y - size / 2, size, size);
     } else {
-        // fallback caso a imagem ainda não tenha carregado
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
     }
@@ -158,6 +169,16 @@ export function handlePowerUps(ctx, canvas, player, updateUI) {
                 activePhrase.alpha = 2.0;
             }
 
+            // ============================
+            // TRI-FORMATION (MINI DRONES)
+            // ============================
+            else if (p.type === "tri_formation") {
+                gameState.miniDronesActive = true;
+                gameState.miniDronesTimer = 1500; // ~25 segundos
+                activePhrase.text = "TRI-FORMATION DEPLOYED!";
+                activePhrase.alpha = 2.0;
+            }
+
             powerUps.splice(i, 1);
             sfx.powerup();
             updateUI();
@@ -188,5 +209,13 @@ export function handlePowerUps(ctx, canvas, player, updateUI) {
     if (gameState.megaShot) {
         megaTimer--;
         if (megaTimer <= 0) gameState.megaShot = false;
+    }
+
+    // MINI DRONES TIMER
+    if (gameState.miniDronesActive) {
+        gameState.miniDronesTimer--;
+        if (gameState.miniDronesTimer <= 0) {
+            gameState.miniDronesActive = false;
+        }
     }
 }

@@ -22,6 +22,11 @@ export const gameState = {
     magnetActive: false, // atrair moedas/powerups
     megaShot: false,     // tiro gigante que atravessa tudo
 
+    // MINI DRONES (TRI-FORMATION)
+    miniDronesActive: false,
+    miniDronesTimer: 0,
+    miniDronesOffset: 60, // distância lateral (Formação A) 
+
     // REFERRAL CODE
     referralCode:
         localStorage.getItem("delta_myReferral") ||

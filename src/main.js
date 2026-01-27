@@ -95,7 +95,7 @@ function gameLoop() {
     updateExplosions(ctx);
 
 
-    // Jogador
+    // Jogador (inclui mini_drones quando ativos)
     drawAtariPlayer(ctx);
 
     // ====================

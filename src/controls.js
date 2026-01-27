@@ -102,11 +102,33 @@ export function handleShooting() {
     // ============================
     if (isTouching && now - lastShot > currentSpeed) {
 
+        // TIRO PRINCIPAL
         if (gameState.dualShot) {
             bullets.playerBullets.push({ x: player.x - 15, y: player.y - 40, type: "normal" });
             bullets.playerBullets.push({ x: player.x + 15, y: player.y - 40, type: "normal" });
         } else {
             bullets.playerBullets.push({ x: player.x, y: player.y - 40, type: "normal" });
+        }
+
+        // ============================
+        //     MINI DRONES — TIROS EXTRA
+        // ============================
+        if (gameState.miniDronesActive) {
+            const offset = gameState.miniDronesOffset;
+
+            // Drone esquerdo
+            bullets.playerBullets.push({
+                x: player.x - offset,
+                y: player.y - 30,
+                type: "normal"
+            });
+
+            // Drone direito
+            bullets.playerBullets.push({
+                x: player.x + offset,
+                y: player.y - 30,
+                type: "normal"
+            });
         }
 
         lastShot = now;
@@ -126,14 +148,14 @@ export function drawBullets(ctx) {
         // ============================
         if (b.type === "mega") {
 
-            b.y -= 10;          // mais lento → mais visível
-            b.life += 1;        // controla duração
+            b.y -= 10;
+            b.life += 1;
 
             ctx.shadowBlur = 45;
             ctx.shadowColor = "#00ffff";
 
             const width = 26;
-            const height = 180; // laser ainda mais comprido
+            const height = 180;
 
             if (shotMega.complete && shotMega.naturalWidth > 0) {
                 ctx.drawImage(shotMega, b.x - width / 2, b.y, width, height);
@@ -174,33 +196,28 @@ export function drawBullets(ctx) {
     });
 
     // ============================
-//     TIROS DOS INIMIGOS (ESCALÁVEIS)
-// ============================
-const slowFactor = gameState.slowMotion ? 0.4 : 1;
+    //     TIROS DOS INIMIGOS
+    // ============================
+    const slowFactor = gameState.slowMotion ? 0.4 : 1;
 
-// velocidade dinâmica por nível
-const enemyBulletSpeed = 6 + gameState.level * 0.35;
+    const enemyBulletSpeed = 6 + gameState.level * 0.35;
+    const enemyBulletBlur = 25 + gameState.level * 0.4;
+    const enemyBulletHeight = 28 + gameState.level * 0.1;
 
-// brilho dinâmico por nível
-const enemyBulletBlur = 25 + gameState.level * 0.4;
+    bullets.enemyBullets.forEach((eb, i) => {
 
-// altura dinâmica do tiro
-const enemyBulletHeight = 28 + gameState.level * 0.1;
+        eb.y += enemyBulletSpeed * slowFactor;
 
-bullets.enemyBullets.forEach((eb, i) => {
+        ctx.shadowBlur = enemyBulletBlur;
+        ctx.shadowColor = "#ff0000";
 
-    eb.y += enemyBulletSpeed * slowFactor;
+        if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
+            ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, enemyBulletHeight);
+        } else {
+            ctx.fillStyle = "#ff0000";
+            ctx.fillRect(eb.x - 2, eb.y, 4, enemyBulletHeight);
+        }
 
-    ctx.shadowBlur = enemyBulletBlur;
-    ctx.shadowColor = "#ff0000";
-
-    if (shotEnemy.complete && shotEnemy.naturalWidth > 0) {
-        ctx.drawImage(shotEnemy, eb.x - 4, eb.y, 8, enemyBulletHeight);
-    } else {
-        ctx.fillStyle = "#ff0000";
-        ctx.fillRect(eb.x - 2, eb.y, 4, enemyBulletHeight);
-    }
-
-    if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
-});
+        if (eb.y > 900) bullets.enemyBullets.splice(i, 1);
+    });
 }
