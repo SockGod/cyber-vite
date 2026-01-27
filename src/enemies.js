@@ -41,7 +41,6 @@ export function drawEnemyDesign(ctx, e, color) {
     if (sprite.complete && sprite.naturalWidth > 0) {
         ctx.drawImage(sprite, e.x, e.y, e.size, e.size);
     } else {
-        // fallback caso a imagem ainda não tenha carregado
         ctx.fillStyle = color;
         ctx.fillRect(e.x, e.y, e.size, e.size);
     }
@@ -67,7 +66,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
             size: 35,
             speed: config.speed,
             spriteIndex: Math.floor(Math.random() * loadedSprites.length),
-            lastShot: 0 // cooldown individual
+            lastShot: 0
         });
         spawnTimer = 0;
     }
@@ -76,22 +75,21 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
         e.y += e.speed * slowFactor;
 
         // ============================
-        //   SISTEMA DE COOLDOWN (800ms)
+        //   SISTEMA DE COOLDOWN
         // ============================
         const now = Date.now();
         const canShoot = now - e.lastShot > 800;
 
-        // distância inicial dinâmica
-const spawnOffset = 4 + gameState.level * 0.15;
+        const spawnOffset = 4 + gameState.level * 0.15;
 
-if (canShoot && Math.random() < config.fireRate) {
-    bullets.enemyBullets.push({
-        x: e.x + e.size / 2,
-        y: e.y + e.size + spawnOffset
-    });
+        if (canShoot && Math.random() < config.fireRate) {
+            bullets.enemyBullets.push({
+                x: e.x + e.size / 2,
+                y: e.y + e.size + spawnOffset
+            });
 
-    e.lastShot = now;
-}
+            e.lastShot = now;
+        }
 
         drawEnemyDesign(ctx, e, config.enemyColor);
 
@@ -112,6 +110,9 @@ if (canShoot && Math.random() < config.fireRate) {
         // ============================
         playerBullets.forEach((b, bi) => {
 
+            // ============================
+            //   MEGA SHOT
+            // ============================
             if (b.type === "mega") {
                 if (
                     b.x > e.x &&
@@ -133,8 +134,11 @@ if (canShoot && Math.random() < config.fireRate) {
                         activePhrase.alpha = 1.5;
                     }
 
+                    // ============================
+                    //   DROP DE POWERUP (MEGA SHOT)
+                    // ============================
                     if (Math.random() < 0.18) {
-                        const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega"];
+                        const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega", "tri_formation"];
                         powerUps.push({
                             x: e.x + 17,
                             y: e.y + 17,
@@ -156,6 +160,9 @@ if (canShoot && Math.random() < config.fireRate) {
                 return;
             }
 
+            // ============================
+            //   TIRO NORMAL
+            // ============================
             if (
                 b.x > e.x &&
                 b.x < e.x + e.size &&
@@ -177,8 +184,11 @@ if (canShoot && Math.random() < config.fireRate) {
                     activePhrase.alpha = 1.5;
                 }
 
+                // ============================
+                //   DROP DE POWERUP (NORMAL)
+                // ============================
                 if (Math.random() < 0.18) {
-                    const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega"];
+                    const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega", "tri_formation"];
                     powerUps.push({
                         x: e.x + 17,
                         y: e.y + 17,
@@ -206,8 +216,6 @@ export function handleEnemyBullets(ctx, canvas, player, updateUI) {
     if (!gameState.isPlaying || gameState.isPaused) return;
 
     bullets.enemyBullets.forEach((eb, i) => {
-
-        // movimento e desenho já são tratados em controls.js
 
         if (
             eb.x > player.x - 15 &&
