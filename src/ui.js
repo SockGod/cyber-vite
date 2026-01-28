@@ -164,14 +164,22 @@ export function setupButtons(openVerificationDrawer) {
     };
 
     // INFO & EXTRAS
-document.getElementById("btn-info").onclick = () => {
-    showScreen(ui.info);
-};
+    document.getElementById("btn-info").onclick = () => {
+        showScreen(ui.info);
+    };
 
-// HOW TO PLAY (dentro do Info & Extras)
-document.getElementById("btn-info-howto").onclick = () => {
-    document.getElementById("howto-popup").classList.remove("hidden");
-};
+    // HOW TO PLAY (dentro do Info & Extras)
+    document.getElementById("btn-info-howto").onclick = () => {
+        document.getElementById("howto-popup").classList.remove("hidden");
+    };
+
+    // HOW TO PLAY POPUP CLOSE (fix definitivo)
+    const howtoClose = document.getElementById("howto-close");
+    if (howtoClose) {
+        howtoClose.onclick = () => {
+            document.getElementById("howto-popup").classList.add("hidden");
+        };
+    }
 
     // PAUSE
     document.getElementById("btn-pause").onclick = () => {
