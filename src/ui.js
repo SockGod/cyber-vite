@@ -164,14 +164,14 @@ export function setupButtons(openVerificationDrawer) {
     };
 
     // INFO & EXTRAS
-    document.getElementById("btn-info").onclick = () => {
-        showScreen(ui.info);
-    };
+document.getElementById("btn-info").onclick = () => {
+    showScreen(ui.info);
+};
 
-    // HOW TO PLAY POPUP CLOSE
-    document.getElementById("howto-close").onclick = () => {
-        document.getElementById("howto-popup").classList.add("hidden");
-    };
+// HOW TO PLAY (dentro do Info & Extras)
+document.getElementById("btn-info-howto").onclick = () => {
+    document.getElementById("howto-popup").classList.remove("hidden");
+};
 
     // PAUSE
     document.getElementById("btn-pause").onclick = () => {
