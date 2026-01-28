@@ -459,3 +459,8 @@ button:focus,
 button:active {
     outline: none;
 }
+
+/* FIX para WebView da WLD: remover flash azul no mobile */
+button {
+    -webkit-tap-highlight-color: transparent;
+}
