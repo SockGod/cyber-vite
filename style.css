@@ -453,3 +453,9 @@
         display: none;
     }
 }
+
+/* FIX: remover highlight azul dos botões */
+button:focus,
+button:active {
+    outline: none;
+}
