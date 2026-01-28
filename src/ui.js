@@ -15,7 +15,10 @@ export const ui = {
     referral: document.getElementById("referral-screen"),
     loading: document.getElementById("loading-screen"),
     statusText: document.getElementById("status-text"),
-    leaderboard: document.getElementById("leaderboard-screen")
+    leaderboard: document.getElementById("leaderboard-screen"),
+
+    // NOVO: Info & Extras
+    info: document.getElementById("info-screen")
 };
 
 // ==================== ALERTA ====================
@@ -50,7 +53,8 @@ export function showScreen(screenElement) {
         ui.shop,
         ui.referral,
         ui.loading,
-        ui.leaderboard
+        ui.leaderboard,
+        ui.info // NOVO
     ].forEach(s => s.classList.add("hidden"));
 
     screenElement.classList.remove("hidden");
@@ -159,12 +163,12 @@ export function setupButtons(openVerificationDrawer) {
         setupShopScreen(gameState, ui, showScreen, showAlert);
     };
 
-    // INFO & EXTRAS (antigo HOW TO PLAY)
+    // INFO & EXTRAS
     document.getElementById("btn-info").onclick = () => {
-    // Por agora não abre nada.
-    // Mais tarde vai abrir o ecrã Info & Extras.
-};
+        showScreen(ui.info);
+    };
 
+    // HOW TO PLAY POPUP CLOSE
     document.getElementById("howto-close").onclick = () => {
         document.getElementById("howto-popup").classList.add("hidden");
     };
