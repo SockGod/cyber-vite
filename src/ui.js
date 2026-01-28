@@ -159,10 +159,11 @@ export function setupButtons(openVerificationDrawer) {
         setupShopScreen(gameState, ui, showScreen, showAlert);
     };
 
-    // HOW TO PLAY
-    document.getElementById("btn-how").onclick = () => {
-        document.getElementById("howto-popup").classList.remove("hidden");
-    };
+    // INFO & EXTRAS (antigo HOW TO PLAY)
+    document.getElementById("btn-info").onclick = () => {
+    // Por agora não abre nada.
+    // Mais tarde vai abrir o ecrã Info & Extras.
+};
 
     document.getElementById("howto-close").onclick = () => {
         document.getElementById("howto-popup").classList.add("hidden");
