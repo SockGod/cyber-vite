@@ -27,6 +27,9 @@ export const gameState = {
     miniDronesTimer: 0,
     miniDronesOffset: 60, // distância lateral (Formação A) 
 
+    // REVIVE
+    revives: 0,
+
     // REFERRAL CODE
     referralCode:
         localStorage.getItem("delta_myReferral") ||
@@ -50,6 +53,19 @@ export function addBombs(amount) {
 
 export function activateSuperShot() {
     gameState.superShot = true;
+}
+
+export function activateDualShot() {
+    gameState.dualShot = true;
+}
+
+export function activateMiniDrones() {
+    gameState.miniDronesActive = true;
+    gameState.miniDronesTimer = 600; // 10 segundos (60 FPS)
+}
+
+export function addRevive() {
+    gameState.revives += 1;
 }
 
 // ==================== LEVEL CONFIG ====================

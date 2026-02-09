@@ -15,17 +15,17 @@
     </div>
 
     <!-- HOW TO PLAY POPUP -->
-<div id="howto-popup" class="hidden popup">
-    <div class="popup-content">
-        <h2>How to Play</h2>
-        <p>• Drag anywhere to move</p>
-        <p>• Two fingers = Mega Bomb</p>
-        <p>• Defeat the Boss to advance</p>
-        <p>• Survive as long as possible</p>
-        <p>• Power up in the CYBER SHOP to crush your enemies!</p>
-        <button id="howto-close" class="menu-btn">Close</button>
+    <div id="howto-popup" class="hidden popup">
+        <div class="popup-content">
+            <h2>How to Play</h2>
+            <p>• Drag anywhere to move</p>
+            <p>• Two fingers = Mega Bomb</p>
+            <p>• Defeat the Boss to advance</p>
+            <p>• Survive as long as possible</p>
+            <p>• Power up in the CYBER SHOP to crush your enemies!</p>
+            <button id="howto-close" class="menu-btn">Close</button>
+        </div>
     </div>
-</div>
 
     <!-- MENU SCREEN -->
     <div id="menu-screen" class="screen">
@@ -84,48 +84,69 @@
     </div>
 
     <!-- SHOP SCREEN -->
-<div id="shop-screen" class="screen hidden">
-    <h2 class="screen-title">CYBER SHOP</h2>
+    <div id="shop-screen" class="screen hidden">
+        <h2 class="screen-title">CYBER SHOP</h2>
 
-    <div class="shop-item">
-        <h3>🛡️ 5 Lives — 0.35 WLD</h3>
-        <button id="buy-shields" class="shop-btn">Buy</button>
+        <!-- SHIELDS -->
+        <div class="shop-item">
+            <h3><img src="/assets/sprites/powerup_shield.png" width="32"> Shields (x3) — 30 CS</h3>
+            <button id="buy-shields" class="shop-btn">Buy</button>
+        </div>
+
+        <!-- MEGA BOMBS -->
+        <div class="shop-item">
+            <h3><img src="/assets/sprites/powerup_mega.png" width="32"> Mega Bombs (x5) — 40 CS</h3>
+            <button id="buy-bombs" class="shop-btn">Buy</button>
+        </div>
+
+        <!-- SUPER SHOT -->
+        <div class="shop-item">
+            <h3><img src="/assets/sprites/shot_player_super.png" width="32"> Super Shot — 50 CS</h3>
+            <button id="buy-supershot" class="shop-btn">Buy</button>
+        </div>
+
+        <!-- DUAL SHOT -->
+        <div class="shop-item">
+            <h3><img src="/assets/sprites/powerup_power.png" width="32"> Dual Shot — 60 CS</h3>
+            <button id="buy-dualshot" class="shop-btn">Buy</button>
+        </div>
+
+        <!-- MINI DRONES -->
+        <div class="shop-item">
+            <h3><img src="/assets/sprites/mini_drones.png" width="32"> Mini Drones — 75 CS</h3>
+            <button id="buy-drones" class="shop-btn">Buy</button>
+        </div>
+
+        <!-- REVIVE -->
+        <div class="shop-item">
+            <h3><img src="/assets/sprites/powerup_health.png" width="32"> Revive (1 use) — 100 CS</h3>
+            <button id="buy-revive" class="shop-btn">Buy</button>
+        </div>
+
+        <button id="btn-referral" class="menu-btn">Referral Bonus</button>
+        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
     </div>
-
-    <div class="shop-item">
-        <h3>🔫 5 Super Shots — 0.20 WLD</h3>
-        <button id="buy-supershot" class="shop-btn">Buy</button>
-    </div>
-
-    <div class="shop-item">
-        <h3>💣 5 Mega Bombs — 0.15 WLD</h3>
-        <button id="buy-bombs" class="shop-btn">Buy</button>
-    </div>
-
-    <button id="btn-referral" class="menu-btn">Referral Bonus</button>
-    <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
-</div>
 
     <!-- REFERRAL SCREEN -->
-<div id="referral-screen" class="screen hidden">
-    <h2 class="screen-title">REFERRAL BONUS</h2>
+    <div id="referral-screen" class="screen hidden">
+        <h2 class="screen-title">REFERRAL BONUS</h2>
 
-    <div class="referral-box">
-        <p>Your Code:</p>
-        <div class="referral-code">
-            <span id="user-ref-code">ABC123</span>
-            <button id="copy-ref-code" class="small-btn">Copy</button>
+        <div class="referral-box">
+            <p>Your Code:</p>
+            <div class="referral-code">
+                <span id="user-ref-code">ABC123</span>
+                <button id="copy-ref-code" class="small-btn">Copy</button>
+            </div>
         </div>
-    </div>
 
-    <div class="referral-box">
-        <p>Enter friend's code:</p>
-        <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
-        <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
-    </div>
+        <div class="referral-box">
+            <p>Enter friend's code:</p>
+            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
+            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
+        </div>
 
-    <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
-</div>
+        <button id="btn-referral-back" class="menu-btn back-btn">Back to Shop</button>
+    </div>
 
     <!-- LEADERBOARD SCREEN -->
     <div id="leaderboard-screen" class="screen hidden">
@@ -135,31 +156,31 @@
     </div>
 
     <!-- INFO & EXTRAS SCREEN -->
-<div id="info-screen" class="screen hidden">
-    <h2 class="screen-title">INFO & EXTRAS</h2>
+    <div id="info-screen" class="screen hidden">
+        <h2 class="screen-title">INFO & EXTRAS</h2>
 
-    <button id="btn-info-howto" class="menu-btn">How to Play</button>
-    <button id="btn-info-missions" class="menu-btn">Missions</button>
-    <button id="btn-info-collection" class="menu-btn">Collection</button>
-    <button id="btn-info-daily" class="menu-btn">Daily Reward</button>
+        <button id="btn-info-howto" class="menu-btn">How to Play</button>
+        <button id="btn-info-missions" class="menu-btn">Missions</button>
+        <button id="btn-info-collection" class="menu-btn">Collection</button>
+        <button id="btn-info-daily" class="menu-btn">Daily Reward</button>
 
-    <button id="btn-info-back" class="menu-btn back-btn">Back to Menu</button>
-</div>
-
-<!-- MISSIONS SCREEN -->
-<div id="missions-screen" class="screen hidden">
-    <h1 class="screen-title">MISSIONS</h1>
-
-    <div class="missions-list">
-        <p class="mission-item">• Play 1 game</p>
-        <p class="mission-item">• Destroy 50 enemies</p>
-        <p class="mission-item">• Collect 100 CS</p>
-        <p class="mission-item">• Survive 60 seconds</p>
-        <p class="mission-item">• Use 1 bomb</p>
+        <button id="btn-info-back" class="menu-btn back-btn">Back to Menu</button>
     </div>
 
-    <button class="back-btn">Back to Menu</button>
-</div>
+    <!-- MISSIONS SCREEN -->
+    <div id="missions-screen" class="screen hidden">
+        <h1 class="screen-title">MISSIONS</h1>
+
+        <div class="missions-list">
+            <p class="mission-item">• Play 1 game</p>
+            <p class="mission-item">• Destroy 50 enemies</p>
+            <p class="mission-item">• Collect 100 CS</p>
+            <p class="mission-item">• Survive 60 seconds</p>
+            <p class="mission-item">• Use 1 bomb</p>
+        </div>
+
+        <button class="back-btn">Back to Menu</button>
+    </div>
 
     <!-- LOADING SCREEN -->
     <div id="loading-screen" class="screen hidden">
@@ -173,19 +194,19 @@
     <script type="module" src="src/main.js"></script>
 
     <script>
-document.getElementById("copy-ref-code").addEventListener("click", function () {
-    const code = document.getElementById("user-ref-code").innerText;
-    navigator.clipboard.writeText(code).then(() => {
-        const alertBox = document.createElement("div");
-        alertBox.className = "alert-box";
-        alertBox.innerText = "Referral code copied!";
-        document.body.appendChild(alertBox);
-        setTimeout(() => {
-            alertBox.remove();
-        }, 2000);
-    });
-});
-</script>
+        document.getElementById("copy-ref-code").addEventListener("click", function () {
+            const code = document.getElementById("user-ref-code").innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const alertBox = document.createElement("div");
+                alertBox.className = "alert-box";
+                alertBox.innerText = "Referral code copied!";
+                document.body.appendChild(alertBox);
+                setTimeout(() => {
+                    alertBox.remove();
+                }, 2000);
+            });
+        });
+    </script>
 
 </body>
 </html>
