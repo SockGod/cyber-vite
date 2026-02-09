@@ -540,36 +540,61 @@ button {
 }
 
 /* ========================= */
-/*   SHOP SCREEN — FINAL FIX */
+/*   SHOP SCREEN — REAL FIX  */
 /* ========================= */
 
 #shop-screen {
-    position: absolute;
+    position: fixed;              /* ocupa a viewport real da WLD */
     top: 0;
     left: 0;
     width: 100%;
-
-    /* A SHOP NÃO USA 100vh — usa altura natural */
-    height: auto !important;
-    min-height: 100% !important;
-
-    /* Alinhamento correto */
+    height: 100%;                 /* NÃO usar 100vh */
+    
     display: flex;
     flex-direction: column;
-    justify-content: flex-start !important;
+    justify-content: flex-start;  /* deixa de centrar verticalmente */
     align-items: center;
 
-    /* Espaços */
     padding-top: 20px;
-    padding-bottom: 40px;
+    padding-bottom: 20px;
 
-    /* Fundo correto */
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.85); /* fundo correto */
+    overflow: hidden;             /* sem scroll */
 
-    /* Sem scroll */
-    overflow: hidden !important;
-
-    /* Encolher ligeiramente para caber na WLD */
-    transform: scale(0.90);
+    transform: scale(0.90);       /* encolhe para caber */
     transform-origin: top center;
+}
+
+/* Título */
+#shop-screen .screen-title {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+/* Itens */
+#shop-screen .shop-item {
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Ícones */
+#shop-screen .shop-item img {
+    width: 24px;
+    height: auto;
+    margin-right: 4px;
+}
+
+/* Botões */
+#shop-screen .shop-btn {
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+/* Botões inferiores */
+#shop-screen .menu-btn,
+#shop-screen .back-btn {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
 }
