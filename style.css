@@ -540,42 +540,61 @@ button {
 }
 
 /* ========================= */
-/*   SHOP SCREEN — CLEAN FIX */
+/*   SHOP SCREEN — FINAL FIX */
 /* ========================= */
 
 #shop-screen {
-    justify-content: flex-start !important;   /* deixa de centrar verticalmente */
-    padding-top: 15px;
-    padding-bottom: 30px;
-    height: auto !important;                  /* permite ajustar à WLD */
-    min-height: 100vh;                        /* garante cobertura total */
-    overflow: hidden !important;              /* sem scroll */
-    background: rgba(0,0,0,0.85);             /* mantém fundo igual */
-    transform: scale(0.88);                   /* encolhe para caber na WLD */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+    /* A SHOP NÃO USA 100vh — usa altura natural */
+    height: auto !important;
+    min-height: 100vh;
+
+    /* Alinhamento correto */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start !important;
+    align-items: center;
+
+    /* Espaços */
+    padding-top: 20px;
+    padding-bottom: 40px;
+
+    /* Fundo correto */
+    background: rgba(0,0,0,0.85);
+
+    /* Sem scroll */
+    overflow: hidden !important;
+
+    /* Encolher ligeiramente para caber na WLD */
+    transform: scale(0.90);
     transform-origin: top center;
 }
 
-/* Título da shop */
+/* Título */
 #shop-screen .screen-title {
     font-size: 20px;
     margin-bottom: 12px;
 }
 
-/* Itens mais compactos */
+/* Itens */
 #shop-screen .shop-item {
     padding: 8px;
     margin-bottom: 10px;
     font-size: 14px;
 }
 
-/* Ícones mais pequenos */
+/* Ícones */
 #shop-screen .shop-item img {
     width: 24px;
     height: auto;
     margin-right: 4px;
 }
 
-/* Botões da shop */
+/* Botões */
 #shop-screen .shop-btn {
     padding: 8px 10px;
     font-size: 14px;
