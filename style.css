@@ -540,55 +540,51 @@ button {
 }
 
 /* ========================= */
-/*      SHOP SCREEN FIX      */
+/*   SHOP SCREEN — CLEAN FIX */
 /* ========================= */
 
 #shop-screen {
-    justify-content: flex-start;   /* deixa de centrar verticalmente */
-    padding-top: 10px;             /* menos espaço em cima */
+    justify-content: flex-start !important;   /* deixa de centrar verticalmente */
+    padding-top: 15px;
+    padding-bottom: 30px;
+    height: auto !important;                  /* permite ajustar à WLD */
+    min-height: 100vh;                        /* garante cobertura total */
+    overflow: hidden !important;              /* sem scroll */
+    background: rgba(0,0,0,0.85);             /* mantém fundo igual */
+    transform: scale(0.88);                   /* encolhe para caber na WLD */
+    transform-origin: top center;
 }
 
-/* Título da shop um pouco mais pequeno */
+/* Título da shop */
 #shop-screen .screen-title {
     font-size: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
-/* Itens da shop mais compactos */
+/* Itens mais compactos */
 #shop-screen .shop-item {
     padding: 8px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 14px;
 }
 
-/* Ícones da shop mais pequenos */
+/* Ícones mais pequenos */
 #shop-screen .shop-item img {
     width: 24px;
     height: auto;
     margin-right: 4px;
 }
 
-/* Botões da shop mais compactos */
+/* Botões da shop */
 #shop-screen .shop-btn {
     padding: 8px 10px;
     font-size: 14px;
 }
 
-/* Botões de baixo (Referral / Back) mais compactos na shop */
+/* Botões inferiores */
 #shop-screen .menu-btn,
 #shop-screen .back-btn {
-    margin: 8px 0;
+    margin: 10px 0;
     padding: 10px;
     font-size: 16px;
-}
-
-/* ========================= */
-/*   SHOP FIX FOR WLD        */
-/* ========================= */
-
-#shop-screen {
-    justify-content: flex-start !important; /* deixa de centrar verticalmente */
-    padding-top: 10px;
-    transform: scale(0.88);                 /* encolhe tudo ligeiramente */
-    transform-origin: top center;
 }
