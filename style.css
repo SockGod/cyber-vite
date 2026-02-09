@@ -540,18 +540,47 @@ button {
 }
 
 /* ========================= */
-/*   SHOP — LAYOUT 2 COLUNAS */
+/*   SHOP — COMPACT FINAL    */
 /* ========================= */
 
+#shop-screen .screen-title {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
 #shop-screen .shop-grid {
-    width: 90%;
+    width: 92%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
+    gap: 8px;
+    margin-bottom: 12px;
 }
 
 #shop-screen .shop-item {
-    width: 100%;
-    margin: 0;
+    padding: 6px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+#shop-screen .shop-item h3 {
+    font-size: 12px;
+    margin: 2px 0;
+}
+
+#shop-screen .shop-item img {
+    width: 20px;
+    margin-right: 3px;
+}
+
+#shop-screen .shop-btn {
+    padding: 5px 6px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+#shop-screen .menu-btn,
+#shop-screen .back-btn {
+    margin: 6px 0;
+    padding: 8px;
+    font-size: 14px;
 }
