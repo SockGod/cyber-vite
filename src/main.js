@@ -14,7 +14,9 @@ import { openVerificationDrawer } from "./minikit.js";
 import { startGame } from "./startGame.js";
 
 // ⭐ IMPORT MISSIONS
-import { loadMissions } from "./missions.js";
+import { loadMissions, addProgress } from "./missions.js";
+
+let survivalTimer = 0;
 
 let canvas, ctx;
 
@@ -108,6 +110,13 @@ function gameLoop() {
     //   LÓGICA DO JOGO
     // ====================
     if (gameState.isPlaying) {
+
+        // ⭐ MISSÃO 4 — SURVIVE 60 SECONDS
+        survivalTimer += 1;
+        if (survivalTimer >= 60) {
+            addProgress(4, 1);
+            survivalTimer = 0;
+        }
 
         // Tiros do jogador
         handleShooting();
