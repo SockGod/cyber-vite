@@ -454,13 +454,56 @@
     }
 }
 
-/* FIX: remover highlight azul dos botões */
+/* ========================= */
+/*     BACK BUTTON STYLE     */
+/* ========================= */
+
+.back-btn {
+    width: 85%;
+    padding: 12px;
+    margin-top: 20px;
+    background: transparent;
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-shadow: 0 0 6px #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+/* Hover e Active já existem acima, herdados das animações gerais */
+
+/* ========================= */
+/*        MISSIONS UI        */
+/* ========================= */
+
+.missions-list {
+    width: 85%;
+    max-width: 420px;
+    margin: 0 auto 20px auto;
+    text-align: left;
+    color: #ffe600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+}
+
+.mission-item {
+    margin: 6px 0;
+}
+
+/* ========================= */
+/*   FIXES DE INTERAÇÃO      */
+/* ========================= */
+
+/* Remover highlight azul dos botões */
 button:focus,
 button:active {
     outline: none;
 }
 
-/* FIX para WebView da WLD: remover flash azul no mobile */
+/* Remover flash azul no mobile / WebView WLD */
 button {
     -webkit-tap-highlight-color: transparent;
 }
