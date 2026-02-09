@@ -538,3 +538,46 @@ button {
     transform: scale(0.92);
     box-shadow: 0 0 22px #00ffff;
 }
+
+/* ========================= */
+/*      SHOP SCREEN FIX      */
+/* ========================= */
+
+#shop-screen {
+    justify-content: flex-start;   /* deixa de centrar verticalmente */
+    padding-top: 10px;             /* menos espaço em cima */
+}
+
+/* Título da shop um pouco mais pequeno */
+#shop-screen .screen-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+/* Itens da shop mais compactos */
+#shop-screen .shop-item {
+    padding: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Ícones da shop mais pequenos */
+#shop-screen .shop-item img {
+    width: 24px;
+    height: auto;
+    margin-right: 4px;
+}
+
+/* Botões da shop mais compactos */
+#shop-screen .shop-btn {
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+/* Botões de baixo (Referral / Back) mais compactos na shop */
+#shop-screen .menu-btn,
+#shop-screen .back-btn {
+    margin: 8px 0;
+    padding: 10px;
+    font-size: 16px;
+}
