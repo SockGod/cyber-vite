@@ -4,6 +4,9 @@ import { gameState } from "./gameState.js";
 import { sfx } from "./audio.js";
 import { player } from "./player.js";
 
+// ⭐ IMPORT MISSIONS
+import { addProgress } from "./missions.js";
+
 export const bullets = {
     playerBullets: [],
     enemyBullets: []
@@ -39,8 +42,14 @@ export function setupControls(canvas, updateUI, enemiesResetCallback) {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === "suspended") audioCtx.resume();
 
+        // ============================
+        //        USAR BOMBA
+        // ============================
         if (e.touches.length > 1 && gameState.bombs > 0) {
             gameState.bombs--;
+
+            // ⭐ MISSÃO 5 — USE 1 BOMB
+            addProgress(5, 1);
 
             enemiesResetCallback();
             bullets.enemyBullets = [];
