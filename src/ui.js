@@ -7,7 +7,7 @@ import { setupReferralScreen } from "./referral.js";
 import { getLeaderboardData } from "./utils.js";
 
 // ⭐ IMPORT MISSIONS
-import { missions } from "./missions.js";
+import { missions, claimMission } from "./missions.js";
 
 // ELEMENTOS DA UI
 export const ui = {
@@ -46,7 +46,6 @@ export function showAlert(message) {
 
 export function showScreen(screenElement) {
 
-    // Quando voltamos ao MENU, o jogo deixa de estar ativo
     if (screenElement === ui.menu) {
         gameState.isPlaying = false;
         gameState.isPaused = false;
@@ -61,7 +60,7 @@ export function showScreen(screenElement) {
         ui.loading,
         ui.leaderboard,
         ui.info,
-        ui.missions // NOVO
+        ui.missions
     ].forEach(s => s.classList.add("hidden"));
 
     screenElement.classList.remove("hidden");
@@ -101,17 +100,55 @@ export function updateMissionsUI() {
     list.innerHTML = "";
 
     missions.forEach(m => {
-        const item = document.createElement("p");
-        item.className = "mission-item";
+        const container = document.createElement("div");
+        container.className = "mission-item";
+        container.style.marginBottom = "12px";
 
-        item.innerText = `• ${m.name} — ${m.progress}/${m.goal}`;
+        // Texto da missão
+        const text = document.createElement("p");
+        text.innerText = `• ${m.name} — ${m.progress}/${m.goal}`;
 
         if (m.completed) {
-            item.style.color = "#00ff00";
-            item.innerText += " (COMPLETED)";
+            text.style.color = "#00ff00";
         }
 
-        list.appendChild(item);
+        container.appendChild(text);
+
+        // ============================
+        //   BOTÃO CLAIM
+        // ============================
+        if (m.completed && !m.claimed) {
+            const btn = document.createElement("button");
+            btn.innerText = `CLAIM ${m.reward} CS`;
+            btn.className = "claim-btn";
+
+            btn.onclick = () => {
+                const result = claimMission(m.id);
+
+                if (result.success) {
+                    showAlert(result.message);
+                    updateUI();
+                    updateMissionsUI();
+                } else {
+                    showAlert(result.message);
+                }
+            };
+
+            container.appendChild(btn);
+        }
+
+        // ============================
+        //   CLAIMED
+        // ============================
+        if (m.claimed) {
+            const claimed = document.createElement("p");
+            claimed.innerText = "REWARD CLAIMED";
+            claimed.style.color = "#00ffff";
+            claimed.style.fontSize = "14px";
+            container.appendChild(claimed);
+        }
+
+        list.appendChild(container);
     });
 }
 
@@ -133,7 +170,6 @@ export function updateUI() {
     if (bombs) bombs.innerText = gameState.bombs;
     if (code) code.innerText = gameState.referralCode;
 
-    // PowerUps ativos
     if (powerups) {
         powerups.innerHTML = "";
 
@@ -157,7 +193,6 @@ export function updateUI() {
 
 export function setupButtons(openVerificationDrawer) {
 
-    // Som de clique
     const clickSound = new Audio("/click.mp3");
     clickSound.volume = 0.4;
 
@@ -168,7 +203,6 @@ export function setupButtons(openVerificationDrawer) {
         });
     });
 
-    // PLAY
     document.getElementById("btn-play").onclick = () => {
         if (gameState.isVerified) {
             window.startGame();
@@ -177,33 +211,27 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
-    // LEADERBOARD
     document.getElementById("btn-leaderboard").onclick = () => {
         updateLeaderboardUI();
         showScreen(ui.leaderboard);
     };
 
-    // VERIFY NOW
     document.getElementById("btn-verify-now").onclick = () => {
         openVerificationDrawer();
     };
 
-    // SHOP
     document.getElementById("btn-shop").onclick = () => {
         setupShopScreen(gameState, ui, showScreen, showAlert);
     };
 
-    // INFO & EXTRAS
     document.getElementById("btn-info").onclick = () => {
         showScreen(ui.info);
     };
 
-    // HOW TO PLAY (dentro do Info & Extras)
     document.getElementById("btn-info-howto").onclick = () => {
         document.getElementById("howto-popup").classList.remove("hidden");
     };
 
-    // HOW TO PLAY POPUP CLOSE (fix definitivo)
     const howtoClose = document.getElementById("howto-close");
     if (howtoClose) {
         howtoClose.onclick = () => {
@@ -211,7 +239,6 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // ⭐ MISSIONS (agora com updateMissionsUI)
     const missionsBtn = document.getElementById("btn-info-missions");
     if (missionsBtn) {
         missionsBtn.onclick = () => {
@@ -220,14 +247,12 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // PAUSE
     document.getElementById("btn-pause").onclick = () => {
         if (gameState.isPlaying) {
             gameState.isPaused = !gameState.isPaused;
         }
     };
 
-    // BACK BUTTONS
     document.querySelectorAll(".back-btn").forEach(b => {
         b.onclick = () => showScreen(ui.menu);
     });
