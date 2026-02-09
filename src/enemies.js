@@ -131,6 +131,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                     addProgress(2, 1);
 
                     gameState.cyberSpace += 25;
+                    addProgress(3, 25);
                     gameState.enemiesDefeated++;
 
                     if (Math.random() < 0.2) {
@@ -181,6 +182,7 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                 addProgress(2, 1);
 
                 gameState.cyberSpace += 15;
+                addProgress(3, 15);
                 gameState.enemiesDefeated++;
 
                 if (Math.random() < 0.2) {
