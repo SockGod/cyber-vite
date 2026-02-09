@@ -548,10 +548,10 @@ button {
     top: 0;
     left: 0;
     width: 100%;
-    
+
     /* A SHOP NÃO USA 100vh — usa altura natural */
     height: auto !important;
-    min-height: 100vh;
+    min-height: 100% !important;
 
     /* Alinhamento correto */
     display: flex;
@@ -572,38 +572,4 @@ button {
     /* Encolher ligeiramente para caber na WLD */
     transform: scale(0.90);
     transform-origin: top center;
-}
-
-/* Título */
-#shop-screen .screen-title {
-    font-size: 20px;
-    margin-bottom: 12px;
-}
-
-/* Itens */
-#shop-screen .shop-item {
-    padding: 8px;
-    margin-bottom: 10px;
-    font-size: 14px;
-}
-
-/* Ícones */
-#shop-screen .shop-item img {
-    width: 24px;
-    height: auto;
-    margin-right: 4px;
-}
-
-/* Botões */
-#shop-screen .shop-btn {
-    padding: 8px 10px;
-    font-size: 14px;
-}
-
-/* Botões inferiores */
-#shop-screen .menu-btn,
-#shop-screen .back-btn {
-    margin: 10px 0;
-    padding: 10px;
-    font-size: 16px;
 }
