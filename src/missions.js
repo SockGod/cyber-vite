@@ -16,11 +16,36 @@ export let missions = [
 
 export function loadMissions() {
     const saved = localStorage.getItem("missions");
+    const lastReset = localStorage.getItem("missions_last_reset");
+
+    const today = new Date().toDateString();
+
+    // Se nunca houve reset ou o dia mudou → reset diário
+    if (!lastReset || lastReset !== today) {
+        resetDailyMissions();
+        localStorage.setItem("missions_last_reset", today);
+        return;
+    }
+
     if (saved) missions = JSON.parse(saved);
 }
 
 export function saveMissions() {
     localStorage.setItem("missions", JSON.stringify(missions));
+}
+
+// =========================
+//     DAILY RESET
+// =========================
+
+export function resetDailyMissions() {
+    missions.forEach(m => {
+        m.progress = 0;
+        m.completed = false;
+        m.claimed = false;
+    });
+
+    saveMissions();
 }
 
 // =========================
