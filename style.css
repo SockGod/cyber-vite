@@ -581,3 +581,14 @@ button {
     padding: 10px;
     font-size: 16px;
 }
+
+/* ========================= */
+/*   SHOP FIX FOR WLD        */
+/* ========================= */
+
+#shop-screen {
+    justify-content: flex-start !important; /* deixa de centrar verticalmente */
+    padding-top: 10px;
+    transform: scale(0.88);                 /* encolhe tudo ligeiramente */
+    transform-origin: top center;
+}
