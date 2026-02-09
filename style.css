@@ -286,10 +286,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;      /* não interfere com cliques */
-    z-index: 0;                /* fica atrás das screens */
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
 
     background: radial-gradient(circle at center,
         #2a3b6e 0%,
@@ -299,12 +298,6 @@
     );
 
     filter: drop-shadow(0 0 14px #00ffffaa);
-}
-
-/* Garantir que TODAS as screens ficam acima do canvas */
-.screen {
-    position: relative;
-    z-index: 10;
 }
 
 /* ========================= */
