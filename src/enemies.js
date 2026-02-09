@@ -5,6 +5,9 @@ import { createParticles } from "./particles.js";
 import { bullets } from "./controls.js";
 import { spawnExplosion } from "./explosions.js";
 
+// ⭐ IMPORT MISSIONS
+import { addProgress } from "./missions.js";
+
 export let enemies = [];
 let spawnTimer = 0;
 
@@ -32,7 +35,6 @@ export function resetEnemies() {
 export function drawEnemyDesign(ctx, e, color) {
     ctx.save();
 
-    // === CORREÇÃO DO BRILHO INDESEJADO ===
     ctx.shadowBlur = 0;
     ctx.shadowColor = "transparent";
 
@@ -125,6 +127,9 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
 
                     enemies.splice(ei, 1);
 
+                    // ⭐ MISSÃO 2 — ENEMY KILLED
+                    addProgress(2, 1);
+
                     gameState.cyberSpace += 25;
                     gameState.enemiesDefeated++;
 
@@ -134,9 +139,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                         activePhrase.alpha = 1.5;
                     }
 
-                    // ============================
-                    //   DROP DE POWERUP (MEGA SHOT)
-                    // ============================
                     if (Math.random() < 0.18) {
                         const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega", "tri_formation"];
                         powerUps.push({
@@ -175,6 +177,9 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                 enemies.splice(ei, 1);
                 playerBullets.splice(bi, 1);
 
+                // ⭐ MISSÃO 2 — ENEMY KILLED
+                addProgress(2, 1);
+
                 gameState.cyberSpace += 15;
                 gameState.enemiesDefeated++;
 
@@ -184,9 +189,6 @@ export function handleEnemies(ctx, canvas, player, playerBullets, powerUps, upda
                     activePhrase.alpha = 1.5;
                 }
 
-                // ============================
-                //   DROP DE POWERUP (NORMAL)
-                // ============================
                 if (Math.random() < 0.18) {
                     const types = ["health", "shield", "power", "dual", "magnet", "slow", "mega", "tri_formation"];
                     powerUps.push({
