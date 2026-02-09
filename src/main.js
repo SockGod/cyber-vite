@@ -13,6 +13,9 @@ import { ui, showScreen, updateUI, setupButtons } from "./ui.js";
 import { openVerificationDrawer } from "./minikit.js";
 import { startGame } from "./startGame.js";
 
+// ⭐ IMPORT MISSIONS
+import { loadMissions } from "./missions.js";
+
 let canvas, ctx;
 
 // ==================== FUNDO DE ESTRELAS DO MENU ====================
@@ -41,6 +44,10 @@ if (bgCanvas) {
 // ==================== JOGO PRINCIPAL ====================
 
 window.addEventListener("load", () => {
+
+    // ⭐ CARREGAR MISSÕES ANTES DE TUDO
+    loadMissions();
+
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
 
@@ -93,7 +100,6 @@ function gameLoop() {
 
     // Explosões
     updateExplosions(ctx);
-
 
     // Jogador (inclui mini_drones quando ativos)
     drawAtariPlayer(ctx);

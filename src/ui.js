@@ -6,6 +6,9 @@ import { setupShopScreen } from "./shop.js";
 import { setupReferralScreen } from "./referral.js";
 import { getLeaderboardData } from "./utils.js";
 
+// ⭐ IMPORT MISSIONS
+import { missions } from "./missions.js";
+
 // ELEMENTOS DA UI
 export const ui = {
     menu: document.getElementById("menu-screen"),
@@ -85,6 +88,29 @@ export function updateLeaderboardUI() {
         if (index === 0) item.style.color = "#ffff00";
 
         item.innerHTML = `<span>#${index + 1} ${entry.name}</span> <span>LVL ${entry.level}</span>`;
+        list.appendChild(item);
+    });
+}
+
+// ==================== MISSIONS UI UPDATE ====================
+
+export function updateMissionsUI() {
+    const list = document.querySelector(".missions-list");
+    if (!list) return;
+
+    list.innerHTML = "";
+
+    missions.forEach(m => {
+        const item = document.createElement("p");
+        item.className = "mission-item";
+
+        item.innerText = `• ${m.name} — ${m.progress}/${m.goal}`;
+
+        if (m.completed) {
+            item.style.color = "#00ff00";
+            item.innerText += " (COMPLETED)";
+        }
+
         list.appendChild(item);
     });
 }
@@ -185,10 +211,11 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // MISSIONS (dentro do Info & Extras)
+    // ⭐ MISSIONS (agora com updateMissionsUI)
     const missionsBtn = document.getElementById("btn-info-missions");
     if (missionsBtn) {
         missionsBtn.onclick = () => {
+            updateMissionsUI();
             showScreen(ui.missions);
         };
     }
