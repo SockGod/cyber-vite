@@ -557,20 +557,24 @@ button {
     margin-bottom: 12px;
 }
 
-/* Cada item */
+/* Cada item — altura fixa e alinhamento perfeito */
 #shop-screen .shop-item {
     padding: 6px;
     border-radius: 8px;
     font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 70px; /* todos com a mesma altura */
 }
 
 /* Título do item */
 #shop-screen .shop-item h3 {
     font-size: 12px;
-    margin: 2px 0;
+    margin: 0;
     display: flex;
-    align-items: center; /* alinha ícone + texto */
-    line-height: 1.2;
+    align-items: center;
+    line-height: 1.1;
 }
 
 /* Ícones — todos iguais ao pixel */
