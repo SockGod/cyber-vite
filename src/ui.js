@@ -18,7 +18,10 @@ export const ui = {
     leaderboard: document.getElementById("leaderboard-screen"),
 
     // NOVO: Info & Extras
-    info: document.getElementById("info-screen")
+    info: document.getElementById("info-screen"),
+
+    // NOVO: Missions
+    missions: document.getElementById("missions-screen")
 };
 
 // ==================== ALERTA ====================
@@ -54,7 +57,8 @@ export function showScreen(screenElement) {
         ui.referral,
         ui.loading,
         ui.leaderboard,
-        ui.info // NOVO
+        ui.info,
+        ui.missions // NOVO
     ].forEach(s => s.classList.add("hidden"));
 
     screenElement.classList.remove("hidden");
@@ -178,6 +182,14 @@ export function setupButtons(openVerificationDrawer) {
     if (howtoClose) {
         howtoClose.onclick = () => {
             document.getElementById("howto-popup").classList.add("hidden");
+        };
+    }
+
+    // MISSIONS (dentro do Info & Extras)
+    const missionsBtn = document.getElementById("btn-info-missions");
+    if (missionsBtn) {
+        missionsBtn.onclick = () => {
+            showScreen(ui.missions);
         };
     }
 
