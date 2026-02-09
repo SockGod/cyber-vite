@@ -540,47 +540,58 @@ button {
 }
 
 /* ========================= */
-/*   SHOP — COMPACT FINAL    */
+/*   SHOP — COMPACT + FINAL  */
 /* ========================= */
 
 #shop-screen .screen-title {
-    font-size: 16px;
-    margin-bottom: 8px;
+    font-size: 18px;        /* maior */
+    margin-bottom: 14px;    /* mais espaço acima da grelha */
 }
 
+/* Grelha 2 colunas */
 #shop-screen .shop-grid {
     width: 92%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 8px;               /* menos espaço entre colunas */
     margin-bottom: 12px;
 }
 
+/* Cada item */
 #shop-screen .shop-item {
     padding: 6px;
     border-radius: 8px;
     font-size: 12px;
 }
 
+/* Título do item */
 #shop-screen .shop-item h3 {
     font-size: 12px;
     margin: 2px 0;
+    display: flex;
+    align-items: center;    /* alinha texto + ícone */
 }
 
+/* Ícones — todos iguais */
 #shop-screen .shop-item img {
-    width: 20px;
-    margin-right: 3px;
+    width: 18px !important; /* força tamanho igual */
+    height: auto;
+    margin-right: 4px;
+    vertical-align: middle;
 }
 
+/* Botões dos itens */
 #shop-screen .shop-btn {
     padding: 5px 6px;
     font-size: 12px;
     border-radius: 6px;
 }
 
+/* Botões inferiores */
 #shop-screen .menu-btn,
 #shop-screen .back-btn {
     margin: 6px 0;
     padding: 8px;
     font-size: 14px;
 }
+
