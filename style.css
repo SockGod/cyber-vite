@@ -507,3 +507,34 @@ button:active {
 button {
     -webkit-tap-highlight-color: transparent;
 }
+
+/* ========================= */
+/*       CLAIM BUTTON        */
+/* ========================= */
+
+.claim-btn {
+    background: #00ffff;
+    color: #000000;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 6px;
+    display: inline-block;
+    box-shadow: 0 0 10px #00ffffaa;
+    text-shadow: none;
+    transition: 0.15s ease;
+}
+
+.claim-btn:hover {
+    box-shadow: 0 0 16px #00ffff;
+    transform: scale(1.05);
+}
+
+.claim-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 22px #00ffff;
+}
