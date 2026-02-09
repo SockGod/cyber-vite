@@ -8,10 +8,16 @@ import { resetBullets } from "./controls.js";
 import { resetPowerUps } from "./powerups.js";
 import { showScreen, ui, updateUI } from "./ui.js";
 
+// ⭐ IMPORT MISSIONS
+import { addProgress } from "./missions.js";
+
 export function startGame(canvas) {
 
     // O jogo começa oficialmente aqui
     gameState.isPlaying = true;
+
+    // ⭐ MISSÃO: PLAY 1 GAME
+    addProgress(1, 1);
 
     // Reset estado base
     gameState.shields = 5;
