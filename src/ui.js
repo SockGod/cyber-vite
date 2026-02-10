@@ -261,7 +261,7 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
-    // ⭐ BACK BUTTONS — CORRIGIDOS
+    // ==================== BACK BUTTONS ====================
 
     // Info → Menu
     document.getElementById("btn-info-back").onclick = () => {
@@ -292,5 +292,13 @@ export function setupButtons(openVerificationDrawer) {
     document.getElementById("btn-leaderboard-back").onclick = () => {
         showScreen(ui.menu);
     };
+
+    // ⭐ VERIFY → MENU (O QUE FALTAVA!)
+    const verifyBack = document.getElementById("btn-verify-back");
+    if (verifyBack) {
+        verifyBack.onclick = () => {
+            showScreen(ui.menu);
+        };
+    }
 }
 
