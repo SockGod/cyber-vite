@@ -268,9 +268,9 @@ export function setupButtons(openVerificationDrawer) {
         showScreen(ui.menu);
     };
 
-    // Inventory → Info
+    // Inventory → Menu
     document.getElementById("btn-inventory-back").onclick = () => {
-        showScreen(ui.info);
+        showScreen(ui.menu);
     };
 
     // Shop → Menu
@@ -293,3 +293,4 @@ export function setupButtons(openVerificationDrawer) {
         showScreen(ui.menu);
     };
 }
+
