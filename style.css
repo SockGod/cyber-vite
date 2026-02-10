@@ -540,62 +540,56 @@ button {
 }
 
 /* ========================= */
-/*   SHOP — COMPACT + FINAL  */
+/*   SHOP — NOVA ESTRUTURA   */
 /* ========================= */
 
-#shop-screen .screen-title {
-    font-size: 18px;
-    margin-bottom: 14px;
+.shop-section-title {
+    width: 92%;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    color: #00ffff;
+    margin: 18px 0 8px 0;
+    text-align: left;
 }
 
-/* Grelha 2 colunas */
-#shop-screen .shop-grid {
+.shop-grid {
     width: 92%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 12px;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-/* Cada item — altura fixa e alinhamento perfeito */
-#shop-screen .shop-item {
-    padding: 6px;
-    border-radius: 8px;
-    font-size: 12px;
+.shop-item {
+    background: rgba(0,0,0,0.45);
+    border: 2px solid #ff00aa;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    color: #ffe600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 70px; /* todos com a mesma altura */
+    min-height: 90px;
 }
 
-/* Título do item */
-#shop-screen .shop-item h3 {
-    font-size: 12px;
+.shop-item h4 {
     margin: 0;
+    font-size: 13px;
     display: flex;
     align-items: center;
-    line-height: 1.1;
+    justify-content: center;
 }
 
-/* Ícones — todos iguais ao pixel */
-#shop-screen .shop-item img {
-    width: 18px !important;
-    height: 18px !important;
-    margin-right: 4px;
-    display: inline-block;
+.shop-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
 }
 
-/* Botões dos itens */
-#shop-screen .shop-btn {
-    padding: 5px 6px;
-    font-size: 12px;
-    border-radius: 6px;
-}
-
-/* Botões inferiores */
-#shop-screen .menu-btn,
-#shop-screen .back-btn {
-    margin: 6px 0;
-    padding: 8px;
-    font-size: 14px;
+.wld-btn {
+    background: #ff00ff;
+    color: #000;
 }
