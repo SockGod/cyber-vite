@@ -220,8 +220,10 @@ export function setupButtons(openVerificationDrawer) {
         openVerificationDrawer();
     };
 
+    // ⭐ CORRIGIDO — Shop agora abre corretamente e não fica “presa”
     document.getElementById("btn-shop").onclick = () => {
         setupShopScreen(gameState, ui, showScreen, showAlert);
+        showScreen(ui.shop);
     };
 
     document.getElementById("btn-info").onclick = () => {
@@ -247,12 +249,13 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
+    // ⭐ Referral Bonus agora abre corretamente e não interfere com a Shop
     const referralBtn = document.getElementById("btn-info-referral");
     if (referralBtn) {
-    referralBtn.onclick = () => {
-        setupReferralScreen(gameState, ui, showScreen, showAlert);
-    };
-}
+        referralBtn.onclick = () => {
+            setupReferralScreen(gameState, ui, showScreen, showAlert);
+        };
+    }
 
     document.getElementById("btn-pause").onclick = () => {
         if (gameState.isPlaying) {
@@ -260,6 +263,7 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
+    // ⭐ Todos os back-btn voltam ao menu (comportamento correto)
     document.querySelectorAll(".back-btn").forEach(b => {
         b.onclick = () => showScreen(ui.menu);
     });
