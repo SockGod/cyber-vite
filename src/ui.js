@@ -247,6 +247,13 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
+    const referralBtn = document.getElementById("btn-info-referral");
+    if (referralBtn) {
+    referralBtn.onclick = () => {
+        setupReferralScreen(gameState, ui, showScreen, showAlert);
+    };
+}
+
     document.getElementById("btn-pause").onclick = () => {
         if (gameState.isPlaying) {
             gameState.isPaused = !gameState.isPaused;
