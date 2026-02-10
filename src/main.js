@@ -75,6 +75,30 @@ window.addEventListener("load", () => {
     // Expor startGame para o ui.js
     window.startGame = () => startGame(canvas);
 
+    // ============================
+    //   NAVIGAÇÃO DO INVENTORY
+    // ============================
+    const infoScreen = document.getElementById("info-screen");
+    const menuScreen = document.getElementById("menu-screen");
+    const inventoryScreen = document.getElementById("inventory-screen");
+
+    const btnInfoInventory = document.getElementById("btn-info-inventory");
+    const btnInventoryBack = document.getElementById("btn-inventory-back");
+
+    if (btnInfoInventory && infoScreen && inventoryScreen) {
+        btnInfoInventory.addEventListener("click", () => {
+            infoScreen.classList.add("hidden");
+            inventoryScreen.classList.remove("hidden");
+        });
+    }
+
+    if (btnInventoryBack && inventoryScreen && menuScreen) {
+        btnInventoryBack.addEventListener("click", () => {
+            inventoryScreen.classList.add("hidden");
+            menuScreen.classList.remove("hidden");
+        });
+    }
+
     // Começar no menu
     showScreen(ui.menu);
 
