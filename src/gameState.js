@@ -18,17 +18,21 @@ export const gameState = {
     isPlaying: false,
 
     // NOVOS POWERUPS
-    slowMotion: false,   // abrandar inimigos e boss
-    magnetActive: false, // atrair moedas/powerups
-    megaShot: false,     // tiro gigante que atravessa tudo
+    slowMotion: false,
+    magnetActive: false,
+    megaShot: false,
 
-    // MINI DRONES (TRI-FORMATION)
+    // MINI DRONES (temporários)
     miniDronesActive: false,
     miniDronesTimer: 0,
-    miniDronesOffset: 60, // distância lateral (Formação A) 
+    miniDronesOffset: 60,
 
-    // REVIVE
+    // REVIVES (permanente)
     revives: 0,
+
+    // INVENTORY PERMANENTE
+    skinOwned: false,
+    xpboost: 0,
 
     // REFERRAL CODE
     referralCode:
@@ -51,21 +55,16 @@ export function addBombs(amount) {
     gameState.bombs += amount;
 }
 
-export function activateSuperShot() {
-    gameState.superShot = true;
-}
-
-export function activateDualShot() {
-    gameState.dualShot = true;
-}
-
-export function activateMiniDrones() {
-    gameState.miniDronesActive = true;
-    gameState.miniDronesTimer = 600; // 10 segundos (60 FPS)
-}
-
 export function addRevive() {
     gameState.revives += 1;
+}
+
+export function buySkin() {
+    gameState.skinOwned = true;
+}
+
+export function addXPBoost(amount) {
+    gameState.xpboost += amount;
 }
 
 // ==================== LEVEL CONFIG ====================

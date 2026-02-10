@@ -7,8 +7,13 @@ export const player = {
     y: 0
 };
 
+// NAVE NORMAL
 const playerImage = new Image();
 playerImage.src = "/assets/sprites/player_ship.png";
+
+// NEON SKIN
+const playerNeonImage = new Image();
+playerNeonImage.src = "/assets/sprites/player_ship_neon.png";
 
 // MINI DRONES
 const miniDroneImage = new Image();
@@ -47,11 +52,20 @@ export function drawAtariPlayer(ctx) {
     }
 
     // ============================
+    // ESCOLHER SKIN (NORMAL OU NEON)
+    // ============================
+    let shipImage = playerImage;
+
+    if (gameState.skinOwned && playerNeonImage.complete && playerNeonImage.naturalWidth > 0) {
+        shipImage = playerNeonImage;
+    }
+
+    // ============================
     // DRAW PLAYER SHIP
     // ============================
-    if (playerImage.complete) {
+    if (shipImage.complete && shipImage.naturalWidth > 0) {
         ctx.drawImage(
-            playerImage,
+            shipImage,
             player.x - PLAYER_WIDTH / 2,
             player.y - PLAYER_HEIGHT / 2,
             PLAYER_WIDTH,
@@ -89,15 +103,11 @@ export function drawAtariPlayer(ctx) {
     if (gameState.miniDronesActive) {
         const offset = gameState.miniDronesOffset;
 
-        // POSIÇÕES DOS DRONES
         const leftX = player.x - offset;
         const rightX = player.x + offset;
         const droneY = player.y + 10;
 
-        // DESENHAR DRONE ESQUERDO
         drawMiniDrone(ctx, leftX, droneY);
-
-        // DESENHAR DRONE DIREITO
         drawMiniDrone(ctx, rightX, droneY);
     }
 
@@ -110,8 +120,7 @@ export function drawAtariPlayer(ctx) {
 function drawMiniDrone(ctx, x, y) {
     const size = 32;
 
-    // DESENHAR DRONE
-    if (miniDroneImage.complete) {
+    if (miniDroneImage.complete && miniDroneImage.naturalWidth > 0) {
         ctx.drawImage(
             miniDroneImage,
             x - size / 2,
@@ -124,9 +133,6 @@ function drawMiniDrone(ctx, x, y) {
         ctx.fillRect(x - size / 2, y - size / 2, size, size);
     }
 
-    // ============================
-    // PROPULSÃO AZUL NEON
-    // ============================
     const flameH = 6 + Math.random() * 6;
     const flameW = 5;
 
@@ -135,7 +141,7 @@ function drawMiniDrone(ctx, x, y) {
     ctx.fillStyle = "#66eaff";
 
     ctx.beginPath();
-    ctx.moveTo(x, y + 18); // topo da chama
+    ctx.moveTo(x, y + 18);
     ctx.lineTo(x - flameW / 2, y + 18 + flameH);
     ctx.lineTo(x + flameW / 2, y + 18 + flameH);
     ctx.closePath();
