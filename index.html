@@ -84,46 +84,65 @@
     </div>
 
     <!-- SHOP SCREEN -->
-<div id="shop-screen" class="screen hidden">
-    <h2 class="screen-title">CYBER SHOP</h2>
+    <div id="shop-screen" class="screen hidden">
+        <h2 class="screen-title">CYBER SHOP</h2>
 
-    <!-- SHOP GRID (2 COLUNAS) -->
-    <div class="shop-grid">
+        <!-- ===================== -->
+        <!--      CS ITEMS         -->
+        <!-- ===================== -->
+        <h3 class="shop-section-title">Items (CS)</h3>
 
-        <div class="shop-item">
-            <h3><img src="/assets/sprites/powerup_shield.png"> Shields (x3) — 30 CS</h3>
-            <button id="buy-shields" class="shop-btn">Buy</button>
+        <div class="shop-grid">
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/powerup_shield.png"> Shields (x3) — 30 CS</h4>
+                <button id="buy-shields" class="shop-btn">Buy</button>
+            </div>
+
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/bomb.png"> Mega Bombs (x5) — 40 CS</h4>
+                <button id="buy-bombs" class="shop-btn">Buy</button>
+            </div>
+
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/shot_player_dual.png"> Dual Shot — 60 CS</h4>
+                <button id="buy-dualshot" class="shop-btn">Buy</button>
+            </div>
+
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/powerup_health.png"> Revive (1 use) — 100 CS</h4>
+                <button id="buy-revive" class="shop-btn">Buy</button>
+            </div>
         </div>
 
-        <div class="shop-item">
-            <h3><span style="font-size:18px; margin-right:4px;">💣</span> Mega Bombs (x5) — 40 CS</h3>
-            <button id="buy-bombs" class="shop-btn">Buy</button>
-        </div>
+        <!-- ===================== -->
+        <!--      WLD ITEMS        -->
+        <!-- ===================== -->
+        <h3 class="shop-section-title">Premium (WLD)</h3>
 
-        <div class="shop-item">
-            <h3><img src="/assets/sprites/shot_player_super.png"> Super Shot — 50 CS</h3>
-            <button id="buy-supershot" class="shop-btn">Buy</button>
-        </div>
+        <div class="shop-grid">
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/mini_drones.png"> Mini Drones — 1 WLD</h4>
+                <button id="buy-drones" class="shop-btn wld-btn">Buy</button>
+            </div>
 
-        <div class="shop-item">
-            <h3><img src="/assets/sprites/shot_player_dual.png"> Dual Shot — 60 CS</h3>
-            <button id="buy-dualshot" class="shop-btn">Buy</button>
-        </div>
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/powerup_mega.png"> Super Shot — 1 WLD</h4>
+                <button id="buy-supershot" class="shop-btn wld-btn">Buy</button>
+            </div>
 
-        <div class="shop-item">
-            <h3><img src="/assets/sprites/mini_drones.png"> Mini Drones — 75 CS</h3>
-            <button id="buy-drones" class="shop-btn">Buy</button>
-        </div>
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/skin_neon.png"> Neon Skin — 1 WLD</h4>
+                <button id="buy-skin" class="shop-btn wld-btn">Buy</button>
+            </div>
 
-        <div class="shop-item">
-            <h3><img src="/assets/sprites/powerup_health.png"> Revive (1 use) — 100 CS</h3>
-            <button id="buy-revive" class="shop-btn">Buy</button>
+            <div class="shop-item">
+                <h4><img class="shop-icon" src="/assets/sprites/xp_boost.png"> XP Boost (x3 games) — 1 WLD</h4>
+                <button id="buy-xpboost" class="shop-btn wld-btn">Buy</button>
+            </div>
         </div>
-
-    </div>
 
         <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
-</div>
+    </div>
 
     <!-- REFERRAL SCREEN -->
     <div id="referral-screen" class="screen hidden">
@@ -154,15 +173,15 @@
     </div>
 
     <!-- INFO & EXTRAS SCREEN -->
-<div id="info-screen" class="screen hidden">
-    <h2 class="screen-title">INFO & EXTRAS</h2>
+    <div id="info-screen" class="screen hidden">
+        <h2 class="screen-title">INFO & EXTRAS</h2>
 
-    <button id="btn-info-howto" class="menu-btn">How to Play</button>
-    <button id="btn-info-missions" class="menu-btn">Missions</button>
-    <button id="btn-info-referral" class="menu-btn">Referral Bonus</button>
+        <button id="btn-info-howto" class="menu-btn">How to Play</button>
+        <button id="btn-info-missions" class="menu-btn">Missions</button>
+        <button id="btn-info-referral" class="menu-btn">Referral Bonus</button>
 
-    <button id="btn-info-back" class="menu-btn back-btn">Back to Menu</button>
-</div>
+        <button id="btn-info-back" class="menu-btn back-btn">Back to Menu</button>
+    </div>
 
     <!-- MISSIONS SCREEN -->
     <div id="missions-screen" class="screen hidden">
