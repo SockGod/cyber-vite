@@ -600,19 +600,24 @@ button {
     margin-bottom: 20px;
 }
 
-/* Layout da Shop — evita scroll e mostra o botão */
+/* Layout da Shop — evita scroll e mantém tudo visível */
 #shop-screen {
     justify-content: flex-start !important;
     padding-top: 20px;
     overflow: hidden;
 }
 
-/* FIX — garantir que todos os botões aparecem no Info & Extras */
+/* ========================= */
+/*   INFO & EXTRAS FIX       */
+/* ========================= */
+
+/* Mantém o layout original, mas com espaço suficiente para TODOS os botões */
 #info-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start !important;
-    padding-top: 20px;
-    overflow-y: auto;
+    padding-top: 60px;      /* espaço para não colar ao topo */
+    gap: 12px;              /* espaço entre botões */
+    overflow: visible;      /* impede que esconda o Inventory */
 }
