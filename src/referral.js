@@ -32,7 +32,8 @@ export function setupReferralScreen(gameState, ui, showScreen, showAlert) {
         document.getElementById("friend-code-input").value = "";
     };
 
+    // ⭐ CORRIGIDO — agora volta ao MENU e não à SHOP
     document.getElementById("btn-referral-back").onclick = () => {
-        showScreen(ui.shop);
+        showScreen(ui.menu);
     };
 }
