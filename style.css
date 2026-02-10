@@ -593,3 +593,26 @@ button {
     background: #ff00ff;
     color: #000;
 }
+
+/* Título da Shop */
+#shop-screen .screen-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+/* Layout da Shop — evita scroll e mostra o botão */
+#shop-screen {
+    justify-content: flex-start !important;
+    padding-top: 20px;
+    overflow: hidden;
+}
+
+/* FIX — garantir que todos os botões aparecem no Info & Extras */
+#info-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start !important;
+    padding-top: 20px;
+    overflow-y: auto;
+}
