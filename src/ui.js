@@ -24,7 +24,10 @@ export const ui = {
     info: document.getElementById("info-screen"),
 
     // NOVO: Missions
-    missions: document.getElementById("missions-screen")
+    missions: document.getElementById("missions-screen"),
+
+    // ⭐ NOVO: INVENTORY
+    inventory: document.getElementById("inventory-screen")
 };
 
 // ==================== ALERTA ====================
@@ -60,7 +63,8 @@ export function showScreen(screenElement) {
         ui.loading,
         ui.leaderboard,
         ui.info,
-        ui.missions
+        ui.missions,
+        ui.inventory   // ⭐ INVENTORY incluído no sistema de screens
     ].forEach(s => s.classList.add("hidden"));
 
     screenElement.classList.remove("hidden");
@@ -104,7 +108,6 @@ export function updateMissionsUI() {
         container.className = "mission-item";
         container.style.marginBottom = "12px";
 
-        // Texto da missão
         const text = document.createElement("p");
         text.innerText = `• ${m.name} — ${m.progress}/${m.goal}`;
 
@@ -114,9 +117,6 @@ export function updateMissionsUI() {
 
         container.appendChild(text);
 
-        // ============================
-        //   BOTÃO CLAIM
-        // ============================
         if (m.completed && !m.claimed) {
             const btn = document.createElement("button");
             btn.innerText = `CLAIM ${m.reward} CS`;
@@ -137,9 +137,6 @@ export function updateMissionsUI() {
             container.appendChild(btn);
         }
 
-        // ============================
-        //   CLAIMED
-        // ============================
         if (m.claimed) {
             const claimed = document.createElement("p");
             claimed.innerText = "REWARD CLAIMED";
@@ -152,7 +149,7 @@ export function updateMissionsUI() {
     });
 }
 
-// ==================== HUD (NOVO HUD C) ====================
+// ==================== HUD ====================
 
 export function updateUI() {
     const credits = document.getElementById("hud-credits");
@@ -220,7 +217,6 @@ export function setupButtons(openVerificationDrawer) {
         openVerificationDrawer();
     };
 
-    // ⭐ CORRIGIDO — Shop agora abre corretamente e não fica “presa”
     document.getElementById("btn-shop").onclick = () => {
         setupShopScreen(gameState, ui, showScreen, showAlert);
         showScreen(ui.shop);
@@ -249,11 +245,18 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // ⭐ Referral Bonus agora abre corretamente e não interfere com a Shop
     const referralBtn = document.getElementById("btn-info-referral");
     if (referralBtn) {
         referralBtn.onclick = () => {
             setupReferralScreen(gameState, ui, showScreen, showAlert);
+        };
+    }
+
+    // ⭐ NOVO: INVENTORY BUTTON
+    const inventoryBtn = document.getElementById("btn-info-inventory");
+    if (inventoryBtn) {
+        inventoryBtn.onclick = () => {
+            showScreen(ui.inventory);
         };
     }
 
@@ -263,7 +266,7 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
-    // ⭐ Todos os back-btn voltam ao menu (comportamento correto)
+    // ⭐ Todos os back-btn voltam ao menu
     document.querySelectorAll(".back-btn").forEach(b => {
         b.onclick = () => showScreen(ui.menu);
     });
