@@ -66,6 +66,12 @@ window.addEventListener("load", () => {
     // Setup UI + botões
     setupButtons(openVerificationDrawer);
 
+    // ⭐ ADICIONADO — Ligar o botão Referral no Info & Extras
+    const btnInfoReferral = document.getElementById("btn-info-referral");
+    if (btnInfoReferral) {
+        btnInfoReferral.onclick = () => showScreen("referral-screen");
+    }
+
     // Setup controlos
     setupControls(canvas, updateUI, () => {
         enemies.length = 0;
