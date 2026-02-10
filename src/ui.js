@@ -20,13 +20,8 @@ export const ui = {
     statusText: document.getElementById("status-text"),
     leaderboard: document.getElementById("leaderboard-screen"),
 
-    // NOVO: Info & Extras
     info: document.getElementById("info-screen"),
-
-    // NOVO: Missions
     missions: document.getElementById("missions-screen"),
-
-    // ⭐ NOVO: INVENTORY
     inventory: document.getElementById("inventory-screen")
 };
 
@@ -64,7 +59,7 @@ export function showScreen(screenElement) {
         ui.leaderboard,
         ui.info,
         ui.missions,
-        ui.inventory   // ⭐ INVENTORY incluído no sistema de screens
+        ui.inventory
     ].forEach(s => s.classList.add("hidden"));
 
     screenElement.classList.remove("hidden");
@@ -252,7 +247,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // ⭐ NOVO: INVENTORY BUTTON
+    // ⭐ INVENTORY BUTTON
     const inventoryBtn = document.getElementById("btn-info-inventory");
     if (inventoryBtn) {
         inventoryBtn.onclick = () => {
@@ -266,8 +261,35 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
-    // ⭐ Todos os back-btn voltam ao menu
-    document.querySelectorAll(".back-btn").forEach(b => {
-        b.onclick = () => showScreen(ui.menu);
-    });
+    // ⭐ BACK BUTTONS — CORRIGIDOS
+
+    // Info → Menu
+    document.getElementById("btn-info-back").onclick = () => {
+        showScreen(ui.menu);
+    };
+
+    // Inventory → Info
+    document.getElementById("btn-inventory-back").onclick = () => {
+        showScreen(ui.info);
+    };
+
+    // Shop → Menu
+    document.getElementById("btn-shop-back").onclick = () => {
+        showScreen(ui.menu);
+    };
+
+    // Missions → Info
+    document.querySelector("#missions-screen .back-btn").onclick = () => {
+        showScreen(ui.info);
+    };
+
+    // Referral → Menu
+    document.getElementById("btn-referral-back").onclick = () => {
+        showScreen(ui.menu);
+    };
+
+    // Leaderboard → Menu
+    document.getElementById("btn-leaderboard-back").onclick = () => {
+        showScreen(ui.menu);
+    };
 }
