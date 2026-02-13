@@ -230,13 +230,15 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     const barWidth = 220;
     const barX = (canvas.width - barWidth) / 2;
 
-    // desenhar barra primeiro (fica atrás do boss)
+    // só desenhar a barra quando o boss já está visível
+    if (boss.y >= 0) {
     ctx.fillStyle = "rgba(255,255,255,0.12)";
     ctx.fillRect(barX, 80, barWidth, 12);
 
     ctx.fillStyle = pattern.color;
     const hpRatio = Math.max(0, gameState.bossHP / boss.currentMaxHP);
     ctx.fillRect(barX, 80, barWidth * hpRatio, 12);
+    }
 
     // desenhar boss por cima da barra
     drawBossDesign(ctx, pattern);
