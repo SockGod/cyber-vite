@@ -564,6 +564,13 @@ button {
 .nav-icon {
     font-size: 22px !important;
 }
-#hud-container {
-    margin-top: 10px !important;
+
+/* ========================= */
+/*   BOSS HEALTH BAR FIX     */
+/* ========================= */
+
+#boss-health-bar {
+    position: relative !important;
+    top: 14px !important;   /* empurra a barra para baixo */
+    z-index: 1 !important;  /* garante que fica por baixo do HUD */
 }
