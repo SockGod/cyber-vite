@@ -1,3 +1,7 @@
+/* ========================= */
+/*        FONTE RETRO        */
+/* ========================= */
+
 @font-face {
     font-family: 'Press Start 2P';
     src: url('/fonts/PressStart2P-Regular.ttf') format('truetype');
@@ -5,10 +9,14 @@
     font-style: normal;
 }
 
+/* ========================= */
+/*        ECRÃS BASE         */
+/* ========================= */
+
 .screen {
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
+    height: calc(100vh - 70px); /* espaço para a barra */
+    overflow-y: auto;
     position: absolute;
     top: 0;
     left: 0;
@@ -16,9 +24,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     padding-top: 20px;
-    z-index: 1000; /* ADICIONADO */
+    z-index: 1000;
 }
 
 .hidden {
@@ -26,7 +33,7 @@
 }
 
 /* ========================= */
-/*         TITLES            */
+/*         TÍTULOS           */
 /* ========================= */
 
 .screen-title {
@@ -43,109 +50,7 @@
 }
 
 /* ========================= */
-/*         SHOP ITEMS        */
-/* ========================= */
-
-.shop-item {
-    width: 85%;
-    background: rgba(0,0,0,0.6);
-    border: 2px solid #ff00aa;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 12px;
-    text-align: center;
-    box-shadow: 0 0 10px #ff33cc;
-    color: #ffe600;
-    font-size: 16px;
-}
-
-.shop-btn {
-    background: #00ffff;
-    color: #000;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-}
-
-/* ========================= */
-/*       REFERRAL BOX        */
-/* ========================= */
-
-.referral-box {
-    width: 85%;
-    background: #000000; /* fundo sólido */
-    border: 2px solid #ff00aa;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-    text-align: center;
-    box-shadow: 0 0 12px #ff33cc;
-    color: #ffe600; /* texto amarelo vivo */
-}
-
-.referral-code {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #000000; /* fundo sólido */
-    padding: 10px;
-    border-radius: 8px;
-    margin-top: 8px;
-    border: 2px solid #ff00aa;
-    box-shadow: 0 0 8px #ff33cc;
-    color: #ffe600;
-}
-
-.small-btn {
-    background: #00ffff;
-    color: #000;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* ========================= */
-/*     REFERRAL INPUT        */
-/* ========================= */
-
-#friend-code-input {
-    background-color: #000000; /* fundo sólido */
-    color: #ffe600; /* texto amarelo vivo */
-    border: 2px solid #ff00aa;
-    box-shadow: 0 0 8px #ff33cc;
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 8px;
-    width: 80%;
-    margin: 10px auto;
-    text-align: center;
-}
-
-/* ========================= */
-/*   REDEEM BUTTON FIX       */
-/* ========================= */
-
-#redeem-referral {
-    display: block;
-    margin: 12px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: 2px solid #ff00aa;
-    background-color: #000000;
-    color: #ffe600;
-    border-radius: 8px;
-    box-shadow: 0 0 8px #ff33cc;
-    cursor: pointer;
-}
-
-/* ========================= */
-/*        MENU BUTTONS       */
+/*        BOTÕES MENU        */
 /* ========================= */
 
 .menu-btn {
@@ -161,60 +66,21 @@
     cursor: pointer;
     text-shadow: 0 0 6px #ff66cc;
     box-shadow: 0 0 10px #ff66cc;
-}
-
-/* ========================= */
-/*     BUTTON ANIMATIONS     */
-/* ========================= */
-
-.menu-btn,
-.shop-btn,
-.small-btn,
-.pause-btn,
-.back-btn {
     transition: transform 0.15s ease, box-shadow 0.25s ease;
 }
 
-.menu-btn:hover,
-.shop-btn:hover,
-.small-btn:hover,
-.pause-btn:hover,
-.back-btn:hover {
+.menu-btn:hover {
     transform: scale(1.05);
     box-shadow: 0 0 20px #00ffff;
 }
 
-.menu-btn:active,
-.shop-btn:active,
-.small-btn:active,
-.pause-btn:active,
-.back-btn:active {
+.menu-btn:active {
     transform: scale(0.92);
     box-shadow: 0 0 30px #00ffff;
 }
 
 /* ========================= */
-/*        ALERT BOX          */
-/* ========================= */
-
-.alert-box {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,0.85);
-    border: 2px solid #00ffff;
-    padding: 12px 20px;
-    border-radius: 10px;
-    color: #00ffff;
-    font-family: 'Orbitron', sans-serif;
-    text-shadow: 0 0 8px #00ffff;
-    box-shadow: 0 0 12px #00ffff;
-    z-index: 9999;
-}
-
-/* ========================= */
-/*     HOW TO PLAY POPUP     */
+/*        POPUP HOWTO        */
 /* ========================= */
 
 .popup {
@@ -252,7 +118,7 @@
 }
 
 /* ========================= */
-/*         LOGO              */
+/*           LOGO            */
 /* ========================= */
 
 .logo-img {
@@ -304,6 +170,10 @@
 /*        GAME LAYOUT        */
 /* ========================= */
 
+#game-screen {
+    height: 100vh !important; /* jogo ocupa o ecrã todo */
+}
+
 #game-container {
     position: relative;
     width: 100vw;
@@ -317,7 +187,7 @@
 }
 
 /* ========================= */
-/*        HUD FINAL          */
+/*           HUD             */
 /* ========================= */
 
 #hud-container {
@@ -342,205 +212,58 @@
     text-shadow: 0 0 8px #00ffff;
     z-index: 9999;
 }
+/* ========================= */
+/*   BOTTOM NAVIGATION BAR   */
+/* ========================= */
 
-#hud-left,
-#hud-center,
-#hud-right {
+#bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: #ffffff;
+    border-top: 1px solid #dcdcdc;
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    gap: 10px;
+    z-index: 99999;
 }
 
-#hud-right {
-    flex-shrink: 0;
-}
-
-.hud-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 18px;
-}
-
-.hud-icon {
-    font-size: 20px;
-}
-
-.hud-level {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.hud-cs {
-    font-size: 18px;
-    color: #00ffea;
-}
-
-.hud-high {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
-/* ========================= */
-/*     PAUSE BUTTON FIX      */
-/* ========================= */
-
-.pause-btn {
-    background: rgba(0, 255, 255, 0.2);
-    border: 1px solid #00ffff;
-    color: #00ffff;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 0 8px #00ffff;
-    min-width: 28px;
-    text-align: center;
-}
-
-.pause-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 14px #00ffff;
-}
-
-.pause-btn:active {
-    transform: scale(0.95);
-    box-shadow: 0 0 20px #00ffff;
-}
-
-#hud-referral {
-    font-size: 12px;
-    opacity: 0.7;
-}
-
-/* ========================= */
-/*     MOBILE RESPONSIVE     */
-/* ========================= */
-
-@media (max-width: 600px) {
-    #hud-container {
-        height: 60px;
-        padding: 0 8px;
-    }
-
-    .hud-item {
-        font-size: 14px;
-    }
-
-    .hud-icon {
-        font-size: 16px;
-    }
-
-    .hud-level {
-        font-size: 18px;
-    }
-
-    .hud-cs {
-        font-size: 14px;
-    }
-
-    .hud-high {
-        font-size: 12px;
-    }
-
-    .pause-btn {
-        font-size: 14px;
-        padding: 3px 6px;
-        min-width: 24px;
-    }
-
-    #hud-referral {
-        display: none;
-    }
-}
-
-/* ========================= */
-/*     BACK BUTTON STYLE     */
-/* ========================= */
-
-.back-btn {
-    width: 85%;
-    padding: 12px;
-    margin-top: 20px;
-    background: transparent;
-    border: 2px solid #00ffff;
-    color: #00ffff;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    text-shadow: 0 0 6px #00ffff;
-    box-shadow: 0 0 10px #00ffff;
-}
-
-/* Hover e Active já existem acima, herdados das animações gerais */
-
-/* ========================= */
-/*        MISSIONS UI        */
-/* ========================= */
-
-.missions-list {
-    width: 85%;
-    max-width: 420px;
-    margin: 0 auto 20px auto;
-    text-align: left;
-    color: #ffe600;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
-}
-
-.mission-item {
-    margin: 6px 0;
-}
-
-/* ========================= */
-/*   FIXES DE INTERAÇÃO      */
-/* ========================= */
-
-/* Remover highlight azul dos botões */
-button:focus,
-button:active {
-    outline: none;
-}
-
-/* Remover flash azul no mobile / WebView WLD */
-button {
-    -webkit-tap-highlight-color: transparent;
-}
-
-/* ========================= */
-/*       CLAIM BUTTON        */
-/* ========================= */
-
-.claim-btn {
-    background: #00ffff;
-    color: #000000;
+.nav-btn {
+    background: none;
     border: none;
-    padding: 6px 14px;
-    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
-    font-size: 14px;
+    color: #333;
     cursor: pointer;
-    margin-top: 6px;
-    display: inline-block;
-    box-shadow: 0 0 10px #00ffffaa;
-    text-shadow: none;
+    padding: 6px 10px;
     transition: 0.15s ease;
 }
 
-.claim-btn:hover {
-    box-shadow: 0 0 16px #00ffff;
-    transform: scale(1.05);
+.nav-btn:hover {
+    transform: scale(1.08);
 }
 
-.claim-btn:active {
-    transform: scale(0.92);
-    box-shadow: 0 0 22px #00ffff;
+.nav-icon {
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.nav-label {
+    font-size: 12px;
+}
+
+/* Ocultar barra no jogo */
+#game-screen + #bottom-nav,
+#game-screen #bottom-nav {
+    display: none !important;
 }
 
 /* ========================= */
-/*   SHOP — NOVA ESTRUTURA   */
+/*       SHOP LAYOUT         */
 /* ========================= */
 
 .shop-section-title {
@@ -594,32 +317,87 @@ button {
     color: #000;
 }
 
-/* Título da Shop */
-#shop-screen .screen-title {
-    font-size: 22px;
-    margin-bottom: 20px;
-}
-
-/* Layout da Shop — evita scroll e mantém tudo visível */
-#shop-screen {
-    justify-content: flex-start !important;
-    padding-top: 20px;
-    overflow: hidden;
-}
-
 /* ========================= */
-/*   INFO & EXTRAS FIX       */
+/*       REFERRAL BOX        */
 /* ========================= */
 
-/* Mantém o layout original, mas com espaço suficiente para TODOS os botões */
-#info-screen {
+.referral-box {
+    width: 85%;
+    background: #000000;
+    border: 2px solid #ff00aa;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    box-shadow: 0 0 12px #ff33cc;
+    color: #ffe600;
+}
+
+.referral-code {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: flex-start !important;
-    padding-top: 60px;      /* espaço para não colar ao topo */
-    gap: 12px;              /* espaço entre botões */
-    overflow: visible;      /* impede que esconda o Inventory */
+    background: #000000;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 8px;
+    border: 2px solid #ff00aa;
+    box-shadow: 0 0 8px #ff33cc;
+    color: #ffe600;
+}
+
+.small-btn {
+    background: #00ffff;
+    color: #000;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ========================= */
+/*        MISSIONS UI        */
+/* ========================= */
+
+.missions-list {
+    width: 85%;
+    max-width: 420px;
+    margin: 0 auto 20px auto;
+    text-align: left;
+    color: #ffe600;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+}
+
+.mission-item {
+    margin: 6px 0;
+}
+
+.claim-btn {
+    background: #00ffff;
+    color: #000000;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 6px;
+    display: inline-block;
+    box-shadow: 0 0 10px #00ffffaa;
+    transition: 0.15s ease;
+}
+
+.claim-btn:hover {
+    box-shadow: 0 0 16px #00ffff;
+    transform: scale(1.05);
+}
+
+.claim-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 22px #00ffff;
 }
 
 /* ========================= */
@@ -651,4 +429,17 @@ button {
     color: #ffe600;
     margin: 8px 0;
     text-shadow: 0 0 6px #ff66cc;
+}
+
+/* ========================= */
+/*   FIXES DE INTERAÇÃO      */
+/* ========================= */
+
+button:focus,
+button:active {
+    outline: none;
+}
+
+button {
+    -webkit-tap-highlight-color: transparent;
 }

@@ -188,6 +188,7 @@ export function setupButtons(openVerificationDrawer) {
     const clickSound = new Audio("/click.mp3");
     clickSound.volume = 0.4;
 
+    // Som em todos os botões
     document.querySelectorAll("button").forEach(btn => {
         btn.addEventListener("click", () => {
             clickSound.currentTime = 0;
@@ -195,6 +196,23 @@ export function setupButtons(openVerificationDrawer) {
         });
     });
 
+    // ==================== HOME (MENU) ====================
+    document.getElementById("nav-home").onclick = () => {
+        showScreen(ui.menu);
+    };
+
+    // ==================== SHOP ====================
+    document.getElementById("nav-shop").onclick = () => {
+        setupShopScreen(gameState, ui, showScreen, showAlert);
+        showScreen(ui.shop);
+    };
+
+    // ==================== INFO ====================
+    document.getElementById("nav-info").onclick = () => {
+        showScreen(ui.info);
+    };
+
+    // ==================== PLAY BUTTON ====================
     document.getElementById("btn-play").onclick = () => {
         if (gameState.isVerified) {
             window.startGame();
@@ -203,24 +221,14 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
-    document.getElementById("btn-leaderboard").onclick = () => {
-        updateLeaderboardUI();
-        showScreen(ui.leaderboard);
-    };
-
+    // ==================== VERIFY ====================
     document.getElementById("btn-verify-now").onclick = () => {
         openVerificationDrawer();
     };
 
-    document.getElementById("btn-shop").onclick = () => {
-        setupShopScreen(gameState, ui, showScreen, showAlert);
-        showScreen(ui.shop);
-    };
+    // ==================== INFO SUB-PAGES ====================
 
-    document.getElementById("btn-info").onclick = () => {
-        showScreen(ui.info);
-    };
-
+    // How to Play
     document.getElementById("btn-info-howto").onclick = () => {
         document.getElementById("howto-popup").classList.remove("hidden");
     };
@@ -232,6 +240,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
+    // Missions
     const missionsBtn = document.getElementById("btn-info-missions");
     if (missionsBtn) {
         missionsBtn.onclick = () => {
@@ -240,6 +249,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
+    // Referral
     const referralBtn = document.getElementById("btn-info-referral");
     if (referralBtn) {
         referralBtn.onclick = () => {
@@ -247,7 +257,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // ⭐ INVENTORY BUTTON
+    // Inventory
     const inventoryBtn = document.getElementById("btn-info-inventory");
     if (inventoryBtn) {
         inventoryBtn.onclick = () => {
@@ -255,50 +265,27 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
+    // Leaderboard (agora dentro do Info)
+    const infoLeaderboardBtn = document.getElementById("btn-info-leaderboard");
+    if (infoLeaderboardBtn) {
+        infoLeaderboardBtn.onclick = () => {
+            updateLeaderboardUI();
+            showScreen(ui.leaderboard);
+        };
+    }
+
+    // ==================== MISSIONS → BACK TO INFO ====================
+    const missionsBack = document.querySelector("#missions-screen .back-btn");
+    if (missionsBack) {
+        missionsBack.onclick = () => {
+            showScreen(ui.info);
+        };
+    }
+
+    // ==================== PAUSE BUTTON ====================
     document.getElementById("btn-pause").onclick = () => {
         if (gameState.isPlaying) {
             gameState.isPaused = !gameState.isPaused;
         }
     };
-
-    // ==================== BACK BUTTONS ====================
-
-    // Info → Menu
-    document.getElementById("btn-info-back").onclick = () => {
-        showScreen(ui.menu);
-    };
-
-    // Inventory → Menu
-    document.getElementById("btn-inventory-back").onclick = () => {
-        showScreen(ui.menu);
-    };
-
-    // Shop → Menu
-    document.getElementById("btn-shop-back").onclick = () => {
-        showScreen(ui.menu);
-    };
-
-    // Missions → Info
-    document.querySelector("#missions-screen .back-btn").onclick = () => {
-        showScreen(ui.info);
-    };
-
-    // Referral → Menu
-    document.getElementById("btn-referral-back").onclick = () => {
-        showScreen(ui.menu);
-    };
-
-    // Leaderboard → Menu
-    document.getElementById("btn-leaderboard-back").onclick = () => {
-        showScreen(ui.menu);
-    };
-
-    // ⭐ VERIFY → MENU (O QUE FALTAVA!)
-    const verifyBack = document.getElementById("btn-verify-back");
-    if (verifyBack) {
-        verifyBack.onclick = () => {
-            showScreen(ui.menu);
-        };
-    }
 }
-

@@ -27,29 +27,24 @@
         </div>
     </div>
 
-    <!-- MENU SCREEN -->
+    <!-- MENU / HOME SCREEN -->
     <div id="menu-screen" class="screen">
         <h1 class="screen-title">CYBERSPACE SHOOTER</h1>
 
         <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
 
         <button id="btn-play" class="menu-btn">Play</button>
-        <button id="btn-shop" class="menu-btn">Shop</button>
-        <button id="btn-leaderboard" class="menu-btn">Leaderboard</button>
-        <button id="btn-info" class="menu-btn">Info & Extras</button>
     </div>
 
     <!-- VERIFICATION SCREEN -->
     <div id="verify-screen" class="screen hidden">
         <h2 class="screen-title">VERIFY WITH WORLD ID</h2>
         <button id="btn-verify-now" class="menu-btn">Verify Now</button>
-        <button id="btn-verify-back" class="menu-btn back-btn">Back</button>
     </div>
 
     <!-- GAME SCREEN -->
     <div id="game-screen" class="screen hidden">
 
-        <!-- HUD FINAL -->
         <div id="hud-container">
 
             <div id="hud-left">
@@ -77,7 +72,6 @@
 
         </div>
 
-        <!-- GAME CANVAS -->
         <div id="game-container">
             <canvas id="game-canvas"></canvas>
         </div>
@@ -87,9 +81,6 @@
     <div id="shop-screen" class="screen hidden">
         <h2 class="screen-title">CYBER SHOP</h2>
 
-        <!-- ===================== -->
-        <!--      CS ITEMS         -->
-        <!-- ===================== -->
         <h3 class="shop-section-title">Items (CS)</h3>
 
         <div class="shop-grid">
@@ -114,9 +105,6 @@
             </div>
         </div>
 
-        <!-- ===================== -->
-        <!--      WLD ITEMS        -->
-        <!-- ===================== -->
         <h3 class="shop-section-title">Premium (WLD)</h3>
 
         <div class="shop-grid">
@@ -140,8 +128,6 @@
                 <button id="buy-xpboost" class="shop-btn wld-btn">Buy</button>
             </div>
         </div>
-
-        <button id="btn-shop-back" class="menu-btn back-btn">Back to Menu</button>
     </div>
 
     <!-- REFERRAL SCREEN -->
@@ -152,27 +138,24 @@
             <p>Your Code:</p>
             <div class="referral-code">
                 <span id="user-ref-code">ABC123</span>
-                <button id="copy-ref-code" class="small-btn">Copy</button>
+                <button id="copy-ref-code" class="menu-btn">Copy</button>
             </div>
         </div>
 
         <div class="referral-box">
             <p>Enter friend's code:</p>
             <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
-            <button id="redeem-referral" class="shop-btn">Redeem Bonus</button>
+            <button id="redeem-referral" class="menu-btn">Redeem Bonus</button>
         </div>
-
-        <button id="btn-referral-back" class="menu-btn back-btn">Back to Menu</button>
     </div>
 
     <!-- LEADERBOARD SCREEN -->
     <div id="leaderboard-screen" class="screen hidden">
         <h2 class="screen-title">LEADERBOARD</h2>
         <div id="leaderboard-list"></div>
-        <button id="btn-leaderboard-back" class="menu-btn back-btn">Back</button>
     </div>
 
-    <!-- INFO & EXTRAS SCREEN -->
+    <!-- INFO SCREEN -->
     <div id="info-screen" class="screen hidden">
         <h2 class="screen-title">INFO & EXTRAS</h2>
 
@@ -180,7 +163,7 @@
         <button id="btn-info-missions" class="menu-btn">Missions</button>
         <button id="btn-info-referral" class="menu-btn">Referral Bonus</button>
         <button id="btn-info-inventory" class="menu-btn">Inventory</button>
-        <button id="btn-info-back" class="menu-btn back-btn">Back to Menu</button>
+        <button id="btn-info-leaderboard" class="menu-btn">Leaderboard</button>
     </div>
 
     <!-- MISSIONS SCREEN -->
@@ -195,24 +178,22 @@
             <p class="mission-item">• Use 1 bomb</p>
         </div>
 
-        <button class="back-btn">Back to Menu</button>
+        <button class="back-btn menu-btn">Back to Info</button>
     </div>
 
     <!-- INVENTORY SCREEN -->
-<div id="inventory-screen" class="screen hidden">
-    <h2 class="screen-title">INVENTORY</h2>
+    <div id="inventory-screen" class="screen hidden">
+        <h2 class="screen-title">INVENTORY</h2>
 
-    <div class="inventory-list">
-        <p class="inventory-item">Mini Drones: <span id="inv-drones">0</span></p>
-        <p class="inventory-item">Super Shot: <span id="inv-supershot">0</span></p>
-        <p class="inventory-item">Revives: <span id="inv-revives">0</span></p>
-        <p class="inventory-item">Mega Bombs: <span id="inv-megabombs">0</span></p>
-        <p class="inventory-item">Neon Skin: <span id="inv-skin">Not owned</span></p>
-        <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</p>
+        <div class="inventory-list">
+            <p class="inventory-item">Mini Drones: <span id="inv-drones">0</span></p>
+            <p class="inventory-item">Super Shot: <span id="inv-supershot">0</span></p>
+            <p class="inventory-item">Revives: <span id="inv-revives">0</span></p>
+            <p class="inventory-item">Mega Bombs: <span id="inv-megabombs">0</span></p>
+            <p class="inventory-item">Neon Skin: <span id="inv-skin">Not owned</span></p>
+            <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</p>
+        </div>
     </div>
-
-    <button id="btn-inventory-back" class="menu-btn back-btn">Back to Menu</button>
-</div>
 
     <!-- LOADING SCREEN -->
     <div id="loading-screen" class="screen hidden">
@@ -220,25 +201,26 @@
         <p id="status-text"></p>
     </div>
 
+    <!-- BOTTOM NAVIGATION BAR -->
+    <nav id="bottom-nav">
+        <button id="nav-home" class="nav-btn">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </button>
+        <button id="nav-shop" class="nav-btn">
+            <span class="nav-icon">🛒</span>
+            <span class="nav-label">Shop</span>
+        </button>
+        <button id="nav-info" class="nav-btn">
+            <span class="nav-icon">ℹ️</span>
+            <span class="nav-label">Info</span>
+        </button>
+    </nav>
+
     <!-- BACKGROUND STARS -->
     <canvas id="background-stars"></canvas>
 
     <script type="module" src="src/main.js"></script>
-
-    <script>
-        document.getElementById("copy-ref-code").addEventListener("click", function () {
-            const code = document.getElementById("user-ref-code").innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                const alertBox = document.createElement("div");
-                alertBox.className = "alert-box";
-                alertBox.innerText = "Referral code copied!";
-                document.body.appendChild(alertBox);
-                setTimeout(() => {
-                    alertBox.remove();
-                }, 2000);
-            });
-        });
-    </script>
 
 </body>
 </html>
