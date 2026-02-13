@@ -206,7 +206,7 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         activePhrase.alpha = 2.8;
     }
 
-    if (boss.y < 70) {
+    if (boss.y < 120) {
         boss.y += 2 * slowFactor;
     } else {
         if (pattern.moveMode === "horizontal") {
