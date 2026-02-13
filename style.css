@@ -564,3 +564,6 @@ button {
 .nav-icon {
     font-size: 22px !important;
 }
+#hud-container {
+    margin-top: 10px !important;
+}
