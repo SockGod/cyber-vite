@@ -233,11 +233,11 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     const barX = (canvas.width - barWidth) / 2;
 
     ctx.fillStyle = "rgba(255,255,255,0.12)";
-    ctx.fillRect(barX, 35, barWidth, 12);
+    ctx.fillRect(barX, 80, barWidth, 12);
 
     ctx.fillStyle = pattern.color;
     const hpRatio = Math.max(0, gameState.bossHP / boss.currentMaxHP);
-    ctx.fillRect(barX, 35, barWidth * hpRatio, 12);
+    ctx.fillRect(barX, 80, barWidth * hpRatio, 12);
 
     if (boss.fireCooldown > 0) {
         boss.fireCooldown--;
