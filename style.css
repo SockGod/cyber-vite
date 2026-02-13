@@ -10,12 +10,53 @@
 }
 
 /* ========================= */
+/*     RESET + FULLSCREEN    */
+/* ========================= */
+
+html, body {
+    width: 100%;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: black;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* ========================= */
+/*     APP ROOT + CONTENT    */
+/* ========================= */
+
+.app-root {
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+#app-content {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    /* SAFE AREA FIX */
+    padding-top: env(safe-area-inset-top, 0);
+    padding-bottom: calc(50px + env(safe-area-inset-bottom, 0));
+
+    box-sizing: border-box;
+}
+
+/* ========================= */
 /*        ECRÃS BASE         */
 /* ========================= */
 
 .screen {
     width: 100%;
-    height: calc(100vh - 70px); /* espaço para a barra */
+    height: 100%;
     overflow-y: auto;
     position: absolute;
     top: 0;
@@ -88,7 +129,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
     background: #000000;
     display: flex;
     justify-content: center;
@@ -153,7 +194,7 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     z-index: -1;
 
     background: radial-gradient(circle at center,
@@ -171,21 +212,21 @@
 /* ========================= */
 
 #game-screen {
-    height: 100vh !important; /* jogo ocupa o ecrã todo */
+    height: 100%;
 }
 
 #game-container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 #game-canvas {
     width: 100%;
     height: 100%;
     display: block;
+    touch-action: none;
 }
-
 /* ========================= */
 /*           HUD             */
 /* ========================= */
@@ -201,11 +242,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: nowrap;
 
-    padding: 0 12px;
+    padding: 0 18px; /* pausa mais para dentro */
 
-    /* SAFE AREA FIX FOR WLD */
+    /* SAFE AREA FIX */
     padding-top: env(safe-area-inset-top, 0);
     margin-top: calc(-1 * env(safe-area-inset-top, 0));
 
@@ -229,7 +269,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    flex-wrap: nowrap;
 }
 
 /* ========================= */
@@ -242,11 +281,7 @@
     left: 0;
     width: 100%;
 
-    /* ALTURA AJUSTADA PARA WLD */
-    height: 50px !important;
-
-    /* REMOVE SAFE-AREA EXTRA DA WLD */
-    padding-bottom: 0 !important;
+    height: 50px;
 
     background: #ffffff;
     border-top: 1px solid #dcdcdc;
@@ -254,6 +289,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+
+    /* SAFE AREA FIX */
+    padding-bottom: env(safe-area-inset-bottom, 0);
 
     z-index: 99999;
 }
@@ -285,8 +323,7 @@
 }
 
 /* Ocultar barra no jogo */
-#game-screen + #bottom-nav,
-#game-screen #bottom-nav {
+#game-screen.active ~ #bottom-nav {
     display: none !important;
 }
 
@@ -470,29 +507,4 @@ button:active {
 
 button {
     -webkit-tap-highlight-color: transparent;
-}
-/* ========================= */
-/*     APP ROOT + CONTENT    */
-/* ========================= */
-
-.app-root {
-    width: 100vw;
-    height: 100dvh; /* MUITO IMPORTANTE PARA WLD */
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-#app-content {
-    flex: 1;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-
-    /* SAFE AREA FIX */
-    padding-top: env(safe-area-inset-top, 0);
-    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0));
-
-    box-sizing: border-box;
 }
