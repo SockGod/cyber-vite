@@ -191,24 +191,23 @@
 /* ========================= */
 
 #hud-container {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
 
-    /* ALTURA FIXA PARA NÃO ESTICAR NA WLD */
+    width: 100vw;
     height: 60px;
-
-    box-sizing: border-box;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    /* IMPEDIR QUEBRAS DE LINHA */
     flex-wrap: nowrap;
 
     padding: 0 12px;
+
+    /* SAFE AREA FIX FOR WLD */
+    padding-top: env(safe-area-inset-top, 0);
+    margin-top: calc(-1 * env(safe-area-inset-top, 0));
 
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
@@ -220,7 +219,10 @@
     z-index: 9999;
 }
 
-/* HUD LEFT / CENTER / RIGHT — impedir que quebrem linha */
+#hud-container * {
+    white-space: nowrap;
+}
+
 #hud-left,
 #hud-center,
 #hud-right {
@@ -228,13 +230,6 @@
     align-items: center;
     gap: 12px;
     flex-wrap: nowrap;
-}
-
-/* Código do referral — pequeno e discreto */
-#hud-referral {
-    font-size: 10px;
-    opacity: 0.7;
-    white-space: nowrap;
 }
 
 /* ========================= */
