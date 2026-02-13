@@ -221,12 +221,20 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px;
+
+    /* ALTURA AJUSTADA PARA WLD */
+    height: 50px !important;
+
+    /* REMOVE SAFE-AREA EXTRA DA WLD */
+    padding-bottom: 0 !important;
+
     background: #ffffff;
     border-top: 1px solid #dcdcdc;
+
     display: flex;
     justify-content: space-around;
     align-items: center;
+
     z-index: 99999;
 }
 

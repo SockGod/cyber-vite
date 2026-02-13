@@ -73,9 +73,12 @@ window.addEventListener("load", () => {
     });
 
     // Expor startGame para o ui.js
-    window.startGame = () => startGame(canvas);
+    window.startGame = () => {
+    document.getElementById("bottom-nav").style.display = "none";
+    startGame(canvas);
+};
 
-    // ============================
+// ============================
     //   NAVIGAÇÃO DO INVENTORY
     // ============================
     const infoScreen = document.getElementById("info-screen");
