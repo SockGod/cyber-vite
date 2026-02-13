@@ -227,11 +227,10 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
         }
     }
 
-    drawBossDesign(ctx, pattern);
-
     const barWidth = 220;
     const barX = (canvas.width - barWidth) / 2;
 
+    // desenhar barra primeiro (fica atrás do boss)
     ctx.fillStyle = "rgba(255,255,255,0.12)";
     ctx.fillRect(barX, 80, barWidth, 12);
 
@@ -239,8 +238,11 @@ export function handleBoss(ctx, canvas, bullets, updateUI) {
     const hpRatio = Math.max(0, gameState.bossHP / boss.currentMaxHP);
     ctx.fillRect(barX, 80, barWidth * hpRatio, 12);
 
+    // desenhar boss por cima da barra
+    drawBossDesign(ctx, pattern);
+
     if (boss.fireCooldown > 0) {
-        boss.fireCooldown--;
+    boss.fireCooldown--;
     }
 
     const baseFireChance = pattern.fireRate;
