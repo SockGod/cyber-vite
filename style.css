@@ -514,19 +514,25 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
-/* PAUSE BUTTON — tamanho e estilo */
+/* ========================= */
+/*   PAUSE BUTTON (FINAL)    */
+/* ========================= */
+
 #btn-pause {
-    font-size: 18px !important;
-    width: 42px !important;
-    height: 42px !important;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.15);
-    color: white;
-    border: 2px solid rgba(255,255,255,0.4);
-    margin-right: 0 !important; /* impede corte */
+    font-size: 14px !important;
+    width: 34px !important;
+    height: 34px !important;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.12);
+    color: #00ffff;
+    border: 2px solid rgba(0,255,255,0.45);
+    margin-right: 0 !important;
 }
 
-/* HUD — altura e texto visível */
+/* ========================= */
+/*        HUD (FINAL)        */
+/* ========================= */
+
 #hud-container {
     height: 70px !important;
 }
@@ -536,13 +542,15 @@ button {
     font-size: 14px !important;
 }
 
-/* HUD RIGHT — puxa o pause para dentro */
 #hud-right {
     justify-content: flex-end !important;
-    padding-right: 20px !important;
+    padding-right: 26px !important;
 }
 
-/* BOTTOM NAV — estilo WLD oficial */
+/* ========================= */
+/*   BOTTOM NAV (FINAL)      */
+/* ========================= */
+
 #bottom-nav {
     background: #000 !important;
     border-top: 1px solid rgba(255,255,255,0.15) !important;
