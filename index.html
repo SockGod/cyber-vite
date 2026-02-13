@@ -46,9 +46,10 @@
                 <button id="btn-verify-now" class="menu-btn">Verify Now</button>
             </div>
 
-            <!-- GAME SCREEN -->
-            <div id="game-screen" class="screen hidden">
+            <!-- GAME SCREEN (REWRITTEN FOR WLD COMPATIBILITY) -->
+            <div id="game-screen" class="hidden">
 
+                <!-- HUD OUTSIDE OF ANY SCROLLABLE AREA -->
                 <div id="hud-container">
 
                     <div id="hud-left">
@@ -75,11 +76,14 @@
 
                 </div>
 
-                <div id="game-container">
-                    <canvas id="game-canvas"></canvas>
+                <!-- SAFE AREA WRAPPER FOR WLD -->
+                <div class="wld-safe-area">
+                    <div id="game-container">
+                        <canvas id="game-canvas"></canvas>
+                    </div>
                 </div>
-            </div>
 
+            </div>
             <!-- SHOP SCREEN -->
             <div id="shop-screen" class="screen hidden">
                 <h2 class="screen-title">CYBER SHOP</h2>
@@ -194,7 +198,7 @@
                     <p class="inventory-item">Revives: <span id="inv-revives">0</span></p>
                     <p class="inventory-item">Mega Bombs: <span id="inv-megabombs">0</span></p>
                     <p class="inventory-item">Neon Skin: <span id="inv-skin">Not owned</span></p>
-                    <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</p>
+                    <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</span></p>
                 </div>
             </div>
 
