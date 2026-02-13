@@ -9,212 +9,220 @@
 </head>
 <body>
 
-    <!-- ALERT BOX -->
-    <div id="alert-box" class="hidden alert-box">
-        <p id="alert-text"></p>
-    </div>
+    <div class="app-root">
 
-    <!-- HOW TO PLAY POPUP -->
-    <div id="howto-popup" class="hidden popup">
-        <div class="popup-content">
-            <h2>How to Play</h2>
-            <p>• Drag anywhere to move</p>
-            <p>• Two fingers = Mega Bomb</p>
-            <p>• Defeat the Boss to advance</p>
-            <p>• Survive as long as possible</p>
-            <p>• Power up in the CYBER SHOP to crush your enemies!</p>
-            <button id="howto-close" class="menu-btn">Close</button>
-        </div>
-    </div>
+        <main id="app-content">
 
-    <!-- MENU / HOME SCREEN -->
-    <div id="menu-screen" class="screen">
-        <h1 class="screen-title">CYBERSPACE SHOOTER</h1>
+            <!-- ALERT BOX -->
+            <div id="alert-box" class="hidden alert-box">
+                <p id="alert-text"></p>
+            </div>
 
-        <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
-
-        <button id="btn-play" class="menu-btn">Play</button>
-    </div>
-
-    <!-- VERIFICATION SCREEN -->
-    <div id="verify-screen" class="screen hidden">
-        <h2 class="screen-title">VERIFY WITH WORLD ID</h2>
-        <button id="btn-verify-now" class="menu-btn">Verify Now</button>
-    </div>
-
-    <!-- GAME SCREEN -->
-    <div id="game-screen" class="screen hidden">
-
-        <div id="hud-container">
-
-            <div id="hud-left">
-                <div class="hud-item">
-                    <span class="hud-icon">🛡</span>
-                    <span id="hud-shields">5</span>
-                </div>
-
-                <div class="hud-item">
-                    <span class="hud-icon">💣</span>
-                    <span id="hud-bombs">2</span>
+            <!-- HOW TO PLAY POPUP -->
+            <div id="howto-popup" class="hidden popup">
+                <div class="popup-content">
+                    <h2>How to Play</h2>
+                    <p>• Drag anywhere to move</p>
+                    <p>• Two fingers = Mega Bomb</p>
+                    <p>• Defeat the Boss to advance</p>
+                    <p>• Survive as long as possible</p>
+                    <p>• Power up in the CYBER SHOP to crush your enemies!</p>
+                    <button id="howto-close" class="menu-btn">Close</button>
                 </div>
             </div>
 
-            <div id="hud-center">
-                <div class="hud-level">LVL <span id="hud-level-num">1</span></div>
-                <div class="hud-cs"><span id="hud-credits">0 CS</span></div>
-                <div class="hud-high">HIGH <span id="hud-high">1</span></div>
+            <!-- MENU / HOME SCREEN -->
+            <div id="menu-screen" class="screen">
+                <h1 class="screen-title">CYBERSPACE SHOOTER</h1>
+
+                <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
+
+                <button id="btn-play" class="menu-btn">Play</button>
             </div>
 
-            <div id="hud-right">
-                <button id="btn-pause" class="hud-btn pause-btn">II</button>
+            <!-- VERIFICATION SCREEN -->
+            <div id="verify-screen" class="screen hidden">
+                <h2 class="screen-title">VERIFY WITH WORLD ID</h2>
+                <button id="btn-verify-now" class="menu-btn">Verify Now</button>
             </div>
 
-        </div>
+            <!-- GAME SCREEN -->
+            <div id="game-screen" class="screen hidden">
 
-        <div id="game-container">
-            <canvas id="game-canvas"></canvas>
-        </div>
+                <div id="hud-container">
+
+                    <div id="hud-left">
+                        <div class="hud-item">
+                            <span class="hud-icon">🛡</span>
+                            <span id="hud-shields">5</span>
+                        </div>
+
+                        <div class="hud-item">
+                            <span class="hud-icon">💣</span>
+                            <span id="hud-bombs">2</span>
+                        </div>
+                    </div>
+
+                    <div id="hud-center">
+                        <div class="hud-level">LVL <span id="hud-level-num">1</span></div>
+                        <div class="hud-cs"><span id="hud-credits">0 CS</span></div>
+                        <div class="hud-high">HIGH <span id="hud-high">1</span></div>
+                    </div>
+
+                    <div id="hud-right">
+                        <button id="btn-pause" class="hud-btn pause-btn">II</button>
+                    </div>
+
+                </div>
+
+                <div id="game-container">
+                    <canvas id="game-canvas"></canvas>
+                </div>
+            </div>
+
+            <!-- SHOP SCREEN -->
+            <div id="shop-screen" class="screen hidden">
+                <h2 class="screen-title">CYBER SHOP</h2>
+
+                <h3 class="shop-section-title">Items (CS)</h3>
+
+                <div class="shop-grid">
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/powerup_shield.png"> Shields (x3) — 30 CS</h4>
+                        <button id="buy-shields" class="shop-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4><span class="shop-icon">💣</span> Mega Bombs (x5) — 40 CS</h4>
+                        <button id="buy-bombs" class="shop-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/shot_player_dual.png"> Dual Shot — 60 CS</h4>
+                        <button id="buy-dualshot" class="shop-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/powerup_health.png"> Revive (1 use) — 100 CS</h4>
+                        <button id="buy-revive" class="shop-btn">Buy</button>
+                    </div>
+                </div>
+
+                <h3 class="shop-section-title">Premium (WLD)</h3>
+
+                <div class="shop-grid">
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/mini_drones.png"> Mini Drones — 1 WLD</h4>
+                        <button id="buy-drones" class="shop-btn wld-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/powerup_mega.png"> Super Shot — 1 WLD</h4>
+                        <button id="buy-supershot" class="shop-btn wld-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/skin_neon.png"> Neon Skin — 1 WLD</h4>
+                        <button id="buy-skin" class="shop-btn wld-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4><img class="shop-icon" src="/assets/sprites/xp_boost.png"> XP Boost (x3 games) — 1 WLD</h4>
+                        <button id="buy-xpboost" class="shop-btn wld-btn">Buy</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REFERRAL SCREEN -->
+            <div id="referral-screen" class="screen hidden">
+                <h2 class="screen-title">REFERRAL BONUS</h2>
+
+                <div class="referral-box">
+                    <p>Your Code:</p>
+                    <div class="referral-code">
+                        <span id="user-ref-code">ABC123</span>
+                        <button id="copy-ref-code" class="menu-btn">Copy</button>
+                    </div>
+                </div>
+
+                <div class="referral-box">
+                    <p>Enter friend's code:</p>
+                    <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
+                    <button id="redeem-referral" class="menu-btn">Redeem Bonus</button>
+                </div>
+            </div>
+
+            <!-- LEADERBOARD SCREEN -->
+            <div id="leaderboard-screen" class="screen hidden">
+                <h2 class="screen-title">LEADERBOARD</h2>
+                <div id="leaderboard-list"></div>
+            </div>
+
+            <!-- INFO SCREEN -->
+            <div id="info-screen" class="screen hidden">
+                <h2 class="screen-title">INFO & EXTRAS</h2>
+
+                <button id="btn-info-howto" class="menu-btn">How to Play</button>
+                <button id="btn-info-missions" class="menu-btn">Missions</button>
+                <button id="btn-info-referral" class="menu-btn">Referral Bonus</button>
+                <button id="btn-info-inventory" class="menu-btn">Inventory</button>
+                <button id="btn-info-leaderboard" class="menu-btn">Leaderboard</button>
+            </div>
+
+            <!-- MISSIONS SCREEN -->
+            <div id="missions-screen" class="screen hidden">
+                <h1 class="screen-title">MISSIONS</h1>
+
+                <div class="missions-list">
+                    <p class="mission-item">• Play 1 game</p>
+                    <p class="mission-item">• Destroy 50 enemies</p>
+                    <p class="mission-item">• Collect 100 CS</p>
+                    <p class="mission-item">• Survive 60 seconds</p>
+                    <p class="mission-item">• Use 1 bomb</p>
+                </div>
+
+                <button class="back-btn menu-btn">Back to Info</button>
+            </div>
+
+            <!-- INVENTORY SCREEN -->
+            <div id="inventory-screen" class="screen hidden">
+                <h2 class="screen-title">INVENTORY</h2>
+
+                <div class="inventory-list">
+                    <p class="inventory-item">Mini Drones: <span id="inv-drones">0</span></p>
+                    <p class="inventory-item">Super Shot: <span id="inv-supershot">0</span></p>
+                    <p class="inventory-item">Revives: <span id="inv-revives">0</span></p>
+                    <p class="inventory-item">Mega Bombs: <span id="inv-megabombs">0</span></p>
+                    <p class="inventory-item">Neon Skin: <span id="inv-skin">Not owned</span></p>
+                    <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</p>
+                </div>
+            </div>
+
+            <!-- LOADING SCREEN -->
+            <div id="loading-screen" class="screen hidden">
+                <h2 class="screen-title">Loading...</h2>
+                <p id="status-text"></p>
+            </div>
+
+        </main>
+
+        <!-- BOTTOM NAVIGATION BAR -->
+        <nav id="bottom-nav">
+            <button id="nav-home" class="nav-btn">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button id="nav-shop" class="nav-btn">
+                <span class="nav-icon">🛒</span>
+                <span class="nav-label">Shop</span>
+            </button>
+            <button id="nav-info" class="nav-btn">
+                <span class="nav-icon">ℹ️</span>
+                <span class="nav-label">Info</span>
+            </button>
+        </nav>
+
     </div>
-
-    <!-- SHOP SCREEN -->
-    <div id="shop-screen" class="screen hidden">
-        <h2 class="screen-title">CYBER SHOP</h2>
-
-        <h3 class="shop-section-title">Items (CS)</h3>
-
-        <div class="shop-grid">
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/powerup_shield.png"> Shields (x3) — 30 CS</h4>
-                <button id="buy-shields" class="shop-btn">Buy</button>
-            </div>
-
-            <div class="shop-item">
-                <h4><span class="shop-icon">💣</span> Mega Bombs (x5) — 40 CS</h4>
-                <button id="buy-bombs" class="shop-btn">Buy</button>
-            </div>
-
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/shot_player_dual.png"> Dual Shot — 60 CS</h4>
-                <button id="buy-dualshot" class="shop-btn">Buy</button>
-            </div>
-
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/powerup_health.png"> Revive (1 use) — 100 CS</h4>
-                <button id="buy-revive" class="shop-btn">Buy</button>
-            </div>
-        </div>
-
-        <h3 class="shop-section-title">Premium (WLD)</h3>
-
-        <div class="shop-grid">
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/mini_drones.png"> Mini Drones — 1 WLD</h4>
-                <button id="buy-drones" class="shop-btn wld-btn">Buy</button>
-            </div>
-
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/powerup_mega.png"> Super Shot — 1 WLD</h4>
-                <button id="buy-supershot" class="shop-btn wld-btn">Buy</button>
-            </div>
-
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/skin_neon.png"> Neon Skin — 1 WLD</h4>
-                <button id="buy-skin" class="shop-btn wld-btn">Buy</button>
-            </div>
-
-            <div class="shop-item">
-                <h4><img class="shop-icon" src="/assets/sprites/xp_boost.png"> XP Boost (x3 games) — 1 WLD</h4>
-                <button id="buy-xpboost" class="shop-btn wld-btn">Buy</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- REFERRAL SCREEN -->
-    <div id="referral-screen" class="screen hidden">
-        <h2 class="screen-title">REFERRAL BONUS</h2>
-
-        <div class="referral-box">
-            <p>Your Code:</p>
-            <div class="referral-code">
-                <span id="user-ref-code">ABC123</span>
-                <button id="copy-ref-code" class="menu-btn">Copy</button>
-            </div>
-        </div>
-
-        <div class="referral-box">
-            <p>Enter friend's code:</p>
-            <input id="friend-code-input" type="text" maxlength="12" placeholder="Enter code">
-            <button id="redeem-referral" class="menu-btn">Redeem Bonus</button>
-        </div>
-    </div>
-
-    <!-- LEADERBOARD SCREEN -->
-    <div id="leaderboard-screen" class="screen hidden">
-        <h2 class="screen-title">LEADERBOARD</h2>
-        <div id="leaderboard-list"></div>
-    </div>
-
-    <!-- INFO SCREEN -->
-    <div id="info-screen" class="screen hidden">
-        <h2 class="screen-title">INFO & EXTRAS</h2>
-
-        <button id="btn-info-howto" class="menu-btn">How to Play</button>
-        <button id="btn-info-missions" class="menu-btn">Missions</button>
-        <button id="btn-info-referral" class="menu-btn">Referral Bonus</button>
-        <button id="btn-info-inventory" class="menu-btn">Inventory</button>
-        <button id="btn-info-leaderboard" class="menu-btn">Leaderboard</button>
-    </div>
-
-    <!-- MISSIONS SCREEN -->
-    <div id="missions-screen" class="screen hidden">
-        <h1 class="screen-title">MISSIONS</h1>
-
-        <div class="missions-list">
-            <p class="mission-item">• Play 1 game</p>
-            <p class="mission-item">• Destroy 50 enemies</p>
-            <p class="mission-item">• Collect 100 CS</p>
-            <p class="mission-item">• Survive 60 seconds</p>
-            <p class="mission-item">• Use 1 bomb</p>
-        </div>
-
-        <button class="back-btn menu-btn">Back to Info</button>
-    </div>
-
-    <!-- INVENTORY SCREEN -->
-    <div id="inventory-screen" class="screen hidden">
-        <h2 class="screen-title">INVENTORY</h2>
-
-        <div class="inventory-list">
-            <p class="inventory-item">Mini Drones: <span id="inv-drones">0</span></p>
-            <p class="inventory-item">Super Shot: <span id="inv-supershot">0</span></p>
-            <p class="inventory-item">Revives: <span id="inv-revives">0</span></p>
-            <p class="inventory-item">Mega Bombs: <span id="inv-megabombs">0</span></p>
-            <p class="inventory-item">Neon Skin: <span id="inv-skin">Not owned</span></p>
-            <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</p>
-        </div>
-    </div>
-
-    <!-- LOADING SCREEN -->
-    <div id="loading-screen" class="screen hidden">
-        <h2 class="screen-title">Loading...</h2>
-        <p id="status-text"></p>
-    </div>
-
-    <!-- BOTTOM NAVIGATION BAR -->
-    <nav id="bottom-nav">
-        <button id="nav-home" class="nav-btn">
-            <span class="nav-icon">🏠</span>
-            <span class="nav-label">Home</span>
-        </button>
-        <button id="nav-shop" class="nav-btn">
-            <span class="nav-icon">🛒</span>
-            <span class="nav-label">Shop</span>
-        </button>
-        <button id="nav-info" class="nav-btn">
-            <span class="nav-icon">ℹ️</span>
-            <span class="nav-label">Info</span>
-        </button>
-    </nav>
 
     <!-- BACKGROUND STARS -->
     <canvas id="background-stars"></canvas>
