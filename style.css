@@ -513,6 +513,8 @@ button:active {
 button {
     -webkit-tap-highlight-color: transparent;
 }
+
+/* PAUSE BUTTON — tamanho e estilo */
 #btn-pause {
     font-size: 18px !important;
     width: 42px !important;
@@ -521,7 +523,10 @@ button {
     background: rgba(255,255,255,0.15);
     color: white;
     border: 2px solid rgba(255,255,255,0.4);
+    margin-right: 0 !important; /* impede corte */
 }
+
+/* HUD — altura e texto visível */
 #hud-container {
     height: 70px !important;
 }
@@ -530,6 +535,14 @@ button {
 #hud-container div {
     font-size: 14px !important;
 }
+
+/* HUD RIGHT — puxa o pause para dentro */
+#hud-right {
+    justify-content: flex-end !important;
+    padding-right: 20px !important;
+}
+
+/* BOTTOM NAV — estilo WLD oficial */
 #bottom-nav {
     background: #000 !important;
     border-top: 1px solid rgba(255,255,255,0.15) !important;
