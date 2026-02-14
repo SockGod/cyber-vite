@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    
+    <button id="testPay">Testar Pagamento</button>
 
     <div class="app-root">
 
@@ -221,6 +223,13 @@
     <canvas id="background-stars"></canvas>
 
     <script type="module" src="src/main.js"></script>
+    <script type="module">
+  import { startPayment } from "./src/payments.js";
+
+  document.getElementById("testPay").addEventListener("click", () => {
+    startPayment();
+  });
+</script>
 
 </body>
 </html>
