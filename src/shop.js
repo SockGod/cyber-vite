@@ -29,7 +29,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
 
             if (result === "success") {
                 onSuccess();      // 1️⃣ Atualiza o gameState
-                saveInventory();  // 2️⃣ Guarda o inventário atualizado
+                saveInventory();  // 2️⃣ Guarda o inventário permanente
                 showAlert("Compra concluída com sucesso!");
             } else {
                 showAlert("Pagamento cancelado ou falhou.");
@@ -47,8 +47,8 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     if (btnDrones) {
         btnDrones.onclick = () => {
             purchaseWithWLD(WLD_PRICES.drones, () => {
-                gameState.activateMiniDrones();
-                gameState.tempDronesPurchased = true;   // ⭐ ADICIONADO
+                gameState.miniDronesActive = true;  // ativo para próxima partida
+                gameState.miniDronesTimer = 0;      // reset timer se usares
             });
         };
     }
@@ -60,8 +60,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     if (btnSuperShot) {
         btnSuperShot.onclick = () => {
             purchaseWithWLD(WLD_PRICES.supershot, () => {
-                gameState.activateSuperShot();
-                gameState.tempSuperPurchased = true;   // ⭐ ADICIONADO
+                gameState.superShot = true;         // ativo para próxima partida
             });
         };
     }
@@ -79,13 +78,13 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     }
 
     // ============================
-    //     BUY XP BOOST (PERMANENTE)
+    //     BUY XP BOOST (PERMANENTE / N JOGOS)
     // ============================
     const btnXP = document.getElementById("buy-xpboost");
     if (btnXP) {
         btnXP.onclick = () => {
             purchaseWithWLD(WLD_PRICES.xpboost, () => {
-                gameState.xpboost += 3;
+                gameState.xpboost += 3;   // +3 jogos com XP extra
             });
         };
     }

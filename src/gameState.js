@@ -12,7 +12,7 @@ export const gameState = {
     bossHP: 100, 
     enemiesDefeated: 0,
     isInvincible: false, 
-    superShot: false,
+    superShot: false,          // usado no jogo + inventory
     dualShot: false,
     screenShake: 0,
     isPlaying: false,
@@ -23,20 +23,16 @@ export const gameState = {
     megaShot: false,
 
     // MINI DRONES (temporários)
-    miniDronesActive: false,
+    miniDronesActive: false,   // usado no jogo + inventory
     miniDronesTimer: 0,
     miniDronesOffset: 60,
-
-    // ⭐ FLAGS TEMPORÁRIAS PARA INVENTORY
-    tempDronesPurchased: false,
-    tempSuperPurchased: false,
 
     // REVIVES (permanente)
     revives: 0,
 
     // INVENTÁRIO PERMANENTE
     skinOwned: false,
-    xpboost: 0,
+    xpboost: 0,                // nº de jogos com XP extra
 
     // REFERRAL CODE
     referralCode:
@@ -69,6 +65,13 @@ export function buySkin() {
 
 export function addXPBoost(amount) {
     gameState.xpboost += amount;
+}
+
+// ⭐ consumir 1 jogo de XP boost (chamar no fim de cada partida)
+export function consumeXPBoost() {
+    if (gameState.xpboost > 0) {
+        gameState.xpboost -= 1;
+    }
 }
 
 // ==================== LEVEL CONFIG ====================

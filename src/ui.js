@@ -64,8 +64,6 @@ export function showScreen(screenElement) {
 
     screenElement.classList.remove("hidden");
     updateUI();
-
-    // ⭐ INVENTORY será atualizado na Parte 2
 }
 
 // ==================== LEADERBOARD ====================
@@ -191,26 +189,26 @@ export function updateInventoryUI() {
     const invSkin = document.getElementById("inv-skin");
     const invXP = document.getElementById("inv-xpboost");
 
-    // ⭐ MINI DRONES (temporário)
+    // MINI DRONES (temporário)
     if (invDrones) {
-        invDrones.innerText = gameState.tempDronesPurchased ? "Active" : "0";
+        invDrones.innerText = gameState.miniDronesActive ? "Active" : "0";
     }
 
-    // ⭐ SUPER SHOT (temporário)
+    // SUPER SHOT (temporário)
     if (invSuper) {
-        invSuper.innerText = gameState.tempSuperPurchased ? "Active" : "0";
+        invSuper.innerText = gameState.superShot ? "Active" : "0";
     }
 
-    // ⭐ REVIVES (permanente)
+    // REVIVES (permanente)
     if (invRevives) invRevives.innerText = gameState.revives;
 
-    // ⭐ NEON SKIN (permanente)
+    // NEON SKIN (permanente)
     if (invSkin) {
         invSkin.innerText = gameState.skinOwned ? "Owned" : "Not owned";
     }
 
-    // ⭐ XP BOOST (permanente)
-    if (invXP) invXP.innerText = gameState.xpboost;
+    // XP BOOST (nº de jogos)
+    if (invXP) invXP.innerText = `${gameState.xpboost} games`;
 }
 
 // ==================== BOTÕES ====================
@@ -228,28 +226,28 @@ export function setupButtons(openVerificationDrawer) {
         });
     });
 
-    // ==================== HOME (MENU) ====================
+    // HOME
     document.getElementById("nav-home").onclick = () => {
         showScreen(ui.menu);
     };
 
-    // ==================== SHOP ====================
+    // SHOP
     document.getElementById("nav-shop").onclick = () => {
         setupShopScreen(gameState, ui, showScreen, showAlert);
         showScreen(ui.shop);
     };
 
-    // ==================== INFO ====================
+    // INFO
     document.getElementById("nav-info").onclick = () => {
         showScreen(ui.info);
     };
 
-    // ==================== PLAY BUTTON ====================
+    // PLAY BUTTON
     document.getElementById("btn-play").onclick = () => {
 
-        // ⭐ Quando começa a partida, limpar itens temporários
-        gameState.tempDronesPurchased = false;
-        gameState.tempSuperPurchased = false;
+        // limpar temporários ao iniciar jogo
+        gameState.miniDronesActive = false;
+        gameState.superShot = false;
 
         if (gameState.isVerified) {
             window.startGame();
@@ -258,14 +256,13 @@ export function setupButtons(openVerificationDrawer) {
         }
     };
 
-    // ==================== VERIFY ====================
+    // VERIFY
     document.getElementById("btn-verify-now").onclick = () => {
         openVerificationDrawer();
     };
 
-    // ==================== INFO SUB-PAGES ====================
+    // INFO SUB-PAGES
 
-    // How to Play
     document.getElementById("btn-info-howto").onclick = () => {
         document.getElementById("howto-popup").classList.remove("hidden");
     };
@@ -303,7 +300,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // Leaderboard (agora dentro do Info)
+    // Leaderboard
     const infoLeaderboardBtn = document.getElementById("btn-info-leaderboard");
     if (infoLeaderboardBtn) {
         infoLeaderboardBtn.onclick = () => {
@@ -312,7 +309,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // ==================== MISSIONS → BACK TO INFO ====================
+    // MISSIONS → BACK
     const missionsBack = document.querySelector("#missions-screen .back-btn");
     if (missionsBack) {
         missionsBack.onclick = () => {
@@ -320,7 +317,7 @@ export function setupButtons(openVerificationDrawer) {
         };
     }
 
-    // ==================== PAUSE BUTTON ====================
+    // PAUSE BUTTON
     document.getElementById("btn-pause").onclick = () => {
         if (gameState.isPlaying) {
             gameState.isPaused = !gameState.isPaused;
