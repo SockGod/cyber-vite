@@ -575,13 +575,13 @@ button {
     z-index: 1 !important;  /* garante que fica por baixo do HUD */
 }
 /* ============================
-   SHOP ICONS (TAMANHO AJUSTADO)
+   SHOP ICONS (AJUSTE SUAVE)
 ============================ */
 
 .shop-icon {
-    width: 52px;      /* tamanho ideal */
+    width: 46px;      /* só um pouco maior que o original */
     height: auto;
-    margin-right: 10px;
+    margin-right: 8px;
     image-rendering: pixelated;
 }
 
@@ -590,20 +590,20 @@ button {
 ============================ */
 
 .shop-item h4 {
-    font-size: 17px;
+    font-size: 16px;          /* ligeiramente maior */
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 /* ============================
-   BOTÕES BUY (ALTURA AJUSTADA)
+   BOTÕES BUY (AJUSTE SUAVE)
 ============================ */
 
 .shop-btn {
-    padding: 10px 0;          /* altura moderada */
-    font-size: 16px;          /* texto ligeiramente maior */
-    border-radius: 8px;
+    padding: 8px 0;           /* antes era ~4px, agora só +4px */
+    font-size: 15px;          /* um toque maior */
+    border-radius: 6px;
     width: 100%;
     margin-top: 6px;
 }
