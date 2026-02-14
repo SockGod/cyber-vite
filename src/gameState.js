@@ -104,6 +104,9 @@ export function setActivePhrase(text, alpha = 2.0) {
     activePhrase.text = text;
     activePhrase.alpha = alpha;
 }
+
+// ==================== INVENTÁRIO PERMANENTE ====================
+
 export function saveInventory() {
     localStorage.setItem("inventory", JSON.stringify({
         skinOwned: gameState.skinOwned,

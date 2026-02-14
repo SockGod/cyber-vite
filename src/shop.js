@@ -3,6 +3,7 @@
 // =========================
 
 import { startPayment } from "./payments.js";
+import { saveInventory } from "./gameState.js";
 
 export function setupShopScreen(gameState, ui, showScreen, showAlert) {
 
@@ -28,6 +29,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
 
             if (result === "success") {
                 onSuccess();
+                saveInventory(); // ⭐ GUARDA INVENTÁRIO PERMANENTE
                 showAlert("Compra concluída com sucesso!");
             } else {
                 showAlert("Pagamento cancelado ou falhou.");
@@ -39,7 +41,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     }
 
     // ============================
-    //     BUY MINI DRONES
+    //     BUY MINI DRONES (TEMPORÁRIO)
     // ============================
     const btnDrones = document.getElementById("buy-drones");
     if (btnDrones) {
@@ -51,7 +53,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     }
 
     // ============================
-    //     BUY SUPER SHOT
+    //     BUY SUPER SHOT (TEMPORÁRIO)
     // ============================
     const btnSuperShot = document.getElementById("buy-supershot");
     if (btnSuperShot) {
@@ -63,25 +65,25 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     }
 
     // ============================
-    //     BUY NEON SKIN
+    //     BUY NEON SKIN (PERMANENTE)
     // ============================
     const btnSkin = document.getElementById("buy-skin");
     if (btnSkin) {
         btnSkin.onclick = () => {
             purchaseWithWLD(WLD_PRICES.skin, () => {
-                gameState.unlockNeonSkin?.();
+                gameState.skinOwned = true;
             });
         };
     }
 
     // ============================
-    //     BUY XP BOOST
+    //     BUY XP BOOST (PERMANENTE)
     // ============================
     const btnXP = document.getElementById("buy-xpboost");
     if (btnXP) {
         btnXP.onclick = () => {
             purchaseWithWLD(WLD_PRICES.xpboost, () => {
-                gameState.addXPBoost?.(3);
+                gameState.xpboost += 3;
             });
         };
     }
