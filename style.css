@@ -349,7 +349,7 @@ html, body {
     width: 92%;
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px; /* reduzido para caber tudo no ecrã */
     margin-bottom: 20px;
 }
 
@@ -357,7 +357,7 @@ html, body {
     background: rgba(0,0,0,0.45);
     border: 2px solid #ff00aa;
     border-radius: 10px;
-    padding: 10px;
+    padding: 8px; /* reduzido */
     text-align: center;
     color: #ffe600;
     font-family: 'Orbitron', sans-serif;
@@ -365,7 +365,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 90px;
+    min-height: 70px; /* reduzido para caber tudo */
 }
 
 .shop-item h4 {
@@ -377,8 +377,8 @@ html, body {
 }
 
 .shop-icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;  /* ligeiramente menor */
+    height: 18px;
     margin-right: 6px;
 }
 
