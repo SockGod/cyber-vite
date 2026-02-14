@@ -64,6 +64,11 @@ export function showScreen(screenElement) {
 
     screenElement.classList.remove("hidden");
     updateUI();
+
+    // ⭐ Atualizar inventário quando abrimos o ecrã
+    if (screenElement === ui.inventory) {
+        updateInventoryUI();
+    }
 }
 
 // ==================== LEADERBOARD ====================
@@ -180,6 +185,28 @@ export function updateUI() {
         }
     }
 }
+// ==================== INVENTORY UI ====================
+
+export function updateInventoryUI() {
+    const invDrones = document.getElementById("inv-drones");
+    const invSuper = document.getElementById("inv-supershot");
+    const invRevives = document.getElementById("inv-revives");
+    const invSkin = document.getElementById("inv-skin");
+    const invXP = document.getElementById("inv-xpboost");
+
+    // Itens temporários (sempre 0)
+    if (invDrones) invDrones.innerText = 0;
+    if (invSuper) invSuper.innerText = 0;
+
+    // Itens permanentes
+    if (invRevives) invRevives.innerText = gameState.revives;
+
+    if (invSkin) {
+        invSkin.innerText = gameState.skinOwned ? "Owned" : "Not owned";
+    }
+
+    if (invXP) invXP.innerText = gameState.xpboost;
+}
 
 // ==================== BOTÕES ====================
 
@@ -261,6 +288,7 @@ export function setupButtons(openVerificationDrawer) {
     const inventoryBtn = document.getElementById("btn-info-inventory");
     if (inventoryBtn) {
         inventoryBtn.onclick = () => {
+            updateInventoryUI();   // ⭐ Atualiza antes de abrir
             showScreen(ui.inventory);
         };
     }
