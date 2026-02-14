@@ -574,3 +574,43 @@ button {
     top: 14px !important;   /* empurra a barra para baixo */
     z-index: 1 !important;  /* garante que fica por baixo do HUD */
 }
+/* ============================
+   SHOP ICONS (MAIORES)
+============================ */
+
+.shop-icon {
+    width: 70px;      /* antes devia ser ~40px */
+    height: auto;
+    margin-right: 10px;
+    image-rendering: pixelated;
+}
+
+/* ============================
+   SHOP ITEM LAYOUT
+============================ */
+
+.shop-item h4 {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ============================
+   BOTÕES BUY (MAIS ALTOS)
+============================ */
+
+.shop-btn {
+    padding: 14px 0;          /* aumenta a altura */
+    font-size: 18px;          /* texto maior */
+    border-radius: 10px;      /* mais bonito */
+    width: 100%;              /* mantém largura */
+    margin-top: 8px;
+}
+
+/* Botões WLD (cor especial) */
+.wld-btn {
+    background: linear-gradient(90deg, #00ffff, #0088ff);
+    color: black;
+    font-weight: bold;
+}
