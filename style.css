@@ -614,3 +614,63 @@ button {
     color: black;
     font-weight: bold;
 }
+/* HOME SUBTITLE */
+.home-subtitle {
+    margin-top: 12px;
+    font-size: 16px;
+    color: #00ffffcc;
+    text-align: center;
+    font-family: Orbitron, sans-serif;
+    animation: subtitlePulse 3s infinite ease-in-out;
+}
+
+@keyframes subtitlePulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+/* BACKGROUND SHIPS */
+.bg-ships {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1; /* atrás do logo e do botão */
+}
+
+.bg-ship {
+    position: absolute;
+    width: 40px;
+    opacity: 0.15;
+    image-rendering: pixelated;
+}
+
+/* Movimentos suaves */
+@keyframes shipMove1 {
+    0% { transform: translateX(-10%) translateY(20%); }
+    100% { transform: translateX(110%) translateY(10%); }
+}
+
+@keyframes shipMove2 {
+    0% { transform: translateX(110%) translateY(60%); }
+    100% { transform: translateX(-20%) translateY(50%); }
+}
+
+@keyframes shipMove3 {
+    0% { transform: translateX(-15%) translateY(80%); }
+    100% { transform: translateX(120%) translateY(70%); }
+}
+
+@keyframes shipMove4 {
+    0% { transform: translateX(120%) translateY(30%); }
+    100% { transform: translateX(-20%) translateY(40%); }
+}
+
+/* Aplicar animações */
+.ship1 { animation: shipMove1 18s linear infinite; }
+.ship2 { animation: shipMove2 22s linear infinite; }
+.ship3 { animation: shipMove3 26s linear infinite; }
+.ship4 { animation: shipMove4 30s linear infinite; }

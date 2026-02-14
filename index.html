@@ -10,7 +10,17 @@
 </head>
 <body>
     
-    
+    <!-- BACKGROUND SHIPS (atrás de tudo, mas à frente do fundo preto) -->
+    <div class="bg-ships">
+        <img src="/assets/sprites/enemy_01.png" class="bg-ship ship1">
+        <img src="/assets/sprites/enemy_03.png" class="bg-ship ship2">
+        <img src="/assets/sprites/enemy_04.png" class="bg-ship ship3">
+        <img src="/assets/sprites/enemy_05.png" class="bg-ship ship4">
+    </div>
+
+    <!-- BACKGROUND STARS -->
+    <canvas id="background-stars"></canvas>
+
     <div class="app-root">
 
         <main id="app-content">
@@ -40,6 +50,9 @@
                 <img id="game-logo" src="/Logo.png" alt="Game Logo" class="logo-img">
 
                 <button id="btn-play" class="menu-btn">Play</button>
+
+                <!-- FRASE NOVA -->
+                <p id="home-subtitle" class="home-subtitle">Prepare for launch</p>
             </div>
 
             <!-- VERIFICATION SCREEN -->
@@ -48,10 +61,10 @@
                 <button id="btn-verify-now" class="menu-btn">Verify Now</button>
             </div>
 
-            <!-- GAME SCREEN (REWRITTEN FOR WLD COMPATIBILITY) -->
+            <!-- GAME SCREEN -->
             <div id="game-screen" class="hidden">
 
-                <!-- HUD OUTSIDE OF ANY SCROLLABLE AREA -->
+                <!-- HUD -->
                 <div id="hud-container">
 
                     <div id="hud-left">
@@ -78,7 +91,7 @@
 
                 </div>
 
-                <!-- SAFE AREA WRAPPER FOR WLD -->
+                <!-- SAFE AREA WRAPPER -->
                 <div class="wld-safe-area">
                     <div id="game-container">
                         <canvas id="game-canvas"></canvas>
@@ -86,46 +99,49 @@
                 </div>
 
             </div>
-                        <!-- SHOP SCREEN -->
+
+            <!-- SHOP SCREEN -->
             <div id="shop-screen" class="screen hidden">
                 <h2 class="screen-title">CYBER SHOP</h2>
 
                 <h3 class="shop-section-title">Premium (WLD)</h3>
 
                 <div class="shop-grid">
-    <div class="shop-item">
-        <h4>
-            <img class="shop-icon" src="/assets/sprites/mini_drones.png">
-            Mini Drones — 0.80 WLD
-        </h4>
-        <button id="buy-drones" class="shop-btn wld-btn">Buy</button>
-    </div>
 
-    <div class="shop-item">
-        <h4>
-            <img class="shop-icon" src="/assets/sprites/powerup_mega.png">
-            Super Shot — 1.00 WLD
-        </h4>
-        <button id="buy-supershot" class="shop-btn wld-btn">Buy</button>
-    </div>
+                    <div class="shop-item">
+                        <h4>
+                            <img class="shop-icon" src="/assets/sprites/mini_drones.png">
+                            Mini Drones — 0.80 WLD
+                        </h4>
+                        <button id="buy-drones" class="shop-btn wld-btn">Buy</button>
+                    </div>
 
-    <div class="shop-item">
-        <h4>
-            <img class="shop-icon" src="/assets/sprites/player_ship_neon.png">
-            Neon Skin — 1.50 WLD
-        </h4>
-        <button id="buy-skin" class="shop-btn wld-btn">Buy</button>
-    </div>
+                    <div class="shop-item">
+                        <h4>
+                            <img class="shop-icon" src="/assets/sprites/powerup_mega.png">
+                            Super Shot — 1.00 WLD
+                        </h4>
+                        <button id="buy-supershot" class="shop-btn wld-btn">Buy</button>
+                    </div>
 
-    <div class="shop-item">
-        <h4>
-            <img class="shop-icon" src="/assets/sprites/xp_boost.png">
-            XP Boost (x3 games) — 0.90 WLD
-        </h4>
-        <button id="buy-xpboost" class="shop-btn wld-btn">Buy</button>
-    </div>
-</div>
-</div> <!-- FECHAR shop-screen -->
+                    <div class="shop-item">
+                        <h4>
+                            <img class="shop-icon" src="/assets/sprites/player_ship_neon.png">
+                            Neon Skin — 1.50 WLD
+                        </h4>
+                        <button id="buy-skin" class="shop-btn wld-btn">Buy</button>
+                    </div>
+
+                    <div class="shop-item">
+                        <h4>
+                            <img class="shop-icon" src="/assets/sprites/xp_boost.png">
+                            XP Boost (x3 games) — 0.90 WLD
+                        </h4>
+                        <button id="buy-xpboost" class="shop-btn wld-btn">Buy</button>
+                    </div>
+
+                </div>
+            </div>
 
             <!-- REFERRAL SCREEN -->
             <div id="referral-screen" class="screen hidden">
@@ -188,7 +204,7 @@
                     <p class="inventory-item">Revives: <span id="inv-revives">0</span></p>
                     <p class="inventory-item">Mega Bombs: <span id="inv-megabombs">0</span></p>
                     <p class="inventory-item">Neon Skin: <span id="inv-skin">Not owned</span></p>
-                    <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</span></p>
+                    <p class="inventory-item">XP Boost: <span id="inv-xpboost">0</span> games</p>
                 </div>
             </div>
 
@@ -218,10 +234,7 @@
 
     </div>
 
-    <!-- BACKGROUND STARS -->
-    <canvas id="background-stars"></canvas>
-
     <script type="module" src="src/main.js"></script>
-    
+
 </body>
 </html>
