@@ -104,3 +104,10 @@ export function setActivePhrase(text, alpha = 2.0) {
     activePhrase.text = text;
     activePhrase.alpha = alpha;
 }
+export function saveInventory() {
+    localStorage.setItem("inventory", JSON.stringify({
+        skinOwned: gameState.skinOwned,
+        xpboost: gameState.xpboost,
+        revives: gameState.revives
+    }));
+}

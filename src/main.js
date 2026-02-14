@@ -47,6 +47,14 @@ if (bgCanvas) {
 
 window.addEventListener("load", () => {
 
+    // ⭐ CARREGAR INVENTÁRIO PERMANENTE
+    const saved = JSON.parse(localStorage.getItem("inventory"));
+    if (saved) {
+        gameState.skinOwned = saved.skinOwned;
+        gameState.xpboost = saved.xpboost;
+        gameState.revives = saved.revives;
+    }
+
     // ⭐ CARREGAR MISSÕES ANTES DE TUDO
     loadMissions();
 
@@ -74,11 +82,11 @@ window.addEventListener("load", () => {
 
     // Expor startGame para o ui.js
     window.startGame = () => {
-    document.getElementById("bottom-nav").style.display = "none";
-    startGame(canvas);
-};
+        document.getElementById("bottom-nav").style.display = "none";
+        startGame(canvas);
+    };
 
-// ============================
+    // ============================
     //   NAVIGAÇÃO DO INVENTORY
     // ============================
     const infoScreen = document.getElementById("info-screen");
