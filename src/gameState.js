@@ -27,10 +27,14 @@ export const gameState = {
     miniDronesTimer: 0,
     miniDronesOffset: 60,
 
+    // ⭐ FLAGS TEMPORÁRIAS PARA INVENTORY
+    tempDronesPurchased: false,
+    tempSuperPurchased: false,
+
     // REVIVES (permanente)
     revives: 0,
 
-    // INVENTORY PERMANENTE
+    // INVENTÁRIO PERMANENTE
     skinOwned: false,
     xpboost: 0,
 

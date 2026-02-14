@@ -65,10 +65,7 @@ export function showScreen(screenElement) {
     screenElement.classList.remove("hidden");
     updateUI();
 
-    // ⭐ Atualizar inventário quando abrimos o ecrã
-    if (screenElement === ui.inventory) {
-        updateInventoryUI();
-    }
+    // ⭐ INVENTORY será atualizado na Parte 2
 }
 
 // ==================== LEADERBOARD ====================
@@ -194,17 +191,25 @@ export function updateInventoryUI() {
     const invSkin = document.getElementById("inv-skin");
     const invXP = document.getElementById("inv-xpboost");
 
-    // Itens temporários (sempre 0)
-    if (invDrones) invDrones.innerText = 0;
-    if (invSuper) invSuper.innerText = 0;
+    // ⭐ MINI DRONES (temporário)
+    if (invDrones) {
+        invDrones.innerText = gameState.tempDronesPurchased ? "Active" : "0";
+    }
 
-    // Itens permanentes
+    // ⭐ SUPER SHOT (temporário)
+    if (invSuper) {
+        invSuper.innerText = gameState.tempSuperPurchased ? "Active" : "0";
+    }
+
+    // ⭐ REVIVES (permanente)
     if (invRevives) invRevives.innerText = gameState.revives;
 
+    // ⭐ NEON SKIN (permanente)
     if (invSkin) {
         invSkin.innerText = gameState.skinOwned ? "Owned" : "Not owned";
     }
 
+    // ⭐ XP BOOST (permanente)
     if (invXP) invXP.innerText = gameState.xpboost;
 }
 
@@ -241,6 +246,11 @@ export function setupButtons(openVerificationDrawer) {
 
     // ==================== PLAY BUTTON ====================
     document.getElementById("btn-play").onclick = () => {
+
+        // ⭐ Quando começa a partida, limpar itens temporários
+        gameState.tempDronesPurchased = false;
+        gameState.tempSuperPurchased = false;
+
         if (gameState.isVerified) {
             window.startGame();
         } else {
@@ -288,7 +298,7 @@ export function setupButtons(openVerificationDrawer) {
     const inventoryBtn = document.getElementById("btn-info-inventory");
     if (inventoryBtn) {
         inventoryBtn.onclick = () => {
-            updateInventoryUI();   // ⭐ Atualiza antes de abrir
+            updateInventoryUI();
             showScreen(ui.inventory);
         };
     }
