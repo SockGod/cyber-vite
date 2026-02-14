@@ -8,103 +8,93 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     showScreen(ui.shop);
 
     // ============================
-    //     PREÇOS DA LOJA (CS)
-    // ============================
-    const PRICES = {
-        shields: 30,
-        bombs: 40,
-        supershot: 50,
-        dualshot: 60,
-        drones: 75,
-        revive: 100
+    //     PREÇOS DA LOJA (WLD)
+// ============================
+    const WLD_PRICES = {
+        drones: 0.20,
+        supershot: 0.30,
+        skin: 0.50,
+        xpboost: 0.15
     };
 
     // ============================
-    //     FUNÇÃO DE COMPRA
-    // ============================
-    function tryPurchase(cost, onSuccess) {
-        if (gameState.cyberSpace < cost) {
-            showAlert("Not enough CS!");
-            return;
-        }
-
-        // Descontar CS
-        gameState.cyberSpace -= cost;
-
-        // Executar ação da compra
-        onSuccess();
-
-        // Atualizar HUD
-        if (window.updateUI) window.updateUI();
-
-        // Guardar no localStorage
-        localStorage.setItem("gameState", JSON.stringify(gameState));
-
-        // Feedback
-        showAlert("Purchased!");
+    //     FUNÇÃO DE COMPRA (WLD)
+//  (por agora só placeholder, sem lógica real)
+// ============================
+    function purchaseWithWLD(cost, onSuccess) {
+        // Aqui mais tarde vamos validar saldo WLD real.
+        // Por agora, só mostramos uma mensagem para não partir nada.
+        showAlert(`Purchase flow in WLD coming soon (${cost} WLD).`);
+        // Quando estiver ligado ao WLD a sério:
+        // - validar saldo
+        // - descontar
+        // - onSuccess()
+        // - updateUI + guardar estado
     }
-
-    // ============================
-    //     BUY SHIELDS (x3)
-    // ============================
-    document.getElementById("buy-shields").onclick = () => {
-        tryPurchase(PRICES.shields, () => {
-            gameState.addShields(3);
-        });
-    };
-
-    // ============================
-    //     BUY MEGA BOMBS (x5)
-    // ============================
-    document.getElementById("buy-bombs").onclick = () => {
-        tryPurchase(PRICES.bombs, () => {
-            gameState.addBombs(5);
-        });
-    };
-
-    // ============================
-    //     BUY SUPER SHOT
-    // ============================
-    document.getElementById("buy-supershot").onclick = () => {
-        tryPurchase(PRICES.supershot, () => {
-            gameState.activateSuperShot();
-        });
-    };
-
-    // ============================
-    //     BUY DUAL SHOT
-    // ============================
-    document.getElementById("buy-dualshot").onclick = () => {
-        tryPurchase(PRICES.dualshot, () => {
-            gameState.activateDualShot();
-        });
-    };
 
     // ============================
     //     BUY MINI DRONES
     // ============================
-    document.getElementById("buy-drones").onclick = () => {
-        tryPurchase(PRICES.drones, () => {
-            gameState.activateMiniDrones();
-        });
-    };
+    const btnDrones = document.getElementById("buy-drones");
+    if (btnDrones) {
+        btnDrones.onclick = () => {
+            purchaseWithWLD(WLD_PRICES.drones, () => {
+                gameState.activateMiniDrones();
+            });
+        };
+    }
 
     // ============================
-    //     BUY REVIVE (1 use)
+    //     BUY SUPER SHOT
     // ============================
-    document.getElementById("buy-revive").onclick = () => {
-        tryPurchase(PRICES.revive, () => {
-            gameState.addRevive();
-        });
-    };
+    const btnSuperShot = document.getElementById("buy-supershot");
+    if (btnSuperShot) {
+        btnSuperShot.onclick = () => {
+            purchaseWithWLD(WLD_PRICES.supershot, () => {
+                gameState.activateSuperShot();
+            });
+        };
+    }
+
+    // ============================
+    //     BUY NEON SKIN
+    // ============================
+    const btnSkin = document.getElementById("buy-skin");
+    if (btnSkin) {
+        btnSkin.onclick = () => {
+            purchaseWithWLD(WLD_PRICES.skin, () => {
+                // Aqui mais tarde vamos marcar a skin como owned
+                // e trocar o sprite do player para player_ship_neon.png
+                gameState.unlockNeonSkin?.();
+            });
+        };
+    }
+
+    // ============================
+    //     BUY XP BOOST
+    // ============================
+    const btnXP = document.getElementById("buy-xpboost");
+    if (btnXP) {
+        btnXP.onclick = () => {
+            purchaseWithWLD(WLD_PRICES.xpboost, () => {
+                gameState.addXPBoost?.(3);
+            });
+        };
+    }
 
     // REFERRAL
-    document.getElementById("btn-referral").onclick = () => {
-        showScreen(ui.referral);
-    };
+    const btnReferral = document.getElementById("btn-referral");
+    if (btnReferral) {
+        btnReferral.onclick = () => {
+            showScreen(ui.referral);
+        };
+    }
 
     // BACK
-    document.getElementById("btn-shop-back").onclick = () => {
-        showScreen(ui.menu);
-    };
+    const btnBack = document.getElementById("btn-shop-back");
+    if (btnBack) {
+        btnBack.onclick = () => {
+            showScreen(ui.menu);
+        };
+    }
 }
