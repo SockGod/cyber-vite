@@ -48,6 +48,7 @@ html, body {
     height: 100%;
     overflow: hidden;
 
+    /* SAFE AREA FIX */
     padding-top: env(safe-area-inset-top, 0);
     padding-bottom: calc(50px + env(safe-area-inset-bottom, 0));
 
@@ -70,7 +71,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
-    z-index: 5; /* <--- CORRIGIDO (antes era 1000) */
+    z-index: 1000;
 }
 
 .hidden {
@@ -198,7 +199,7 @@ html, body {
     left: 0;
     width: 100vw;
     height: 100dvh;
-    z-index: 1; /* <--- CORRIGIDO (antes era -1) */
+    z-index: -1;
 
     background: radial-gradient(circle at center,
         #2a3b6e 0%,
@@ -230,7 +231,6 @@ html, body {
     display: block;
     touch-action: none;
 }
-
 /* ========================= */
 /*           HUD             */
 /* ========================= */
@@ -247,8 +247,9 @@ html, body {
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 18px;
+    padding: 0 18px; /* pausa mais para dentro */
 
+    /* SAFE AREA FIX */
     padding-top: env(safe-area-inset-top, 0);
     margin-top: calc(-1 * env(safe-area-inset-top, 0));
 
@@ -284,15 +285,16 @@ html, body {
     left: 0;
     width: 100%;
 
-    height: 60px !important;
+    height: 50px;
 
-    background: #000 !important;
-    border-top: 1px solid rgba(255,255,255,0.15) !important;
+    background: #ffffff;
+    border-top: 1px solid #dcdcdc;
 
     display: flex;
     justify-content: space-around;
     align-items: center;
 
+    /* SAFE AREA FIX */
     padding-bottom: env(safe-area-inset-bottom, 0);
 
     z-index: 99999;
@@ -305,7 +307,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     font-family: 'Orbitron', sans-serif;
-    color: #fff !important;
+    color: #333;
     cursor: pointer;
     padding: 6px 10px;
     transition: 0.15s ease;
@@ -316,7 +318,7 @@ html, body {
 }
 
 .nav-icon {
-    font-size: 22px !important;
+    font-size: 22px;
     margin-bottom: 4px;
 }
 
@@ -346,7 +348,7 @@ html, body {
     width: 92%;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 12px; /* reduzido para caber tudo no ecrã */
     margin-bottom: 20px;
 }
 
@@ -354,7 +356,7 @@ html, body {
     background: rgba(0,0,0,0.45);
     border: 2px solid #ff00aa;
     border-radius: 10px;
-    padding: 8px;
+    padding: 8px; /* reduzido */
     text-align: center;
     color: #ffe600;
     font-family: 'Orbitron', sans-serif;
@@ -362,36 +364,26 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 70px;
+    min-height: 70px; /* reduzido para caber tudo */
 }
 
 .shop-item h4 {
     margin: 0;
-    font-size: 15.5px;
+    font-size: 13px;
     display: flex;
     align-items: center;
-    gap: 7px;
+    justify-content: center;
 }
 
 .shop-icon {
-    width: 44px;
-    height: auto;
-    margin-right: 8px;
-    image-rendering: pixelated;
-}
-
-.shop-btn {
-    padding: 7px 0;
-    font-size: 14.5px;
-    border-radius: 6px;
-    width: 100%;
-    margin-top: 5px;
+    width: 18px;  /* ligeiramente menor */
+    height: 18px;
+    margin-right: 6px;
 }
 
 .wld-btn {
-    background: linear-gradient(90deg, #00ffff, #0088ff);
-    color: black;
-    font-weight: bold;
+    background: #ff00ff;
+    color: #000;
 }
 
 /* ========================= */
@@ -421,6 +413,16 @@ html, body {
     border: 2px solid #ff00aa;
     box-shadow: 0 0 8px #ff33cc;
     color: #ffe600;
+}
+
+.small-btn {
+    background: #00ffff;
+    color: #000;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* ========================= */
@@ -455,6 +457,16 @@ html, body {
     display: inline-block;
     box-shadow: 0 0 10px #00ffffaa;
     transition: 0.15s ease;
+}
+
+.claim-btn:hover {
+    box-shadow: 0 0 16px #00ffff;
+    transform: scale(1.05);
+}
+
+.claim-btn:active {
+    transform: scale(0.92);
+    box-shadow: 0 0 22px #00ffff;
 }
 
 /* ========================= */
@@ -513,6 +525,43 @@ button {
     background: rgba(255,255,255,0.12);
     color: #00ffff;
     border: 2px solid rgba(0,255,255,0.45);
+    margin-right: 0 !important;
+}
+
+/* ========================= */
+/*        HUD (FINAL)        */
+/* ========================= */
+
+#hud-container {
+    height: 70px !important;
+}
+
+#hud-container span,
+#hud-container div {
+    font-size: 14px !important;
+}
+
+#hud-right {
+    justify-content: flex-end !important;
+    padding-right: 34px !important;
+}
+
+/* ========================= */
+/*   BOTTOM NAV (FINAL)      */
+/* ========================= */
+
+#bottom-nav {
+    background: #000 !important;
+    border-top: 1px solid rgba(255,255,255,0.15) !important;
+    height: 60px !important;
+}
+
+.nav-btn {
+    color: #fff !important;
+}
+
+.nav-icon {
+    font-size: 22px !important;
 }
 
 /* ========================= */
@@ -521,14 +570,50 @@ button {
 
 #boss-health-bar {
     position: relative !important;
-    top: 14px !important;
-    z-index: 1 !important;
+    top: 14px !important;   /* empurra a barra para baixo */
+    z-index: 1 !important;  /* garante que fica por baixo do HUD */
+}
+/* ============================
+   SHOP ICONS (AJUSTE FINAL)
+============================ */
+
+.shop-icon {
+    width: 44px;      /* só 2px menor que antes */
+    height: auto;
+    margin-right: 8px;
+    image-rendering: pixelated;
 }
 
-/* ========================= */
-/*      HOME SUBTITLE        */
-/* ========================= */
+/* ============================
+   SHOP ITEM LAYOUT
+============================ */
 
+.shop-item h4 {
+    font-size: 15.5px;     /* ligeiramente menor */
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+/* ============================
+   BOTÕES BUY (AJUSTE FINAL)
+============================ */
+
+.shop-btn {
+    padding: 7px 0;        /* antes 8px, agora só -1px */
+    font-size: 14.5px;     /* um toque mais pequeno */
+    border-radius: 6px;
+    width: 100%;
+    margin-top: 5px;
+}
+
+/* Botões WLD */
+.wld-btn {
+    background: linear-gradient(90deg, #00ffff, #0088ff);
+    color: black;
+    font-weight: bold;
+}
+/* HOME SUBTITLE */
 .home-subtitle {
     margin-top: 12px;
     font-size: 16px;
@@ -543,11 +628,7 @@ button {
     50% { opacity: 1; }
     100% { opacity: 0.6; }
 }
-
-/* ========================= */
-/*     BACKGROUND SHIPS      */
-/* ========================= */
-
+/* BACKGROUND SHIPS */
 .bg-ships {
     position: fixed;
     top: 0;
@@ -556,7 +637,7 @@ button {
     height: 100%;
     pointer-events: none;
     overflow: hidden;
-    z-index: 3; /* <--- CORRIGIDO (antes era 1) */
+    z-index: 1; /* atrás do logo e do botão */
 }
 
 .bg-ship {
@@ -587,6 +668,7 @@ button {
     100% { transform: translateX(-20%) translateY(40%); }
 }
 
+/* Aplicar animações */
 .ship1 { animation: shipMove1 18s linear infinite; }
 .ship2 { animation: shipMove2 22s linear infinite; }
 .ship3 { animation: shipMove3 26s linear infinite; }
