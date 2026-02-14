@@ -2,6 +2,8 @@
 //      CYBER SHOP SCREEN
 // =========================
 
+import { startPayment } from "./payments.js";
+
 export function setupShopScreen(gameState, ui, showScreen, showAlert) {
 
     // Abrir loja
@@ -9,27 +11,31 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
 
     // ============================
     //     PREÇOS DA LOJA (WLD)
-// ============================
+    // ============================
     const WLD_PRICES = {
-        drones: 0.20,
-        supershot: 0.30,
-        skin: 0.50,
-        xpboost: 0.15
+        drones: 0.80,
+        supershot: 1.00,
+        skin: 1.50,
+        xpboost: 0.90
     };
 
     // ============================
     //     FUNÇÃO DE COMPRA (WLD)
-//  (por agora só placeholder, sem lógica real)
-// ============================
-    function purchaseWithWLD(cost, onSuccess) {
-        // Aqui mais tarde vamos validar saldo WLD real.
-        // Por agora, só mostramos uma mensagem para não partir nada.
-        showAlert(`Purchase flow in WLD coming soon (${cost} WLD).`);
-        // Quando estiver ligado ao WLD a sério:
-        // - validar saldo
-        // - descontar
-        // - onSuccess()
-        // - updateUI + guardar estado
+    // ============================
+    async function purchaseWithWLD(cost, onSuccess) {
+        try {
+            const result = await startPayment(cost);
+
+            if (result === "success") {
+                onSuccess();
+                showAlert("Compra concluída com sucesso!");
+            } else {
+                showAlert("Pagamento cancelado ou falhou.");
+            }
+        } catch (err) {
+            console.error(err);
+            showAlert("Erro ao processar pagamento.");
+        }
     }
 
     // ============================
@@ -63,8 +69,6 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
     if (btnSkin) {
         btnSkin.onclick = () => {
             purchaseWithWLD(WLD_PRICES.skin, () => {
-                // Aqui mais tarde vamos marcar a skin como owned
-                // e trocar o sprite do player para player_ship_neon.png
                 gameState.unlockNeonSkin?.();
             });
         };

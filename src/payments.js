@@ -1,6 +1,6 @@
 import { MiniKit, tokenToDecimals, Tokens } from "@worldcoin/minikit-js";
 
-export async function startPayment() {
+export async function startPayment(amountWLD) {
   try {
     // 1. Criar reference no backend
     const refRes = await fetch("/api/initiate-payment", {
@@ -17,15 +17,15 @@ export async function startPayment() {
       tokens: [
         {
           symbol: Tokens.WLD,
-          token_amount: tokenToDecimals(1, Tokens.WLD).toString(),
+          token_amount: tokenToDecimals(amountWLD, Tokens.WLD).toString(),
         },
       ],
-      description: "Test payment for Cyber Space",
+      description: "Compra na loja Cyber Space",
     };
 
     if (!MiniKit.isInstalled()) {
       console.log("MiniKit não está instalado no contexto da World App.");
-      return;
+      return "fail";
     }
 
     // 3. Usar o formato novo: commandsAsync.pay(payload)
@@ -33,14 +33,15 @@ export async function startPayment() {
 
     console.log("Resultado do pay:", finalPayload);
 
+    // DEVOLVE RESULTADO PARA O SHOP.JS
     if (finalPayload?.status === "success") {
-      alert("Pagamento concluído na World App!");
+      return "success";
     } else {
-      alert("Pagamento cancelado ou falhou.");
+      return "fail";
     }
 
   } catch (err) {
     console.error("Erro no pagamento:", err);
-    alert("Erro no pagamento.");
+    return "fail";
   }
 }
