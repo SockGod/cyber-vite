@@ -48,6 +48,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
         btnDrones.onclick = () => {
             purchaseWithWLD(WLD_PRICES.drones, () => {
                 gameState.activateMiniDrones();
+                gameState.tempDronesPurchased = true;   // ⭐ ADICIONADO
             });
         };
     }
@@ -60,6 +61,7 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
         btnSuperShot.onclick = () => {
             purchaseWithWLD(WLD_PRICES.supershot, () => {
                 gameState.activateSuperShot();
+                gameState.tempSuperPurchased = true;   // ⭐ ADICIONADO
             });
         };
     }
