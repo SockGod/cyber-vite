@@ -1,4 +1,4 @@
-import { MiniKit } from "@worldcoin/minikit-js";
+import { MiniKit, tokenToDecimals, Tokens } from "@worldcoin/minikit-js";
 
 export async function startPayment() {
   try {
@@ -10,32 +10,33 @@ export async function startPayment() {
     const { id } = await refRes.json();
     console.log("Reference criado:", id);
 
-    // 2. Enviar comando pay para a World App
-    const result = await MiniKit.commands.pay({
+    // 2. Construir o payload exatamente como na doc
+    const payload = {
       reference: id,
-      amount: "0.01",
-      token: "WLD",
-    });
+      to: "0x7dba00d3544b99983b42fb1b46528cad6459d36", // o mesmo address whitelisted no portal
+      tokens: [
+        {
+          symbol: Tokens.WLD,
+          token_amount: tokenToDecimals(0.1, Tokens.WLD).toString(), // ~0.1 WLD
+        },
+      ],
+      description: "Test payment for Cyber Space",
+    };
 
-    console.log("Resultado do pay:", result);
+    if (!MiniKit.isInstalled()) {
+      console.log("MiniKit não está instalado no contexto da World App.");
+      return;
+    }
 
-    // 3. Enviar proof para o backend
-    const confirmRes = await fetch("/api/confirm-payment", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        proof: result.proof,
-        reference: id,
-      }),
-    });
+    // 3. Usar o formato novo: commandsAsync.pay com payload
+    const { finalPayload } = await MiniKit.commandsAsync.pay(payload);
 
-    const confirmData = await confirmRes.json();
-    console.log("Confirmação:", confirmData);
+    console.log("Resultado do pay:", finalPayload);
 
-    if (confirmData.success) {
-      alert("Pagamento confirmado!");
+    if (finalPayload?.status === "success") {
+      alert("Pagamento concluído na World App! (falta só validar no backend)");
     } else {
-      alert("Pagamento falhou.");
+      alert("Pagamento cancelado ou falhou.");
     }
 
   } catch (err) {
