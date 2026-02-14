@@ -11,7 +11,7 @@ export async function startPayment() {
     console.log("Reference criado:", id);
 
     // 2. Enviar comando pay para a World App
-    const result = await MiniKit.commandsAsync.pay({
+    const result = await MiniKit.commands.pay({
       reference: id,
       amount: "0.01",
       token: "WLD",
