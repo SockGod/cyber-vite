@@ -575,11 +575,11 @@ button {
     z-index: 1 !important;  /* garante que fica por baixo do HUD */
 }
 /* ============================
-   SHOP ICONS (AJUSTE SUAVE)
+   SHOP ICONS (AJUSTE FINAL)
 ============================ */
 
 .shop-icon {
-    width: 46px;      /* só um pouco maior que o original */
+    width: 44px;      /* só 2px menor que antes */
     height: auto;
     margin-right: 8px;
     image-rendering: pixelated;
@@ -590,22 +590,22 @@ button {
 ============================ */
 
 .shop-item h4 {
-    font-size: 16px;          /* ligeiramente maior */
+    font-size: 15.5px;     /* ligeiramente menor */
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 7px;
 }
 
 /* ============================
-   BOTÕES BUY (AJUSTE SUAVE)
+   BOTÕES BUY (AJUSTE FINAL)
 ============================ */
 
 .shop-btn {
-    padding: 8px 0;           /* antes era ~4px, agora só +4px */
-    font-size: 15px;          /* um toque maior */
+    padding: 7px 0;        /* antes 8px, agora só -1px */
+    font-size: 14.5px;     /* um toque mais pequeno */
     border-radius: 6px;
     width: 100%;
-    margin-top: 6px;
+    margin-top: 5px;
 }
 
 /* Botões WLD */
