@@ -28,8 +28,8 @@ export function setupShopScreen(gameState, ui, showScreen, showAlert) {
             const result = await startPayment(cost);
 
             if (result === "success") {
-                onSuccess();
-                saveInventory(); // ⭐ GUARDA INVENTÁRIO PERMANENTE
+                onSuccess();      // 1️⃣ Atualiza o gameState
+                saveInventory();  // 2️⃣ Guarda o inventário atualizado
                 showAlert("Compra concluída com sucesso!");
             } else {
                 showAlert("Pagamento cancelado ou falhou.");
